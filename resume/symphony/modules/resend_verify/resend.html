@@ -1,0 +1,32 @@
+<div class="login-box" style="height: 315px;">
+    <div class="box-header login-logo">
+        Resend Account Verification
+    </div>
+    <!-- /.login-logo -->
+    <form ng-submit="resendVerification()">
+        <div class="login-box-body" >
+            <div class="form-group has-feedback">
+                <!-- <input type="email" class="form-control" ng-model="detail.email" placeholder="Email Address" />
+<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+ -->
+                <input placeholder="Email Address" type="email" ng-model="detail.email" required>
+            </div>
+            <p class="forgotmsg">Account verification will be sent to the email address you entered.</p>
+            <!-- <div class="row">
+    <div class="col-xs-12">
+        <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+    </div>
+</div>
+<div class="social-auth-links text-center">
+    <a ui-sref="login" class="btn btn-block btn-link">Back to Login</a>
+</div>
+ -->
+        </div>
+        <div class="box-footer" style="padding: 20px 35px;">
+            <button type="submit" class="btnflat waves-effect" angular-ripple>Submit</button>
+            <button ui-sref="login" class="btnflat waves-effect" angular-ripple style="float: left;">Return to Login</button>
+        </div>
+    </form>
+</div>
+<div id="subscriptionEmail" ng-include="'./templates/resend_verification.html'" scope="" onload="" style="display:none;"></div>
+<!-- <div id="subscriptionEmail" ng-include="'./templates/resend_verification.html'" scope="" onload=""></div> -->

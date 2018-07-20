@@ -1,0 +1,94 @@
+<!-- <ul dnd-list dnd-drop="onDrop(list, item, index)">
+    <li ng-repeat="item in list.items track by item.p_id" dnd-draggable="getSelectedItemsIncluding(list, item)" dnd-dragstart="onDragstart(list, event)" dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}" dnd-disable-if="list.listName == 'Package'" dnd-moved="dropCallback(event, $index, item)">
+        {{item.item_name}}
+        <div class="input-group col-sm-4" ng-if="list.listName=='Package'">
+            <div class="input-group-btn">
+                <button ng-click="minusbutton(cartitem)" class="btn bg-navy"><i class="fa fa-minus"></i></button>
+            </div>
+            <input ng-model="cartitem.quantity" class="form-control" />
+            <div class="input-group-btn">
+                <button ng-click="addbutton(cartitem)" class="btn bg-navy" type="button"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+        <button ng-if="list.listName=='Package'" class="btn btn-danger btn-xs btn-flat pull-right" ng-click="remove(list,item) ">
+            <i class="fa fa-times "></i>
+        </button>
+        <span class="label label-primary" ng-if="list.listName=='Package'">{{item.item_quantity}}</span>
+    </li>
+</ul>
+ -->
+<table class="tablesss bundles-table table-condensed" dnd-list dnd-drop="onDrop(list, item, index)">
+    <!-- <table class="table table-condensed"> -->
+    <thead>
+        <tr>
+            <th style="width: 60%">Item</th>
+            <th style="width: 35%" ng-if="list.listName=='Package'">Quantity</th>
+            <th style="width: 10%" ng-if="list.listName=='Package'"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in list.items track by $index" dnd-draggable="getSelectedItemsIncluding(list, item)" dnd-dragstart="onDragstart(list, event)" dnd-selected="callMyFunction(item,list.listName)" ng-class="{'selected': item.selected}" dnd-disable-if="list.listName == 'Package'" dnd-moved="dropCallback(event, $index, item)">
+            <!-- <tr ng-repeat="item in list.items track by $index"> -->
+            <td style="width: 60%" ng-class="{'activetd' : item.selected}">
+                {{item.item_name}}
+            </td>
+            <td style="width: 35%" ng-if="list.listName=='Package'">
+                <div class="form-group disp-inline-flex flex">
+                    <input type="text" ng-model="item.quantity" class="form-control" />
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="minusbutton(item)" class="btn bg-dgray m-0 br-0" angular-ripple><i class="fa fa-minus"></i></button>
+                        </div>
+                        <div class="input-group-btn">
+                            <button ng-click="addbutton(item)" class="btn bg-dgray" type="button" angular-ripple><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td style="width: 10%" class="mt-40" ng-if="list.listName=='Package'">
+                <button ng-if="list.listName=='Package'" class="btn btn-danger btn-xs btn-flat pull-right mt-21" ng-click="remove(list,item)" angular-ripple>
+                    <img src="./images/icon/ic_close_white_18px.svg">
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<style type="text/css">
+@media only screen and (max-width: 736px),
+(max-device-width: 736px) and (min-device-width: 200px) {
+    .tablesss>tbody>tr>td,
+    .tablesss>tbody>tr>th,
+    .tablesss>tfoot>tr>td,
+    .tablesss>tfoot>tr>th,
+    .tablesss>thead>tr>td,
+    .tablesss>thead>tr>th {
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-bottom: 0px solid #ddd !important;
+        padding-left: 5px !important;
+        width: 100% !important;
+        padding: 6px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 0px solid #ddd;
+        text-align: left;
+        white-space: initial !important;
+        min-height: 32px;
+    }
+    tr {
+        border-top: 0px solid #c9c9c9;
+        /*display: flex !important;*/
+    }
+    .flex {
+        display: flex !important;
+        line-height: 2.5;
+        width: 70%;
+    }
+    .mt-40 {
+        margin-top: -40px !important;
+    }
+    .mt-21 {
+        margin-top: -21px !important;
+    }
+}
+</style>

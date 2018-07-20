@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <a ng-click="cancel()" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></a>
+    <h3 class="modal-title">Import CSV Data <small>Import display limit to 100</small></h3>
+    <div style="margin-top:25px;">
+        <div class="btn btn-default btn-flat btn-sm image-preview-input" ng-disabled="isClear"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+            <input type="file" accept="text/csv" name="input-file-preview" ng-model="csv" ngf-max-size="8MB" ngf-select="upload($files)" />
+        </div>
+        <button class="btn btn-flat btn-sm btn-danger" ng-click="clear()" ng-disabled="!isClear">
+            <i class="fa fa-times"></i>&nbsp Clear
+        </button>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="box box-warning">
+        <div class="box-body">
+            <div class="form-group">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="item in csvHeaders" repeat-end="onEnd()">
+                                <select class="form-control" ng-model="selectedFieldName" ng-change="pairColumnsToHeaders(selectedFieldName,$index)">
+                                    <option value="">Choose Matching Field</option>
+                                    <option value="name">Name</option>
+                                    <option value="address">Address</option>
+                                    <option value="contact_number">Contact Number</option>
+                                    <option value="ABN">ABN</option>
+                                    <option value="email_address">Email Address</option>
+                                    <option value="city">City</option>
+                                    <option value="state">State</option>
+                                    <option value="zipcode">Zipcode</option>
+                                    <option value="country">Country</option>
+                                    <option value="bill_address">Billing Address</option>
+                                    <option value="bill_city">Billing City</option>
+                                    <option value="bill_state">Billing State</option>
+                                    <option value="bill_zipcode">Billing Zipcode</option>
+                                    <option value="bill_country">Billing Country</option>
+                                    <option value="ship_address">Shipping Address</option>
+                                    <option value="ship_city">Shipping City</option>
+                                    <option value="ship_state">Shipping State</option>
+                                    <option value="ship_zipcode">Shipping Zipcode</option>
+                                    <option value="ship_country">Shipping Country</option>
+                                </select>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th ng-repeat="item in csvHeaders" repeat-end="onEnd()">{{item}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in csvResult track by $index">
+                            <!-- <tr infinite-scroll="addMoreItems()" infinite-scroll-distance="3" ng-repeat="item in (csvResult | limitTo:infiniteScrollData.currentItems) track by $index"> -->
+                            <td ng-repeat="a in csvHeaders">
+                                <strong>{{ item[a] }}</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="overlay" ng-show="isLoading">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn btn-flat btn-primary" ng-click="import()">Import {{csvToSave.length}} data</a>
+    <a class="btn btn-flat btn-default" ng-click="cancel()">Close</a>
+</div>

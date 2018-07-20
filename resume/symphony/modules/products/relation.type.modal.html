@@ -1,0 +1,228 @@
+<form class="form-horizontal" ng-submit="saveEntry()">
+    <div class="modal-header">
+        <h4 class="modal-title pl-10">Manage Relation Type</h4>
+    </div>
+    <div class="modal-body p-0">
+        <div class="p-10">
+            <div class="form-group">
+                <label class="col-sm-3 control-label checkbox ta-l">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Name" ng-model="relation.name" ng-disabled="relation.disablename">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label checkbox ta-l">Label</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Label" ng-model="relation.label" ng-disabled="relation.disablelabel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label checkbox ta-l">Description</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Description" ng-model="relation.description" ng-disabled="relation.disabledesc">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label checkbox ta-l">Type</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Type" ng-model="relation.type" ng-disabled="relation.disabletype">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label checkbox ta-l"></label>
+                <div class="col-sm-9">
+                    <!-- <a class="btn btn-flat btn-warning" ng-click="newEntry()" ng-hide="relation.disablenewbutton">New Entry</a>
+                <a class="btn btn-flat btn-default" ng-click="cancelEntry()" ng-hide="!relation.disablenewbutton">Cancel</a>
+                <button class="btn btn-flat btn-primary" type="submit" ng-disabled="relation.disablesavebutton">Save</button>
+                <a class="btn btn-flat btn-success" ng-click="refreshData()">Refresh</a> -->
+                    <!--  <div class="pull-left disp-inline-flex">
+                        <div class="w140">
+                            <a class="mr-10 label-circle-button ml-5" ng-click="newEntry()" ng-hide="relation.disablenewbutton">
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                    <img src="./images/icon/ic_black_white_24px.svg">
+                                </button>New Entry
+                            </a>
+                        </div>
+                        <div class="w140">
+                            <a class="mr-10 label-circle-button ml-5" ng-click="saveCategory()">
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                    <img src="./images/icon/ic_close_white_24px.svg">
+                                </button>Cancel
+                            </a>
+                        </div>
+                        <div class="w140">
+                            <a class="mr-10 label-circle-button ml-5" ng-click="saveCategory()">
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                    <img src="./images/icon/ic_save_black_24px.svg">
+                                </button>Save
+                            </a>
+                        </div>
+                        <div class="w140">
+                            <a class="mr-10 label-circle-button ml-5" ng-click="getAllCategory()">
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                    <img src="./images/icon/refresh.svg">
+                                </button>Refresh
+                            </a>
+                        </div>
+                    </div> -->
+                    <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="newEntry()" ng-hide="relation.disablenewbutton" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>New Entry</button>
+                            <button ng-click="saveCategory()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Cancel</button>
+                            <button ng-click="saveCategory()" class="btnflat success-color waves-effect fl mr-10 " angular-ripple>Save</button>
+                            <button ng-click="getAllCategory()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class=" box-warning mailbox-messages">
+                <div class="">
+                    <table class="table " data-page-size="10" id="tblRelationType">
+                        <thead>
+                            <tr>
+                                <td class="" data-sort-ignore="true">Name</td>
+                                <td class="" data-sort-ignore="true">Label</td>
+                                <td class="" data-sort-ignore="true">Description</td>
+                                <td class="" data-sort-ignore="true">Type</td>
+                                <td data-sort-ignore="true"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in relationtypes" repeat-end="paginate()">
+                                <td data-title="'Name'">
+                                    {{var.name}}
+                                </td>
+                                <td data-title="'Label'">
+                                    {{var.label}}
+                                </td>
+                                <td data-title="'Description'">
+                                    <p data-ng-bind-html="var.description | limitTo: 90" data-ellipsis></p>
+                                </td>
+                                <td data-title="'Type'">
+                                    {{var.type}}
+                                </td>
+                                <td>
+                                    <a ng-click="deleteSelected(var.rel_type_id)" class="btn actbutton btn-flat btn-xs btn-info pull-right"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                                    <a ng-click="getSelected(var)" class="btn actbutton btn-flat btn-xs btn-info pull-right mr-10"><img src="./images/icon/ic_mode_edit_white_18px.svg"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="cancel()" class="btnflat  waves-effect fr mr-10 " angular-ripple>Close</button>
+    </div>
+</form>
+<style type="text/css">
+.table>caption+thead>tr:first-child>td,
+.table>caption+thead>tr:first-child>th,
+.table>colgroup+thead>tr:first-child>td,
+.table>colgroup+thead>tr:first-child>th,
+.table>thead:first-child>tr:first-child>td,
+.table>thead:first-child>tr:first-child>th {
+    border-top: 0;
+    text-transform: uppercase;
+    font-weight: 500 !important;
+}
+
+@media only screen and (max-width: 736px),
+(min-device-width: 200px) and (max-device-width: 736px) {
+    td:nth-of-type(1):before {
+        content: "Name";
+    }
+    td:nth-of-type(2):before {
+        content: "Label";
+    }
+    td:nth-of-type(3):before {
+        content: "Description";
+    }
+    td:nth-of-type(4):before {
+        content: "Type";
+    }
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr {
+        border-top: 1px solid #c9c9c9;
+    }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: 500;
+    }
+    tbody>tr>td,
+    tbody>tr>th,
+    tfoot>tr>td,
+    tfoot>tr>th,
+    thead>tr>td,
+    thead>tr>th {
+        padding: 6px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 0px solid #ddd;
+        text-align: left;
+        padding-left: 120px;
+        white-space: initial !important;
+        min-height: 32px;
+        border-bottom: 1px solid #eaeaea;
+    }
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        padding: 8px 10px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+        margin-left: 20;
+        padding-left: 115px;
+    }
+    .box-body>.table .checkbox,
+    .mailbox-messages>.table .checkbox {
+        position: absolute;
+        top: 11px;
+        margin: 0 1rem 0 0;
+        cursor: pointer;
+        padding-left: 0px !important;
+        left: 11px;
+    }
+    td .bgscreen {
+        display: none;
+    }
+}
+</style>

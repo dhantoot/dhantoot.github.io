@@ -1,0 +1,83 @@
+<div class="settingzz" ng-init="init()">
+    <br>
+    <div>
+        <label class="modlabel" style="font-weight: 600;">
+            <img src="./images/icon/facebook.svg" style="width: 18px;margin-right: 15px;"><span>Connect Facebook account</span>
+        </label>
+        <div class="" style="float: right;">
+            <!-- <a class="fb-bar" ng-click="authenticate('facebook')" ng-if="!showFacebook">
+                 Link
+            </a>
+            <a class="fb-bar" ng-click="unlinkAccount('facebook')" ng-if="showFacebook">
+                 Unlink
+            </a> -->
+            <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-click="authenticate('facebook')" ng-if="!showFacebook"></i>
+            <i class="fa fa-toggle-on active" ng-click="unlinkAccount('facebook')" ng-if="showFacebook"></i>
+        </div>
+        <a class="fb-bar" style="margin-right: 10px;float: right" ng-click="viewProfile('facebook',social.facebook_uuid)" ng-if="showFacebook">
+                 ( View Profile )
+            </a>
+    </div>
+    <br>
+    <br>
+    <div>
+        <label class="modlabel" style="font-weight: 600;">
+            <img src="./images/icon/google.svg" style="width: 18px;margin-right: 15px;"><span>Connect Google account</span></label>
+        <div class="" style="float: right;">
+            <!-- <a class="google-bar" ng-click="authenticate('google')" ng-if="!showGoogle">
+               Link 
+            </a>
+            <a class="google-bar" ng-click="unlinkAccount('google')" ng-if="showGoogle">
+               Unlink 
+            </a> -->
+            <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-click="authenticate('google')" ng-if="!showGoogle"></i>
+            <i class="fa fa-toggle-on active" ng-click="unlinkAccount('google')" ng-if="showGoogle"></i>
+        </div>
+        <a class="fb-bar" style="margin-right: 10px;float: right" ng-click="viewProfile('google',social.google_uuid)" ng-if="showGoogle">
+                 ( View Profile )
+            </a>
+    </div>
+    <br>
+    <br>
+    <div>
+        <label class="modlabel" style="font-weight: 600;">
+            <img src="./images/icon/twitter.svg" style="width: 18px;margin-right: 15px;"><span>Connect Twitter account</span></label>
+        <div class="" style="float: right;">
+            <!--  <a class="twitter-bar" ng-click="authenticate('twitter')" ng-if="!showTwitter">
+              Link
+            </a>
+            <a class="twitter-bar" ng-click="unlinkAccount('twitter')" ng-if="showTwitter">
+               Unlink
+            </a> -->
+            <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-click="authenticate('twitter')" ng-if="!showTwitter"></i>
+            <i class="fa fa-toggle-on active" ng-click="unlinkAccount('twitter')" ng-if="showTwitter"></i>
+        </div>
+        <a class="fb-bar" style="margin-right: 10px;float: right" ng-click="viewProfile('twitter',social.twitter_uuid)" ng-if="showTwitter">
+                 ( View Profile )
+            </a>
+    </div>
+    <br>
+    <br>
+    <div>
+        <label class="modlabel" style="font-weight: 600;">
+            <img src="./images/icon/linkedin.svg" style="width: 18px;margin-right: 15px;"><span>Connect LinkedIn account</span></label>
+        <div class="" style="float: right;">
+            <!-- <a class="linkedin-bar" ng-click="authenticate('linkedin')" ng-if="!showLinkedin">
+                Link
+            </a>
+            <a class="linkedin-bar" ng-click="unlinkAccount('linkedin')" ng-if="showLinkedin">
+               Unlink
+            </a> -->
+            <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-click="authenticate('linkedin')" ng-if="!showLinkedin"></i>
+            <i class="fa fa-toggle-on active" ng-click="unlinkAccount('linkedin')" ng-if="showLinkedin"></i>
+        </div>
+        <a class="fb-bar" style="margin-right: 10px;float: right" ng-click="viewProfile('linkedin',social.linkedin_uuid)" ng-if="showLinkedin">
+                 ( View Profile )
+            </a>
+    </div>
+</div>
+<!-- <div class="btnholder">
+    <button class="btn btn-primary" style="margin-left: 4%;">Update</button>
+    <button class="btn btn-default" ng-click="basicinfoEdit = false; basicInfo = true;">Cancel</button>
+</div>
+ -->

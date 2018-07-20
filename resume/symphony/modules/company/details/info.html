@@ -1,0 +1,199 @@
+<div class="row">
+    <form role="form" name="companyForm" ng-submit="saveCompany()">
+        <div class="col-md-9">
+            <div class=" box-warning mapp">
+                <div class="s">
+                    <h3 class="box-title">General Info</h3>
+                </div>
+                <div class="box-body col-md-12">
+                    <div class="form-group col-md-6">
+                        <label>Company Name</label>
+                        <input type="text" ng-model="details.name" class="form-control" placeholder="Company Name" />
+                    </div>
+                    <div class=" form-group col-md-6">
+                        <label>Main Office</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <input type="checkbox" class="checkbox" ng-model="enable" ng-click="enabledMainEvent(enable)">
+                            </div>
+                            <div class="col">
+                                <select ng-if="enable == false" class="form-control" disabled ng-model="details.parent_id" ng-options="item.company_id as item.name for item in main">
+                                    <option value="">Optional</option>
+                                </select>
+                            </div>
+                            <ui-select ng-if="enable == true" ng-model="office" ng-disabled="!enable" tagging allow-clear on-select="select(office)">
+                                <ui-select-match>
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="company in (main | filter: $select.search | limitTo:30) track by company.company_id">
+                                    <div ng-bind-html="company.name | highlight: $select.search"></div>
+                                    <small>
+                                    <span ng-bind-html="company.address | highlight: $select.search"></span>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-md-6">
+                            <label>Middle name</label>
+                            <input type="text" ng-model="details.middlename" class="form-control" placeholder="Middle Name" />
+                        </div> -->
+                    <!--  <div class="form-group col-md-6">
+                            <label>CompanyName</label>
+                            <input type="text" ng-model="details.company_name" class="form-control" placeholder="Company Name" />
+                        </div> -->
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input type="email" ng-model="details.email_address" class="form-control" placeholder="Email Address" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" ng-model="details.contact_number" numbers-only placeholder="Contact No." />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ABN</label>
+                        <input type="text" ng-model="details.ABN" class="form-control" placeholder="ABN" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Street Address </label>
+                        <textarea ng-model="details.address" class="form-control" rows="3" placeholder="Street Address" /></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Country</label>
+                        <!-- <input type="text" ng-model="details.country" class="form-control" placeholder="Zip Code" /> -->
+                        <select class="form-control" ng-model="details.country" ng-options="item.name as item.name for item in countries">
+                            <option disabled value="">- Select Country -</option>
+                        </select>
+                        <br>
+                        <label>City</label>
+                        <input type="text" ng-model="details.city" class="form-control" placeholder="City" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Zip Code</label>
+                        <input type="text" ng-model="details.zipcode" class="form-control" placeholder="Zip Code" />
+                        <br>
+                        <label>State</label>
+                        <input type="text" ng-model="details.state" class="form-control" placeholder="State" />
+                    </div>
+                </div>
+                <!-- <div class="form-group" ng-if="details.person_id">
+                            <label>Status: </label>
+                            <span ng-if="details.isActiveAcnt == false " class="label label-default">In Active</span>
+                            <span ng-if="details.isActiveAcnt == true " class="label label-primary">Active</span>
+                        </div> -->
+                <!-- <div class="form-group col-md-6">
+                            <label>End Term: </label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <input type="checkbox" ng-model="enableEndTerm">
+                                </div>
+                                <input type="text" class="form-control" ng-disabled="!enableEndTerm" data-date-format="MM-dd-yyyy" ng-model="details.date_end" data-min-date="today" bs-datepicker/>
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div> -->
+                <!-- <div class="form-group col-md-6">
+                            <label>Country</label>
+                            <select class="form-control" ng-model="details.country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option>
+                            </select>
+                        </div> -->
+                <div class="box-body col-md-12">
+                    <h3 style="padding-left: 15px;">Billing & Shipping Information</h3>
+                    <hr>
+                    <div class="col-md-6" style="border-right: 1px solid #eee;">
+                        <div class="form-group">
+                            <label>Billing Attention: </label>
+                            <input type="text" ng-model="details.bill_name" class="form-control" placeholder="Bill to" />
+                        </div>
+                        <div class="form-group">
+                            <label>Billing Address: </label>
+                            <textarea class="form-control" rows="3" ng-model="details.bill_address" placeholder="Billing Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <!-- <input type="text" ng-model="details.bill_country" class="form-control" placeholder="Billing Country" /> -->
+                            <select class="form-control" ng-model="details.bill_country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" ng-model="details.bill_city" class="form-control" placeholder="Billing City" />
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" ng-model="details.bill_state" class="form-control" placeholder="Billing State" />
+                        </div>
+                        <div class="form-group">
+                            <label>Zipcode: </label>
+                            <input type="text" ng-model="details.bill_zipcode" class="form-control" placeholder="Billing Zipcode" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Shipping Attention: </label>
+                            <input type="text" ng-model="details.ship_name" class="form-control" placeholder="Ship to" />
+                        </div>
+                        <div class="form-group">
+                            <label>Shipping Address: </label>
+                            <textarea class="form-control" rows="3" ng-model="details.ship_address" placeholder="Shipping Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <!-- <input type="text" ng-model="details.ship_country" class="form-control" placeholder="Shipping Country" />
+                                <select class="form-control" ng-model="details.bill_country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option> -->
+                            <select class="form-control" ng-model="details.ship_country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" ng-model="details.ship_city" class="form-control" placeholder="Shipping City" />
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" ng-model="details.ship_state" class="form-control" placeholder="Shipping State" />
+                        </div>
+                        <div class="form-group">
+                            <label>Zipcode: </label>
+                            <input type="text" ng-model="details.ship_zipcode" class="form-control" placeholder="Shipping Zipcode" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <button type="submit" class="btnflat primary-color waves-effect ml-10 fl" angular-ripple>
+                        Save Entry
+                    </button>
+                    <button ng-click="goBack()" class="btnflat waves-effect ml-10 fl" angular-ripple>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                    <img ngf-src="details.image || 'http://placehold.it/250x250'" err-src="http://placehold.it/250x250" class="thumbnail" width="250" height="250">
+                    <div class="input-group image-preview">
+                        <span class="input-group-btn">
+                                        <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="details.image"> <span class="glyphicon glyphicon-remove"></span> Clear
+                        </button>
+                        <div class="btn btn-primary image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+                            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" ng-model="details.image" ngf-max-size="8MB" ngf-select="upload($files)" />
+                        </div>
+                        </span>
+                    </div>
+                </div> -->
+        </div>
+    </form>
+</div>
+<style type="text/css">
+select {
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+</style>

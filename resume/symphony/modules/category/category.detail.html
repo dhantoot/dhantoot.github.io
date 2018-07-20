@@ -1,0 +1,101 @@
+<section class="content-header">
+    <h1>
+            Category Details
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.settings-categories">Categories</a></li>
+        <li class="active">Category New Entry</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content attrib">
+    <div class="">
+        <form role="form" name="categoryForm">
+            <div class="box col-md-12 p-0">
+                <div>
+                    <div class="box-header">
+                        <h3 class="box-title">General Info</h3>
+                    </div>
+                    <div class=" box-warning details">
+                        <div class="box-body p-20 col-md-9">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" ng-model="details.name" class="form-control" placeholder="Name" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Label</label>
+                                <input type="text" ng-model="details.label" class="form-control" placeholder="Label" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea ng-model="details.description" class="form-control" rows="3" placeholder="Description" required /></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tags <i class="fa fa-tags"></i></label>
+                                <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                                    <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                                    <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                        <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>
+                                        <input for="check" type="checkbox" class="checkbox" ng-model="details.is_visible" ng-true-value="1" ng-false-value="0" ng-checked="details.is_visible == 1">
+                                        <div id="check" class="lab">Visible to Catalogue</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <label>Parent Category</label>
+                                <div class="form-group">
+                                    <label>
+                                        <input for="check" type="checkbox" class="checkbox" ng-model="TPchecked" ng-true-value="1" ng-false-value="0" ng-change="toplevelCategory()">
+                                        <div id="check" class="lab"> Top Level Category</div>
+                                    </label>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <fieldset ng-show="!TPchecked">
+                                            <div data-angular-treeview="true" data-tree-id="mytree" data-tree-model="categoryData" data-node-id="id" data-node-label="label" data-node-children="items">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="">
+                                <div class="box-body">
+                                    <div class="btn-group mailbox-controls">
+                                        <button ng-click="saveCategory()" ng-disabled="loading" class="btnflat primary-color fl waves-effect mr-10" angular-ripple=""><i class="fa fa-spinner fa-spin" ng-if="loading"></i> Save</button>
+                                        <button ng-click="_reloadCategories()" class="btnflat  waves-effect fl mr-10 " angular-ripple="" ng-if="!loading">Refresh</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <img ngf-src="details.c_image || details.c_image_url || 'http://placehold.it/250x250'" err-src="http://placehold.it/250x250" class="thumbnail" width="250" height="250">
+                                <div class="input-group image-preview">
+                                    <span class="input-group-btn">
+                                        <button ng-if="isimage" type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="details.c_image"> <span class="glyphicon glyphicon-remove"></span> Clear
+                                    </button>
+                                    <div class="btn btn-primary image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+                                        <input type="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" name="file" ng-model="details.c_image" ngf-max-size="2MB" ngf-select="upload($files)" ngf-model-invalid="errorFile">
+                                    </div>
+                                    </span>
+                                </div>
+                                <i ng-show="categoryForm.file.$error.maxSize" class="text-danger text-bold">File too large {{errorFile.size / 1000000|number:1}}MB: max 2MB</i>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- /.content -->

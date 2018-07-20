@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="POS17">
+
+<head>
+    <!-- <base href="/"> -->
+    <meta charset="UTF-8">
+    <title>Stockland</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <link rel="icon" type="image/ico" href="../images/favicon.ico">
+    <!-- LIBRARY -->
+    <link rel="stylesheet" href="css/main.min.css"/>
+    <link rel="stylesheet" href="css/main-print.min.css" media="print"/>
+</head>
+
+<body class="skin-blue" ng-class="{'login-page':$state.includes('login') || $state.includes('forgot') || $state.includes('verify') || $state.includes('recovery') || $state.includes('resend')}">
+    <!--
+        *
+        *
+        *
+        Angular View
+        *
+        *
+        *
+        -->
+    <div ui-view></div>
+    <!--
+        *
+        *
+        *
+        Angular View
+        *
+        * 
+        *
+        -->
+    <!-- ./wrapper -->
+    <script src="js/main.min.js"></script>
+    <script src="js/main.min.worker.js"></script>
+    <script src="js/textAngular-full.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuzYP_UiPL6pRYmqe6tJ54VHsvoRWzRbk"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+    <!--
+        *
+        *
+        *
+        *
+        *
+        ANGULAR
+        *
+        *
+        *
+        *
+        *-->
+    <script src="js/app.min.js"></script>
+</body>
+
+</html>

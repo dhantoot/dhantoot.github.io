@@ -1,0 +1,11 @@
+<div class="margin-bottom15">
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_name" placeholder="Name">
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_value" placeholder="Value">
+    <textarea class="form-control margin-bottom10" ng-model="attrib_type.attrib_description" placeholder="Description"></textarea>
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.contenttype" placeholder="Content Type" required/>
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.sku" placeholder="SKU" required/>
+    <a class="btn btn-info btn-flat margin-bottom10" ng-click="addtoList()"><i class="glyphicon glyphicon-plus"></i></a>
+</div>
+<select class="form-control">
+    <option ng-repeat="val in attrib_type.attribute_list_value" value="{{val.value}}">{{val.name}}</option>
+</select>

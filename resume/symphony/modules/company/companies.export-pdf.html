@@ -1,0 +1,68 @@
+<section class="content-header">
+    <h1>
+        Export
+        <small>Companies</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.settings-company">Companies/Customer</a></li>
+        <li class="active">Export</li>
+    </ol>
+</section>
+<section class="invoice">
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <button ng-click="export()" ng-disabled="!IsExport" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+        </div>
+    </div>
+</section>
+
+<section class="invoice" id="exportthis">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                &nbsp;
+                <small class="pull-right">Date: {{currentDate | amDateFormat:'MM/DD/YYYY HH:mm a'}}</small>
+            </h2>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped" id="basic-table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Email Address</th>
+                        <th>Contact No.</th>
+                        <th>Address</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in companies" ng-repeat-end-watch="myFunction">
+                        <td>{{data.name}}</td>
+                        <td>{{data.email_address}}</td>
+                        <td>{{data.contact_number}}</td>
+                        <td>{{data.address}} {{data.city}} {{data.state}} {{data.country}} {{data.zipcode}}</td>
+                        <td>{{data.date_created | amDateFormat:'MM/DD/YYYY'}}</td>
+                    </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="6">
+                            <ul class="pagination"></ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.col -->
+    </div>
+
+</section>
+<!-- /.content -->
+<div class="clearfix"></div>

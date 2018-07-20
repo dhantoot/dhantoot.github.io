@@ -1,0 +1,55 @@
+<div class="modal-body" id="modal-body" style="padding: 0px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-widget widget-user-2" style="margin:0px;">
+                <div class="widget-user-header bg-yellow">
+                    <div class="widget-user-image">
+                        <!-- FOLDER -->
+                        <!-- <i class="fa fa-folder fa-5x" ng-if="files.isFolder"></i> -->
+                        <img src="./images/icon/ic_folder_white_24px.svg" ng-if="files.isFolder">
+                        <!-- PDF -->
+                        <i class="fa fa-file-pdf-o fa-5x" ng-if="files.asset_mimetype == 'application/pdf'"></i>
+                        <!-- DOCS -->
+                        <i class="fa fa-file-word-o fa-5x" ng-if="files.asset_mimetype == 'application/msword' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'"></i>
+                        <!-- AUDIO -->
+                        <i class="fa fa-file-audio-o fa-5x" ng-if="files.asset_mimetype == 'audio/mp3' || files.asset_mimetype == 'audio/mp4'"></i>
+                        <!-- VIDEO -->
+                        <i class="fa fa-file-video-o fa-5x" ng-if="files.asset_mimetype == 'video/mp4' || files.asset_mimetype == 'video/x-flv' || files.asset_mimetype == 'video/x-msvideo' || files.asset_mimetype == 'video/x-ms-wmv' || files.asset_mimetype == 'video/quicktime' || files.asset_mimetype =='video/3gpp'"></i>
+                        <!-- TEXT -->
+                        <i class="fa fa-file-text-o fa-5x" ng-if="files.asset_mimetype == 'text/plain'"></i>
+                        <!-- EXCEL -->
+                        <i class="fa fa-file-excel-o fa-5x" ng-if="files.asset_mimetype == 'text/csv' || files.asset_mimetype == 'application/vnd.ms-excel' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"></i>
+                        <!-- POWERPOINT -->
+                        <i class="fa fa-file-powerpoint-o fa-5x" ng-if="files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || files.asset_mimetype == 'application/vnd.ms-powerpoint'"></i>
+                        <!-- ZIP -->
+                        <i class="fa fa-file-zip-o fa-5x" ng-if="files.asset_mimetype == 'application/zip'"></i>
+                        <!-- FILES -->
+                        <i class="fa fa-file-o fa-5x" ng-if="files.asset_mimetype == 'application/octet-stream'"></i>
+                        <!-- IMAGE -->
+                        <img src="{{files.asset_url}}" class="img-thumbnail" alt="Attachment" ng-if="files.asset_mimetype == 'image/jpeg' || files.asset_mimetype == 'image/jpg' || files.asset_mimetype == 'image/gif' || files.asset_mimetype == 'image/x-ms-bmp' || files.asset_mimetype == 'image/png'" />
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h4 class="widget-user-username" ng-if="files.isFolder" style="word-wrap: break-word;">{{files.folder_name}}</h4>
+                    <h4 class="widget-user-username" ng-if="!files.isFolder" style="word-wrap: break-word;">{{files.asset_name}}</h4>
+                    <h5 class="widget-user-desc" ng-if="files.isFolder" style="word-wrap: break-word;">{{files.folder_filesize}}</h5>
+                    <h5 class="widget-user-desc" ng-if="!files.isFolder" style="word-wrap: break-word;">{{files.asset_filesize}}</h5>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        <li><a href="">Owner <span class="pull-right">{{files.created_by.displayName}}</span></a></li>
+                        <li><a href="">Date Created <span class="pull-right" am-time-ago="files.date_created"></span></a></li>
+                        <li><a href="">Status <span class="pull-right">
+                            <span ng-if="files.isPublished == 0" class="label label-warning">draft</span>
+                            <span ng-if="files.isPublished == 1" class="label label-success">published</span>
+                        </span></a></li>
+                        <li><a href="">Date Modified <span class="pull-right"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn  btn-default" ng-click="cancel()">Close</a>
+</div>

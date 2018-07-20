@@ -1,0 +1,238 @@
+<section class="content-header">
+    <h1>
+            Product Details
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.products">Products</a></li>
+        <li class="active">Product New Entry</li>
+    </ol>
+</section>
+<section class="content prod">
+    <div class="tab-wrap">
+        <input type="radio" name="tabs" id="tab1" checked ng-if="tabprod.product">
+        <div class="tab-label-content" id="tab1-content" ng-if="tabprod.product">
+            <label class="b tab-label-header" for="tab1" angular-ripple>General Info</label>
+            <label class="s tab-label-header" for="tab1" angular-ripple><img src='./images/icon/ic_info_outline_black_24px.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/product.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab2" ng-if="tabprod.media">
+        <div class="tab-label-content" id="tab2-content" ng-if="tabprod.media">
+            <label class="b tab-label-header" for="tab2" angular-ripple>Media/Files</label>
+            <label class="s tab-label-header" for="tab2" angular-ripple><img src='./images/icon/ic_perm_media_black_24px.svg'></label>
+            <div class="tab-content">
+                <ng-include src="'modules/products/details/product.media.html'"></ng-include>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab3" ng-if="tabprod.store" ng-click="storeOnClick()">
+        <div class="tab-label-content" id="tab3-content" ng-if="tabprod.store" >
+            <label class="b tab-label-header" for="tab3" angular-ripple>Store</label>
+            <label class="s tab-label-header" for="tab3" angular-ripple><img src='./images/icon/ic_store_black_24px.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/store.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab4" ng-if="tabprod.invtracking" ng-click="invOnClick()">
+        <div class="tab-label-content" id="tab4-content" ng-if="tabprod.invtracking">
+            <label class="b tab-label-header" for="tab4" angular-ripple>Inv Tracking</label>
+            <label class="s tab-label-header" for="tab4" angular-ripple><img src='./images/icon/ic_store_black_24px.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/inventory.tracking.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab5" ng-if="tabprod.category">
+        <div class="tab-label-content" id="tab5-content" ng-if="tabprod.category">
+            <label class="b tab-label-header" for="tab5" angular-ripple>Category</label>
+            <label class="s tab-label-header" for="tab5" angular-ripple><img src='./images/icon/animation.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/category.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab6" ng-if="tabprod.attribute" ng-click="attOnClick()">
+        <div class="tab-label-content" id="tab6-content" ng-if="tabprod.attribute">
+            <label class="b tab-label-header" for="tab6" angular-ripple>Attribute</label>
+            <label class="s tab-label-header" for="tab6" angular-ripple><img src='./images/icon/more.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/attributes.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab7" ng-if="tabprod.variation" ng-click="varOnClick()">
+        <div class="tab-label-content" id="tab7-content" ng-if="tabprod.variation">
+            <label class="b tab-label-header" for="tab7" angular-ripple>Variants</label>
+            <label class="s tab-label-header" for="tab7" angular-ripple><img src='./images/icon/format-list-bulleted-type.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/variants.html'"></div>
+            </div>
+        </div>
+        <!-- <input type="radio" name="tabs" id="tab8" ng-if="tabprod.price">
+        <div class="tab-label-content" id="tab8-content" ng-if="tabprod.price">
+            <label class="b tab-label-header" for="tab8" angular-ripple>Price</label>
+            <label class="s tab-label-header" for="tab8" angular-ripple><img src='./images/icon/tag-text-outline.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/price.history.html'"></div>
+            </div>
+        </div> -->
+        <input type="radio" name="tabs" id="tab9" ng-if="tabprod.ratings">
+        <div class="tab-label-content" id="tab9-content" ng-if="tabprod.ratings">
+            <label class="b tab-label-header" for="tab9" angular-ripple>Review/Ratings</label>
+            <label class="s tab-label-header" for="tab9" angular-ripple><img src='./images/icon/ic_star_rate_black_18px.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/ratings.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab10" ng-if="tabprod.related">
+        <div class="tab-label-content" id="tab10-content" ng-if="tabprod.related">
+            <label class="b tab-label-header" for="tab10" angular-ripple>Related Products</label>
+            <label class="s tab-label-header" for="tab10" angular-ripple><img src='./images/icon/package-variant-closed.svg'></label>
+            <div class="tab-content">
+                <div ng-include="'modules/products/details/related.product.html'"></div>
+            </div>
+        </div>
+        <div class="slide"></div>
+    </div>
+</section>
+<style type="text/css">
+
+.tab-wrap {
+    /* width: 50%;*/
+    /* margin-left: 20%; */
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 0px;
+    box-shadow: inset 0 -2px 0 0 #e2e2e2;
+}
+element {
+    --tab-countz: 9; 
+}
+input[type="radio"][name="tabs"] {
+    position: absolute;
+    z-index: -1;
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content label {
+    color: rgb(72, 72, 72);
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content .tab-content {
+    display: block;
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(1):checked ~ .slide {
+    left: calc((100% / 9) * 0);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(2):checked ~ .slide {
+    left: calc((100% / 9) * 1);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(3):checked ~ .slide {
+    left: calc((100% / 9) * 2);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(4):checked ~ .slide {
+    left: calc((100% / 9) * 3);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(5):checked ~ .slide {
+    left: calc((100% / 9) * 4);
+}
+
+
+input[type="radio"][name="tabs"]:nth-of-type(6):checked ~ .slide {
+    left: calc((100% / 9) * 5);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(7):checked ~ .slide {
+    left: calc((100% / 9) * 6);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(8):checked ~ .slide {
+    left: calc((100% / 9) * 7);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(9):checked ~ .slide {
+    left: calc((100% / 9) * 8);
+}
+
+/* input[type="radio"][name="tabs"]:nth-of-type(10):checked ~ .slide {
+    left: calc((100% / 10) * 9);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(11):checked ~ .slide {
+    left: calc((100% / 10) * 10);
+} */
+
+input[type="radio"][name="tabs"]:first-of-type:checked ~ .slide {
+    left: 0;
+}
+
+.tab-label-header {
+    cursor: pointer;
+    color: #777777;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.slide {
+    background: #247571;
+    width: calc(100% / 9);
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: calc(100% - 6px);
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+}
+
+.tab-label-content {
+    width: 100%;
+}
+
+.tab-label-content .tab-content {
+    position: absolute;
+    top: 62px;
+    left: 16px;
+    line-height: 130%;
+    display: none;
+    margin-left: -16px;
+    background: #fff;
+    padding: 0px;
+    width: 100%;
+    /*height: 475px;*/
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        padding: 40px 0 90px 10%;
+    }
+    .tab-wrap {
+        width: 100%;
+    }
+}
+</style>

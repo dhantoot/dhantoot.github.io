@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class=" box-warning">
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="">
+                    <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="saveArticle()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Save</button>
+                            <button ng-click="reloadArticle()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body p-0">
+                <div class="p-25">
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <label class="btn  btn-prime brtb-r-0 " ng-model="radioModel" uib-btn-radio="'product'" ng-click="changeData('product')">Product</label>
+                            <label class="btn  btn-prime bltb-r-0" ng-model="radioModel" uib-btn-radio="'productgroup'" ng-click="changeData('productgroup')">Product Group</label>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="radioModel == 'product'">
+                        <label>Products</label>
+                        <ui-select ng-model="details.product">
+                            <ui-select-match>
+                                {{$select.selected.item_name}}
+                            </ui-select-match>
+                            <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (products | filter: $select.search) track by emp.p_id">
+                                {{emp.item_name}}
+                                <small>{{emp.product_code}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group" ng-show="radioModel == 'productgroup'">
+                        <label>Products Groups</label>
+                        <ui-select ng-model="details.productgroup">
+                            <ui-select-match>
+                                {{$select.selected.bundle_name}}
+                            </ui-select-match>
+                            <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (productBundles | filter: $select.search) track by emp.pb_id">
+                                {{emp.bundle_name}}
+                                <small>{{emp.bundle_code}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group" ng-show="radioModel == 'product'">
+                        <div class="row" style="line-height: 30px;">
+                            <div class="col-sm-1">
+                                <label>Item: </label>
+                                <br>
+                                <label>Code: </label>
+                                <br>
+                                <label>Brand: </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span>{{details.product.item_name}}</span>
+                                <br>
+                                <span>{{details.product.product_code}}</span>
+                                <br>
+                                <span>{{details.product.brand}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="radioModel == 'productgroup'">
+                        <div class="row" style="line-height: 30px;">
+                            <div class="col-sm-1">
+                                <label>Item: </label>
+                                <br>
+                                <label>Code: </label>
+                                <br>
+                                <label>Brand: </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <span>{{details.productgroup.bundle_name}}</span>
+                                <br>
+                                <span>{{details.productgroup.bundle_code}}</span>
+                                <br>
+                                <span>{{details.productgroup.bundle_brand}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group pl-15">
+                    <!-- <a class="btn btn-flat btn-default btn-sm" type="button" ng-click="addToList()" style="border: 1px solid #e2e2e2;">Add To List</a> -->
+                    <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="addToList()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <hr>
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th width="50%">Item Name</th>
+                                <th>Code</th>
+                                <th>Brand</th>
+                                <th width="5%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in details.article_features_list">
+                                <td>
+                                    <div>{{ item.item_name }}</div>
+                                </td>
+                                <!-- <td>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn bg-navy btn-flat"><i class="fa fa-minus"></i></button>
+                                                    </div>
+                                                    <input type="text" class="form-control" ng-model="item.item_quantity" valid-number>
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn bg-navy btn-flat"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td> -->
+                                <td>
+                                    <div>{{ item.item_code }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ item.item_brand }}</div>
+                                </td>
+                                <td nowrap>
+                                    <button type="button" class="btn actbutton btn-flat btn-xs btn-info pull-right" ng-click="removeOnList($index)" uib-tooltip="Delete">
+                                        <img src="./images/icon/ic_delete_black_24px.svg">
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

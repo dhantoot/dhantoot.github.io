@@ -1,0 +1,99 @@
+<div class="row" ng-controller="productStoreCtrl">
+    <form role="form">
+        <div class="col-md-12">
+            <div class=" box-warning m-0">
+                <div class="s">
+                    <h4 class="box-title">Store</h4>
+                </div>
+                <div class="box-header" style="padding: 10px 20px;">
+                    <div class="">
+                        <div class="form-inline w100p disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <button type="button" ng-click="saveStore()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple><i ng-show="isStoreloader" class="fa fa-spinner fa-spin"></i> Save</button>
+                                <button ng-click="getAllStore()" class="btnflat  waves-effect fl mr-10 " angular-ripple><i ng-show="isRefreshloader1" class="fa fa-spinner fa-spin"></i> Refresh</button>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-flat btn-default  dropdown-toggle ng-binding" data-toggle="dropdown" angular-ripple>
+                                            <span >{{applicationStatus}}</span>
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="top: 30px;margin-left: 0;">
+                                            <li><a ng-click="updateStatus('All')">All</a></li>
+                                            <li><a ng-click="updateStatus('Product\'s Store')">Product's Store</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right searchposition b">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="pt-5">
+                                            <div class="input-group imput">
+                                                <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchStore($event):0" angular-ripple  ng-keypress="($event.which === 13)?searchStore($event):0" style="margin-top: 0px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body p-0">
+                    <table class="table table-hover " data-page-size="10" id="tblStore">
+                        <thead>
+                            <tr>
+                                <th width="10" data-sort-ignore="true">
+                                    <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll();">
+                                </th>
+                                <th class="">Name</th>
+                                <th class="">Address</th>
+                                <th class="">Owner</th>
+                                <!-- <th class="">Current Inventory</th>
+                                <th class="">Unit</th>
+                                <th class="">Reorder Level</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in itemArray track by $index" repeat-end="paginate()">
+                                <td angular-ripple>
+                                    <input type="checkbox" class="checkbox" ng-model="var.selected" ng-change="checkStoresChanges(var);">
+                                </td>
+                                <td>
+                                    {{var.name}}
+                                </td>
+                                <td>
+                                    {{var.address}}
+                                </td>
+                                <td>
+                                    {{var.owner_name}}
+                                </td>
+                                <!-- <td>
+                                    <input ng-disabled="!var.selected" type="number" class="form-control" name="" style="margin-top: 7px;border-color: aquamarine;" ng-model="stockTrackQty[$index]" ng-keyup="pushToStockTrack($index,var.store_id,stockTrackQty[$index],stockTrackLevel[$index],stockTrackUnit[$index])">
+                                </td>
+                                <td>
+                                    <ui-select ng-disabled="!var.selected" on-select="pushToStockTrack($index,var.store_id,stockTrackQty[$index],stockTrackLevel[$index],stockTrackUnit[$index])" ng-model="stockTrackUnit[$index].selected" theme="bootstrap" ng-disabled="inv.unit.disabled" style="width: 150px;" title="Choose a unit">
+                                        <ui-select-match placeholder="Select unit...">{{$select.selected.label}}</ui-select-match>
+                                        <ui-select-choices repeat="_unit in inv.unit.list | filter: $select.search">
+                                            <span ng-bind-html="_unit.label | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </td>
+                                <td>
+                                    <input ng-disabled="!var.selected" type="number" class="form-control" name="" style="margin-top: 7px;border-color: aquamarine;" ng-model="stockTrackLevel[$index]" ng-keyup="pushToStockTrack($index,var.store_id,stockTrackQty[$index],stockTrackLevel[$index],stockTrackUnit[$index])">
+                                </td> -->
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

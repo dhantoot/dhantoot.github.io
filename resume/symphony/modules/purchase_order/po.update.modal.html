@@ -1,0 +1,27 @@
+<div class="ngdialog-message">
+    <h3 ng-if="!enAbleToSendForm">Save as Draft ?</h3>
+    <h3 ng-if="enAbleToSendForm">Save and Send ?</h3>
+    <hr></hr>
+    <div ng-if="enAbleToSendForm">
+        <div class="form-group">
+            <input ng-model="details.recipientemail" type="email" class="form-control" id="email" placeholder="Recipient email" required>
+        </div>
+        <div class="form-group">
+            <input ng-model="details.emailsubject" type="text" class="form-control" id="subject" placeholder="Email Subject" required>
+        </div>
+    </div>
+</div>
+<div class="ngdialog-buttons">
+    <button ng-if="!enAbleToSendForm" type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">OK</button>
+    <button ng-if="enAbleToSendForm" ng-disabled="!details.recipientemail || !details.emailsubject" type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">OK</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">Cancel</button>
+</div>
+<style type="text/css">
+body {
+    margin: 0px !important;
+}
+
+.sidebar {
+    background: #333333 !important;
+}
+</style>

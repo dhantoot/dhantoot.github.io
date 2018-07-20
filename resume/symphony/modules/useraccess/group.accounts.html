@@ -1,0 +1,82 @@
+<div class="">
+    <div class="box-header">
+        <!-- <div class="pull-left disp-inline-flex">
+    <div class="w140">
+        <a class="mr-10 label-circle-button ml-5" ng-click="newUserGroup()">
+            <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                <img src="./images/icon/ic_black_white_24px.svg">
+            </button>Add New
+        </a>
+    </div>
+    <div class="w140">
+        <a class="mr-10 label-circle-button ml-5" ng-click="refreshUserGroup()">
+            <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                <img src="./images/icon/refresh.svg">
+            </button>Refresh
+        </a>
+    </div>
+</div>
+ -->
+        <!-- <div class="pull-left disp-inline-flex">
+            <button ng-click="newUserGroup()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Add New</button>
+            <button ng-click="refreshUserGroup()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Refresh</button>
+        </div> -->
+        <form class="form-inline p-5 pl-10 ng-pristine ng-valid">
+            <button class="btn btn-primary actbutton btn-xs btn-flat mr-10" ng-click="newUserGroup()" uib-tooltip="Add New" angular-ripple>
+                <i class="zmdi zmdi-plus"></i>
+            </button>
+            <button ng-click="refreshUserGroup()" class="btn btn-default actbutton btn-xs btn-flat mr-10" uib-tooltip="Refresh" angular-ripple>
+                <i class="zmdi zmdi-refresh"></i>
+            </button>
+        </form>
+        <div class="pull-right box-tools">
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group pull-right imput" style="width: 250px;">
+                            <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtSearch" disable-valid-styling="true" disable-validation-message="" ng-change="(txtSearch.length < 1)?searchData():0" ng-click="searchData()" ng-keypress="($event.which === 13)?searchData():0" style="margin-top: 0px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData()" ng-keypress="($event.which === 13)?searchData():0" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="box-body table-responsive padding p-0">
+        <table class="table table-hover" ng-table="usersGroupTable">
+            <tr ng-repeat="group in $data  track by $index">
+                <td data-header="'checkboxheader.html'" class="text-center center-td-table">
+                    <input type="checkbox" class="checkbox" ng-model="group.selected" ng-change="checkDataChanges(group)">
+                </td>
+                <td class="text-center" data-title="'User Group'">
+                    {{group.name}}
+                </td>
+                <td class="text-center" data-title="'Description'">
+                    {{group.description}}
+                </td>
+                <!-- <td class="text-right" data-title="'Action'">
+                    <a ui-sref="main.settings-permissions({groupId:group.role_id})" class="btn btn-flat btn-primary btn-xs"><i class="fa fa-key"></i></a>
+                    <button ng-click="edit(store.store_id)" class="btn btn-flat btn-info btn-xs"><i class="glyphicon glyphicon-edit"></i></button>
+                    <button class="btn btn-flat btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> </button>
+                    </span>
+                    </a>
+                </td> -->
+                <td class="text-right" data-title="'Action'">
+                    <div class="disp-inline-flex">
+                        <a ui-sref="main.settings-permissions({groupId:group.role_id})" ng-show="profile.isOwner == 1 && profile.uc_id !== row.uc_id" class="btn ml-10 bgscreen btn-info actbutton btn-xs btn-flat" uib-tooltip="Subscription" angular-ripple><i class="zmdi zmdi-key"></i></a>
+                        <a ng-click="newUserGroup(group.role_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit" angular-ripple><i class="zmdi zmdi-edit"></i></a>
+                        <a ng-click="toggleModal(group.role_id,$index,'groups')" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete" angular-ripple><i class="zmdi zmdi-delete"></i></a>
+                    </div>
+                   <!--  <a ui-sref="main.settings-permissions({groupId:group.role_id})" class="smscreen r200">
+                        <button class="btn btn-info  actbutton btn-xs btn-flat"><img src="./images/icon/ic_list_black_24px (1).svg"></button> Subscription</a>
+                    <a ng-click="newUserGroup(group.role_id)" class="smscreen r120">
+                        <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Edit"><img src="./images/icon/ic_mode_edit_white_18px.svg"></button> Edit</a>
+                    <a class="smscreen" ng-click="toggleModal(group.role_id,$index,'groups')">
+                        <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></button> Delete</a> -->
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

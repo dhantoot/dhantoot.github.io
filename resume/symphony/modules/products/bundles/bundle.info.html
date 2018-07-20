@@ -1,0 +1,147 @@
+<div class="row">
+    <form role="form" name="bundleForm">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="s">
+                    <h4 class="box-title">Bundle Info</h4>
+                </div>
+                <div class="box-body col-md-12">
+                    <div class="form-group pl-15" ng-if="details.pb_id">
+                        <label>Status: </label>
+                        <span ng-if="details.is_published == 0 && details.is_archived == 0" class="label label-warning" style="width: 100px;">draft</span>
+                        <span ng-if="details.is_published == 1 && details.is_archived == 0" class="label label-success" style="width: 100px;">published</span>
+                        <span ng-if="details.is_archived == 1 && details.is_published == 0" class="label label-danger" style="width: 100px;">archived</span>
+                    </div>
+                    <div class="form-group pl-15" ng-if="details.pb_id">
+                        <label>Views: </label>
+                        <span class="badge bg-light-blue">{{details.product_bundle_views}}</span>
+                    </div>
+                    <div class="p-0 col-md-12">
+                        <div class="form-group col-md-6">
+                            <label>Bundle Name</label>
+                            <input type="text" class="form-control" ng-model="details.bundle_name" placeholder="Product Name" required />
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body ">
+                    <div class=" col-md-12 p-0">
+                        <div class="form-group col-md-6">
+                            <label>Product Type</label>
+                            <select class="form-control" ng-model="details.product_type_id" ng-options="option.ptype_id as option.name for option in ptypes" required /></select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Bundle Code</label>
+                            <input type="text" class="form-control" ng-model="details.bundle_code" placeholder="Product Code" required />
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                    </div>
+                    <div class="p-0 col-md-12">
+                        <div class="form-group col-md-6">
+                            <label>Bundle Brand</label>
+                            <input type="text" class="form-control" ng-model="details.bundle_brand" placeholder="Product Brand" required />
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Sell Price</label>
+                            <input type="text" class="form-control" ng-model="details.sell_price" required valid-number>
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                    </div>
+                    <div class="p-0 col-md-12">
+                        <div class="form-group col-md-6 ">
+                            <label>Start Date: </label>
+                            <input type="text" class="form-control" ng-model="details.start_date" data-date-format="MM-dd-yyyy" data-max-date="{{details.end_date}}" bs-datepicker required />
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label>End Date: </label>
+                            <input type="text" class="form-control" data-date-format="MM-dd-yyyy" ng-model="details.end_date" data-min-date="{{details.start_date}}" bs-datepicker required />
+                            <!-- <span class="barzz"></span> -->
+                        </div>
+                    </div>
+                    <div class="p-0 col-md-12">
+                        <div class="form-group col-md-6">
+                            <label>Barcode</label>
+                            <input type="text" class="form-control" ng-model="details.barcode" placeholder="Barcode Code" required />
+                            <br>
+                            <select class="form-control" ng-model="mycode.type" ng-options="option.type as option.code for option in barcodesType" ng-change="changeBarcodeType(mycode.type)" />
+                            </select>
+                        </div>
+                        <div class="form-group bar col-md-6 text-center">
+                            <barcode type="{{mycode.type}}" render="img" string="{{details.barcode}}" options="barcodeoptions"></barcode>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-md-12">
+                        <label>Overview</label>
+                        <text-angular ta-toolbar="[
+                            ['h1','h2','h3','h4','h5','h6','p','pre','bold','italics','underline','strikeThrough','ul','ol','undo','redo','clear'],
+                            ['justifyLeft','justifyCenter','justifyRight','justifyFull','indent','outdent']
+                        ]" ng-model="details.bundle_overview"></text-angular>
+                    </div>
+                    <br>
+                    <br>
+                    <br> -->
+                    <div class="form-group col-md-12">
+                        <label>Description</label>
+                        <text-angular ng-model="details.bundle_description" required /></text-angular>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Tags <i class="fa fa-tags"></i></label>
+                        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                            <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-md-6 b" ng-if="details.pb_id">
+                        <div class="">
+                            <h3 class="box-title">Bundle Images</h3>
+                            <div class="text-center" ng-show="slides.length > 0">
+                                <div id="carousel-custom" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-outer">
+                                        <div class="carousel-inner">
+                                            <div ng-repeat="slide in slides" class="item" ng-class="{active:!$index}" data-thumb="{{$index}}">
+                                                <img class="image-responsive" ngf-src="slide.image || 'http://placehold.it/750x450' " err-src="http://placehold.it/750x450" width="250" height="250">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ol class="carousel-indicators">
+                                        <li ng-repeat="slide in slides" data-target='#carousel-custom' data-slide-to="{{slide.index}}" ng-class="{active:!$index}">
+                                            <img ng-src="{{slide.image}}" alt='' width="150" height="100" />
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <button type="submit" ng-disabled="bundleForm.$invalid" class="btn btn-primary btn-flat btn-block">Save Entry</button>
+                    <a class="btn btn-success btn-flat btn-block" ng-show="showPublish" ng-click="publishProduct(details.pb_id)">Publish</a>
+                    <a class="btn btn-danger btn-flat btn-block" ng-show="showArchive" ng-click="archiveProduct(details.pb_id)">Archive</a>
+                    <a class="btn btn-default btn-block" ng-click="goBack()">Cancel</a>
+                </div>
+            </div>
+        </div> -->
+        <div class="box-body disp-inline-flex  pr-25 pb-20 fr">
+            <button ng-click="$state.reload()" class="btnflat default-color waves-effect fr" angular-ripple>Cancel</button>
+            <a ng-show="showArchive" ng-click="archiveProduct(details.pb_id)" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple>Archive</a>
+            <a ng-show="showPublish" ng-click="publishProduct(details.pb_id)" class="btnflat success-color waves-effect ml-10 fr" angular-ripple>Publish</a>
+            <button type="button" ng-click="addProduct()" class="btnflat primary-color waves-effect ml-10 mr-15 fr" ng-disabled="bundleForm.$invalid" angular-ripple>Save Entry</button>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.carousel {
+    position: relative !important;
+    height: auto !important;
+    position: inherit !important;
+    background: #fff !important;
+}
+</style>

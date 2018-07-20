@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-md-10">
+        <div class="">
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="col-md-12" style="padding: 0">
+                    <div>
+                        <div class="pt-5">
+                            <!-- <div class="input-group pull-right imput" style="width: 250px;">
+                                <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtProductSearch" ng-keypress="($event.which === 13)?searchProductData():0" ng-change="(txtProductSearch.length < 1)?searchProductData():0">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="form-inline  disp-inline-flex">
+                            <!--  <div class="form-group col-sm-12" style="padding: 0;">
+                                <label class="col-sm-3 control-label">Select Day</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                    <select class="form-control" ng-options="item as item.label for item in stores.days track by item.id" ng-model="store_day"></select>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                             <!--    <div class=" btn-group mailbox-controls">
+                                    <button class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Save Entry</button>
+                                </div> -->
+                                <label class="checkbox-inline" ng-repeat="day in stores.days">
+                                    <input type="checkbox" class="checkbox" ng-model="day.selected" ng-change="getDay(day)">{{day.label}}
+                                    <!-- <input type="checkbox" name="favoriteColors" ng-model="formData.favoriteColors.red"> Monday -->
+                                </label>
+                                <!-- <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox">Tuesday
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" class="checkbox">Wednesday
+                                </label> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="box-header priceprod">
+                <div class="pull-left">
+                    <select class="form-control" ng-model="details.pricebook_type_id" ng-options="option.pt_id as option.name for option in pricebooktype" required>
+                        <option value="">Choose Day</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="box-body p-0">
+                <table class="table table-hover" data-page-size="10" id="tblCategory">
+                    <thead>
+                        <tr>
+                            <!-- <th width="30" data-sort-ignore="true">
+                                <input type="checkbox" class="checkbox" ng-model="selectDeselectAllProduct" ng-click="" ng-change="">
+                            </th> -->
+                            <th data-sort-ignore="true">Day</th>
+                            <th data-sort-ignore="true" style="width: auto;">Start Time</th>
+                            <th data-sort-ignore="true" style="width: auto;">End Time</th>
+                            <th data-sort-ignore="true" style="width: auto;">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="alias in stores.days track by $index" repeat-end="" ng-if="alias.selected && alias.label !== 'Everyday'">
+                            <!-- <td angular-ripple>
+                                <input type="checkbox" class="checkbox" ng-model="product.selected" ng-change="checkDataChanges(product)">
+                            </td> -->
+                            <td>
+                                {{alias.label}}
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <kk-timepicker settings="settings" ng-model="alias.time_start" style="border: 1px solid;"></kk-timepicker>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <kk-timepicker settings="settings" ng-model="alias.time_end" style="border: 1px solid;"></kk-timepicker>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <a href="javascript:void(0)" class="btn actbutton btn-flat btn-xs btn-info" ng-click="" uib-tooltip="">
+                                    <input type="checkbox" class="pull-right checkbox ng-pristine ng-valid ng-empty ng-touched" ng-true-value="1" ng-false-value="0" ng-model="alias.is_active" style="width: 10px;margin-bottom: 8px;" ng-change="toggle_active(alias)">
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class=" box-warning">
+            <div class="box-body">
+                <button class="btnflat primary-color waves-effect fl mr-10 " type="submit" ng-disabled="storeForm.$invalid" angular-ripple ng-click="saveSchedule()">Save Entry</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.btn-group>.btn.aw:first-child {
+    width: 160px !important;
+    text-align: left !important;
+    border-radius: 0 !important;
+    box-shadow: 0 2px 2px 0 rgba(179, 179, 179, 0.14), 0 1px 5px 0 rgba(144, 144, 144, 0.12), 0 3px 1px -2px rgba(224, 224, 224, 0.2) !important;
+    background: #fff;
+}
+
+.caret {
+    margin-left: 0;
+    float: right !important;
+    margin-top: 9px!important;
+}
+</style>

@@ -1,0 +1,22 @@
+<div class="modal-header" style="border-bottom: transparent;padding:20px 50px 10px;">
+    <h3 class="modal-title" style="font-size: 20px;">Share via Email With others</h3>
+</div>
+<div class="modal-body" id="modal-body" style="padding: 0px 50px;">
+    <div class="form-group">
+        <label style="margin-top: 10px;">People</label>
+        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteEmail($item)" multiple tagging="tagTransform" tagging-label="Enter Email" ng-model="sharer.email" theme="bootstrap" close-on-select="false">
+            <ui-select-match placeholder="Enter Email...">{{$item.email}}</ui-select-match>
+            <ui-select-choices repeat="tag in items | propsFilter: {email: $select.search,displayName:$select.search}">
+                <div ng-bind-html="tag.displayName | highlight: $select.search"></div>
+                <small>
+                  email: {{tag.email}}
+                </small>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div id="printasset" ng-include="'./emailtemplates/assetshare.html'" style="display:none;"></div>
+</div>
+<div class="modal-footer" style="border-top: transparent;padding: 10px 50px 30px;text-align: left;">
+    <button class="btn  btn-primary" type="button" ng-click="create()">Done</button>
+    <a class="btn  btn-default" ng-click="cancel()">Cancel</a>
+</div>

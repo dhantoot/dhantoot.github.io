@@ -1,0 +1,119 @@
+<form class="form-horizontal" ng-submit="saveGroup()">
+    <div class="modal-header">
+        <h3 class="modal-title">Attribute Groups</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="name" ng-model="details.name" class="col-md-2 control-label">Name</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="name" placeholder="Group Name" ng-model="group.name" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="label" ng-model="details.label" class="col-md-2 control-label">Label</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" name="label" placeholder="Group Label" ng-model="group.label" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" ng-model="details.description" class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                <textarea class="form-control" row="5" col="10" name="description" ng-model="group.description" placeholder="Group Description" required=""></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sortorder" class="col-md-2 control-label">Sort Order</label>
+            <div class="col-md-10">
+                <input type="number" class="form-control" size="50" name="sortorder" placeholder="Sort Order" ng-model="group.sort_order" required="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-10">
+                <div class="simpleDemo row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div ng-repeat="(listName, list) in models.lists" class="col-md-6">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">List {{listName}}</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul dnd-list="list">
+                                            <li ng-repeat="item in list"
+                                                dnd-draggable="item"
+                                                dnd-moved="moved(item, $index, 1)"
+                                                dnd-effect-allowed="move"
+                                                dnd-selected="models.selected = item"
+                                                >
+                                                {{item.label}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div view-source="simple"></div>
+                    </div>
+                </div>
+            </div>
+        <div class="simpleDemo"></div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btnflat primary-color fr waves-effect mr-10 " type="submit">Save</button>
+        <button class="btnflat fr waves-effect mr-10 " type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>
+<style type="text/css">
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+.simpleDemo ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Show selected elements in green
+ */
+.simpleDemo ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+</style>

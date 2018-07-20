@@ -1,0 +1,161 @@
+<div class=" box-primary">
+    <div class="files box-body no-padding">
+        <div class="box-header mailbox-controls asset-head" style="padding: 8px 5px;">
+            <div class="btn-group pt-5 pl-5 pull-left">
+                <button class="actbuttonassets" uib-tooltip="Refresh" ng-click="refreshAssets()"><i class="zmdi zmdi-refresh"></i></button>
+            </div>
+            <div class="col-md-7 pt-5 ">
+                <div class="input-group bg imput w100p">
+                    <input type="text " class="asset-search" placeholder="Search " ng-model="txtSearch " ng-change="(txtSearch.length < 1)?searchData():0 ">
+                    <div class="input-group-btn ">
+                        <button class="btn btn-flat gobutton btn-sm btn-default " ng-click="searchData() " ng-keypress="($event.which===13)?searchData():0 " uib-tooltip="Search " angular-ripple=" " style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de; ">GO</button>
+                    </div>
+                </div>
+            </div>
+            <div class=" btn-group pull-right rightstablebutton">
+                <button class="actbuttonassets " ng-if="isList " ng-click="changeDisplay() " uib-tooltip="Grid View " angular-ripple style="margin-bottom: 1px;"><i class="zmdi zmdi-grid"></i></button>
+                <button class="actbuttonassets " ng-if="!isList " ng-click="changeDisplay() " uib-tooltip="List View "  angular-ripple><i class="zmdi zmdi-format-list-bulleted"></i></button>
+                <button class="actbuttonassets " uib-tooltip="Settings " angular-ripple><i class="zmdi zmdi-settings"></i></button>
+            </div>
+            <div class="btn-group pull-right  bg" uib-dropdown is-open="status.isopen" ng-if="showBarMore " style="padding-top: 6px !important">
+                <button class="actbuttonassets dropdown-toggle " data-toggle="dropdown " id="single-button" uib-tooltip="More actions " uib-dropdown-toggle angular-ripple>
+                    <i class="zmdi zmdi-more-vert"></i>
+                </button>
+                <ul class="dropdown-menu " uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                    <li ng-if="showBarMove ">
+                        <a ng-click="moveSelected() " angular-ripple><img src="./images/icon/folder-move.svg "><span> Move to...</span></a>
+                    </li>
+                    <li ng-if="showBarAddStar && selectedFile.isStarred==0 ">
+                        <a ng-click="starredSelected() " angular-ripple><i class="fa fa-star "></i><span> Add star </span></a>
+                    </li>
+                    <li ng-if="showBarRemoveStar && selectedFile.isStarred==1 ">
+                        <a ng-click="starredSelected() " angular-ripple><i class="fa fa-star-o "></i><span> Remove star</span></a>
+                    </li>
+                    <li ng-if="showBarRename ">
+                        <a ng-click="renameSelected() " angular-ripple><i class="fa fa-pencil "></i><span> Rename</span></a>
+                    </li>
+                    <li class="divider " ng-if="showBarRename "></li>
+                    <li>
+                        <a ng-click="showInfoSelected() " angular-ripple> <img src="./images/icon/information.svg "><span> View Details</span></a>
+                    </li>
+                    <li ng-if="showToolMakeCopy ">
+                        <a ng-click="updateStatus( 'Draft') " angular-ripple><img src="./images/icon/ic_content_copy_black_24px.svg "><span> Make a copy</span></a>
+                    </li>
+                    <li ng-if="selectedFile.isFolder==false ">
+                        <a ng-href="{{selectedFile.asset_url}} " target="_self " download="{{selectedFile.asset_url}} " uib-tooltip="Download "><img src="./images/icon/ic_file_download_black_24px.svg"><span> Download</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group pull-right bg" style="padding-top: 6px !important">
+                <button class="actbuttonassets " uib-tooltip="Restore " ng-click="restoreSelected() " ng-if="showBarRestore " angular-ripple><i class="zmdi zmdi-time-restore"></i></button>
+                <button class="actbuttonassets " uib-tooltip="Share... " ng-click="shareToOthers() " ng-if="showBarShare " angular-ripple><i class="zmdi zmdi-share"></i></button>
+                <button class="actbuttonassets " uib-tooltip="Remove " ng-click="deleteSelected() " ng-if="showBarDelete " angular-ripple><i class="zmdi zmdi-delete"></i></button>
+                <button class="actbuttonassets " uib-tooltip="Email... " ng-click="emailToOthers() " ng-if="showBarEmail " angular-ripple><i class="zmdi zmdi-email"></i></button>
+                <button class="actbuttonassets " uib-tooltip="Preview " ng-click="previewSelected() " ng-if="showToolPreview " angular-ripple><i class="zmdi zmdi-eye"></i></button>
+            </div>
+            <!-- <div class="box-tools pt-5 ">
+                <div class="has-feedback ">
+                    <input type="text " class="form-control input-sm " placeholder="Search Files " />
+                    <span class="glyphicon glyphicon-search form-control-feedback "></span>
+                </div>
+            </div> -->
+        </div>
+        <div class="mailbox-controls " ng-if="assets.info ">
+            <ol class="breadcrumb " ng-if="showBread ">
+                <li><a ui-sref="main.assets " class="actbuttonassets ">Files</a></li>
+                <li class="active " ng-if="assets.info.parent_folder "><a href=" " ng-click="goBack() ">{{assets.info.parent_folder.folder_name}} </a></li>
+                <li class="active ">{{assets.info.folder_name}}</li>
+            </ol>
+        </div>
+        <div class="table-responsive justcont ">
+            <div contextmenu="meta.contextmenu " class="dropdown contextmenu">
+                <ul class="dropdown-menu " role="menu ">
+                    <li ng-if="meta.contextmenu.item.isFolder==false && meta.contextmenu.item.isDeleted==0 ">
+                        <a role="menuitem " href ng-click="previewSelected() " ng-if="showToolPreview " angular-ripple>
+                            <img src="./images/icon/ic_visibility_black_24px.svg "> <span>Preview</span>
+                        </a>
+                    </li>
+                    <li class="divider " ng-if="meta.contextmenu.item.isFolder==false && meta.contextmenu.item.isDeleted==0 "></li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==0 && showBarShare ">
+                        <a role="menuitem " href ng-click="shareToOthers() " angular-ripple>
+                            <img src="./images/icon/account-plus.svg "><span>Share</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==0 && showBarEmail ">
+                        <a role="menuitem " href ng-click="emailToOthers() " angular-ripple>
+                            <img src="./images/icon/email-variant.svg "><span>Send via Email</span>
+                        </a>
+                    </li>
+                    <li ng-if="showBarAddStar && meta.contextmenu.item.isStarred==0 && meta.contextmenu.item.isDeleted==0 ">
+                        <a role="menuitem " href ng-click="starredSelected() " angular-ripple>
+                            <i class="fa fa-star "></i><span>Add Star</span>
+                        </a>
+                    </li>
+                    <li ng-if="showBarRemoveStar && meta.contextmenu.item.isStarred==1 && meta.contextmenu.item.isDeleted==0 ">
+                        <a role="menuitem " href ng-click="starredSelected() " angular-ripple>
+                            <i class="fa fa-star-o "></i><span>Remove Star</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==0 && showBarMove ">
+                        <a role="menuitem " href ng-click="moveSelected() " angular-ripple>
+                            <img src="./images/icon/folder-move.svg "><span>Move to...</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==0 && showBarRename ">
+                        <a role="menuitem " href ng-click="renameSelected() " angular-ripple>
+                            <i class="fa fa-pencil "></i><span>Rename</span>
+                        </a>
+                    </li>
+                    <li class="divider " ng-if="meta.contextmenu.item.isDeleted==0 "></li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==0 ">
+                        <a role="menuitem " href ng-click="showInfoSelected() " angular-ripple>
+                            <img src="./images/icon/information.svg "><span>View Details</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isFolder==false && meta.contextmenu.item.isDeleted==0 && showToolMakeCopy ">
+                        <a role="menuitem " href angular-ripple>
+                            <img src="./images/icon/ic_content_copy_black_24px.svg "><span>Make a copy</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isFolder==false && meta.contextmenu.item.isDeleted==0 ">
+                        <a role="menuitem " ng-href="{{meta.contextmenu.item.asset_url}} " target="_self " download="{{meta.contextmenu.item.asset_url}} " angular-ripple>
+                            <img src="./images/icon/ic_file_download_black_24px.svg"><span>Download</span>
+                        </a>
+                    </li>
+                    <li ng-if="meta.contextmenu.item.isDeleted==1 && showBarRestore ">
+                        <a role="menuitem " href ng-click="restoreSelected() " angular-ripple>
+                            <img src="./images/icon/history.svg"><span>Restore</span>
+                        </a>
+                    </li>
+                    <li class="divider " ng-if="meta.contextmenu.item.isDeleted==0 && showBarDelete "></li>
+                    <li ng-if="showBarDelete ">
+                        <a role="menuitem " href ng-click="deleteSelected() " angular-ripple>
+                            <img src="./images/icon/ic_delete_black_24px.svg "><span>Remove</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ng-include src=" './modules/assets/assets.list.html' " ng-if="isList && showFiles "></ng-include>
+            <ng-include src=" './modules/assets/assets.grid.html' " ng-if="!isList && showFiles "></ng-include>
+            <section class="content " ng-if="!showFiles ">
+                <div class="row " style="height: 100vh; ">
+                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                        <div class="text-center asset-uploader ">
+                            <div class="drop-zone ">
+                                <!-- <h3><i class="fa fa-files-o fa-5x text-dark "></i></h3> -->
+                                <img src="/images/icon/ic_content_copy_black_24px.svg" style="width: 150px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /.mail-box-messages -->
+    </div>
+    <div class="overlay" ng-show="isLoading">
+        <div class="google-loader " style="margin-top: 40%; ">
+            <div class="dot ">
+            </div>
+        </div>
+    </div>
+</div>

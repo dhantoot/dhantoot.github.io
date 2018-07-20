@@ -1,0 +1,136 @@
+<div class="row">
+    <form role="form" name="storeForm" ng-submit="saveStore()">
+        <div class="col-md-8">
+            <div class=" box-warning">
+                <div class="box-body ">
+                    <div class="form-group col-md-6">
+                        <label>Store Type</label>
+                        <ui-select style="margin-bottom: -5px !important;" ng-model="details.type.selected" style="margin-top: 5px;" on-select="changeStoreStype()">
+                            <ui-select-match placeholder="Pick one...">{{$select.selected.type_name}}</ui-select-match>
+                            <ui-select-choices repeat="u in storetype | filter: $select.search track by $index">
+                                <div ng-bind-html="u.type_name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store Name</label>
+                        <input type="text" name="storename" class="form-control" ng-minlength="6" ng-maxlength="25" ng-model="details.name" placeholder="Store Name" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store TIN</label>
+                        <input type="text" class="form-control" ng-model="details.tin" placeholder="Store TIN" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store Owner</label>
+                        <input type="text" class="form-control" ng-model="details.owner_name" placeholder="Store Owner" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store Owner Email</label>
+                        <input type="email" class="form-control" ng-model="details.owner_email" placeholder="Store Owner Email Address" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store Owner Contact #</label>
+                        <input type="text" class="form-control" ng-model="details.owner_contact_number" numbers-only placeholder="Store Owner Contact #" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" ng-model="details.telno" numbers-only placeholder="Contact No." required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" ng-model="details.email_address" placeholder="Email Address" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Website</label>
+                        <input type="text" class="form-control" ng-model="details.website" placeholder="Website" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Store Description</label>
+                        <textarea class="form-control" rows="3" ng-model="details.description" placeholder="Store Description" /></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Store Address</label>
+                        <textarea class="form-control" rows="3" ng-model="details.address" placeholder="Store Address" required /></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>State</label>
+                        <input type="text" ng-model="details.state" class="form-control" placeholder="State ..." />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>City</label>
+                        <input type="text" ng-model="details.city" class="form-control" placeholder="City ..." />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Zip Code</label>
+                        <input type="text" ng-model="details.zipcode" class="form-control" placeholder="Zip Code.." />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Country</label>
+                        <select class="form-control" ng-model="details.country" ng-options="item.name as item.name for item in countries">
+                            <option disabled value="">- Select Country -</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <br>
+                        <label>Geolocation <i class="fa fa-map-o"></i></label>
+                        <br>
+                        <br>
+                        <div class="form-group col-md-6">
+                            <label>Latitude</label>
+                            <input type="float" ng-model="details.geo_latitude" class="form-control" placeholder="Latitude" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Longitude</label>
+                            <input type="float" ng-model="details.geo_longitude" class="form-control" placeholder="Longitude" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Tags <i class="fa fa-tags"></i></label>
+                        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                            <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group col-md-12" ng-show="false">
+                        <label>Store Location</label>
+                        <br>
+                        <label>Latitude:{{details.geo_latitude}}, </label>
+                        <label> Longitude:{{details.geo_longitude}}</label>
+                    </div>
+                    <div class="col-md-12">
+                        <ng-map center="getLatLong()">
+                            <ui-gmap-google-map ng-if="map.center" control="map.mapControl" center='map.center' zoom='map.zoom' options="map.options" events="map.events">
+                                <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="0" icon="{url: map.icon}">
+                                </ui-gmap-marker>
+                            </ui-gmap-google-map>
+                        </ng-map>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <button class="btnflat primary-color waves-effect fr mr-10 " type="submit" ng-disabled="storeForm.$invalid" angular-ripple>Save Entry</button>
+                    <button class="btnflat  waves-effect fr mr-10 " ng-click="$state.reload()" angular-ripple> Cancel</button>
+                </div>
+                <br>
+                <br>
+                <div class="mr-10">
+                    <img ng-src="{{details.logo}}" err-src="http://placehold.it/750x450" class="img-thumbnail" height="250px" style=" width: 100% !important;">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.ui-select-bootstrap .ui-select-toggle>.caret {
+    position: absolute;
+    height: 10px;
+    top: 5px!important;
+    right: 10px;
+    margin-top: -2px;
+}
+</style>

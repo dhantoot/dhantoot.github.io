@@ -1,0 +1,221 @@
+<div class="row" ng-controller="productAttributeCtrl">
+    <div class="col-md-12">
+        <div class=" box-warning  m-0">
+            <div class="s">
+                <h4 class="box-title">Attributes</h4>
+            </div>
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="">
+                    <!-- <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="getAllProductAttributes()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <form role="form">
+        <div class="col-md-5">
+            <div class=" box-primary">
+                <div class="box-body">
+                    <div class="">
+                        <div class="form-inline w100p disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <!-- <button ng-click="getAllProductAttributes()" class="btnflat primary-color waves-effect fl mr-10 " angular-ripple>Refresh</button> -->
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="padding-top: 10px;">
+                            <div class="form-group" ng-repeat="attrib in attributes track by $index">
+                                <!-- 
+
+                            Textbox 
+    
+                            -->
+                                <label ng-if="attrib.attribute_type=='Textbox'">{{attrib.name}}</label>
+                                <div class="input-group" ng-if="attrib.attribute_type=='Textbox'">
+                                    <input type="text" class="form-control" ng-model="attrib.value">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </div>
+                                </div>
+                                <!-- 
+
+                            Numeric Textbox 
+
+                            --> 
+                                <label ng-if="attrib.attribute_type=='Numeric Textbox'">{{attrib.name}} ({{attrib.default_value}})</label>
+                                <div class="input-group" ng-if="attrib.attribute_type=='Numeric Textbox'" ng-init="attrib.value = getData(attrib.value)">
+                                    <input min="0" type="number" class="form-control" string-to-number ng-model="attrib.value">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </div>
+                                </div>
+                                <!-- 
+
+                            Textarea 
+
+                            -->
+                                <label ng-if="attrib.attribute_type=='Textarea' || attrib.attribute_type=='Rich Textbox'">{{attrib.name}}</label>
+                                <div class="input-group" ng-if="attrib.attribute_type=='Textarea' || attrib.attribute_type=='Rich Textbox'">
+                                    <textarea class="form-control custom-control" rows="3" style="resize:none" ng-model="attrib.value"></textarea>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </div>
+                                </div>
+                                <!-- 
+
+                            QRCode Textbox
+
+                             -->
+                                <label ng-if="attrib.attribute_type=='QRCode Textbox'">{{attrib.name}}</label>
+                                <div class="input-group margin-bottom10" ng-if="attrib.attribute_type=='QRCode Textbox'">
+                                    <input type="text" class="form-control" value="{{attrib.value}}" ng-model="attrib.value">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                        <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </div>
+                                </div>
+                                <qr type-number="6" correction-level="'M'" size="200" input-mode="''" text="attrib.value" image="true" ng-if="attrib.attribute_type=='QRCode Textbox'"></qr>
+                                <!-- 
+
+                            Dropdownlist 
+
+                            --> 
+                                <label ng-if="attrib.attribute_type=='Dropdownlist'">{{attrib.name}}</label>
+                                <select class="form-control" ng-if="attrib.attribute_type=='Dropdownlist'" ng-model="attrib.value" ng-options="val.value as val.name for val in attrib.attribute_list_value">
+                                </select>
+                                <!-- 
+
+                            Multiselect 
+
+                            -->
+                                <div ng-if="attrib.attribute_type=='Multiselect'" class="well" style="height: 125px">
+                                    <label ng-if="attrib.attribute_type=='Multiselect'">{{attrib.name}}</label>
+                                    <!-- <select multiple class="form-control" ng-if="attrib.attribute_type=='Multiselect'" ng-model="attrib.value" ng-options="val.value as val.name for val in attrib.attribute_list_value"> -->
+                                    <!-- <tags-input ng-if="attrib.attribute_type=='Multiselect'" ng-model="test" style="margin-top: -6px;" on-tag-removed="remove_attrib_val_list($tag)" on-tag-added="save_attrib_val_list_single($tag,all.attributes)" placeholder="Add value"></tags-input> -->
+                                    <tags-input ng-if="attrib.attribute_type=='Multiselect'" 
+                                        ng-init="unique(attrib, $index)"
+                                        ng-model="attrib.selected_attribute_list_value" 
+                                        display-property="name" 
+                                        placeholder="Select a value" 
+                                        replace-spaces-with-dashes="false" 
+                                        on-tag-removed="remove_attrib_val_list($tag)" 
+                                        on-tag-added="save_attrib_val_list_single($tag,attrib.selectedOnes.selected)">
+                                          <auto-complete source="data_src[$index]"
+                                                         min-length="0"
+                                                         load-on-focus="true"
+                                                         load-on-empty="true"
+                                                         select-first-match="false" 
+                                                         template="my-custom-template">
+                                            </auto-complete>
+                                    </tags-input>
+                                   <!--  </select>  -->
+                                </div>
+                                
+                                <!-- 
+
+                            Checkbox 
+
+                            -->
+                                <!--  <div class="checkbox" ng-if="attrib.attribute_type=='Checkbox'">
+                                <label>
+                                    <input type="checkbox" class="checkbox" ng-click="saveAttributeValue(attrib)" ng-model="attrib.checked" /> {{attrib.name}}
+                                </label>
+                            </div> -->
+                                <div class="disp-inline-flex w100p">
+                                    <label class="disp-inline-flex attributes" ng-if="attrib.attribute_type =='Checkbox'">
+                                        <input type="checkbox" class="checkbox" ng-click="saveAttributeValue(attrib)" ng-model="attrib.checked">
+                                        <div id="check" class="lab ml-10" style="margin-top: 2px;">{{attrib.name}}</div>
+                                    </label>
+                                </div>
+                                <!-- 
+
+                            Percentage 
+
+                            -->
+                                <label ng-if="attrib.attribute_type=='Percentage'">{{attrib.name}}</label>
+                                <h3 class="box-title" ng-if="attrib.attribute_type=='Percentage'">{{attrib.value | percentage:2}}</h3>
+                                <!-- 
+
+                            Numeric 
+
+                            -->
+                                <label ng-if="attrib.attribute_type=='Numeric'">{{attrib.name}}</label>
+                                <h3 class="box-title" ng-if="attrib.attribute_type=='Numeric'">{{attrib.value | number:2}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <label>
+                            <input type="checkbox" ng-click="saveShow()" ng-model="details.doc" /> {{attrib.name}}
+                        </label> -->
+                    <!-- Attachment -->
+                    <div class="row">
+                        <div ng-repeat="attrib in attributes">
+                            <div class="col-md-6 col-sm-6 col-xs-12" ng-if="attrib.attribute_type=='Attachment'">
+                                <div class="info-box bg-aqua">
+                                    <span class="info-box-icon"><i class="fa fa-file-text-o"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-number">{{attrib.name}}</span>
+                                        <span class="info-box-text">{{attrib.value}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/ng-template" id="my-custom-template">
+      <div class="left-panel">
+        <img ng-src="{{data.value_image}}"/>
+      </div>
+      <div class="right-panel">
+        <span ng-bind-html="$highlight($getDisplayText())"></span>
+        <span>({{data.value}})</span>
+        <span>{{data.description}}</span>
+      </div>
+    </script>
+
+<style type="text/css">
+    .left-panel {
+  float: left;
+}
+
+.left-panel img {
+  width: 48px;
+  height: 48px;
+  vertical-align: middle;
+}
+
+.right-panel {
+  float: left;
+  margin-left: 5px;
+  margin-top: 7px;
+}
+
+.right-panel span:first-child {
+  font-size: 16px;
+}
+
+.right-panel span:nth-child(2) {
+  font-size: 14px;
+  color: gray;
+}
+
+.right-panel span:last-child {
+  display: block;
+  font-size: 14px;
+  font-style: italic;
+}
+
+
+
+
+</style>

@@ -1,0 +1,74 @@
+<div class="row ">
+    <form class="form-inline " role="form ">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="box-header ">
+                    <div clas="box-header">
+                        <div class="pull-right">
+                            <div class="form-group ">
+                                <div class="col-md-12 ">
+                                    <div class="input-group ">
+                                        <div class="box-tools " ng-hide="list.listName === 'Package'">
+                                            <div class="input-group b imput " style="margin-bottom: 10px;">
+                                                <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch " disable-valid-styling="true " disable-validation-message=" " ng-change="(txtSearch.length < 1)? searchData(txtSearch):0 " ng-keypress="($event.which===13)?searchData(txtSearch):0" style="margin-top: 0px;margin-bottom: 3px;">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData(txtSearch)" uib-tooltip="Search" angular-ripple style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat="list in models" class="packctrl col-md-6 p-0">
+                        <div clas="box-header">
+                            <div class="form-inline disp-inline-flex" ng-hide="list.listName === 'Products'">
+                                <div class=" btn-group mailbox-controls  ">
+                                    <button ng-click="addProductBundle() " class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Save</button>
+                                    <button ng-click="removeAll(list,item) " class="btnflat danger-color waves-effect fl mr-10 " angular-ripple>Remove all</button>
+                                    <button ng-click="refresh() " class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                                </div>
+                                <div class="input-group imput s smsearch" style="margin-left: -13px;margin-bottom: 40px;">
+                                    <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch " disable-valid-styling="true " disable-validation-message=" " ng-change="(txtSearch.length < 1)? searchData(txtSearch):0 " ng-keypress="($event.which===13)?searchData(txtSearch):0">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData(txtSearch)" uib-tooltip="Search" angular-ripple style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body p-0 mt-10 mlf-3">
+                            <div class="panelcustom panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">List of {{list.listName}}</h3>
+                                </div>
+                                <div class="panel-body p-0" style="max-height: 400px;overflow-y: auto;" ng-include="'modules/products/bundles/multi.html'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+table .form-control {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: transparent;
+    margin-top: 0px;
+}
+
+table .form-control:focus {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #3c8dbc;
+    margin-top: 0px;
+}
+
+
+.packctrl .input-group-btn:first-child>.btn:focus {
+    border-bottom: 1px solid #333333 !important;
+    border: 1px solid transparent;
+}
+</style>

@@ -1,0 +1,722 @@
+<section class="content-header">
+    <h1>View Saved Purchase Order</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.purchase_order"><i class="fa fa-dashboard"></i> Purchase Order</a></li>
+        <li class="active">Saved Purchase Order</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="boxbodyzzz">
+        <div class="row">
+            <form ng-if="parent_details.date_closed == null ? true : false" role="form">
+                <div class="col-md-12">
+                    <div class=" box-warning">
+                        <div class="box-body">
+                            <div class="p-15" style="line-height: 30px;">
+                                <strong class="f18">{{parent_details.po_name}}</strong>
+                                <br>
+                                <b>Purchase Order No.</b> <small>{{parent_details.po_number}}</small>
+                                <br>
+                                <img src="../images/icon/ic_clear_all_black_24px.svg" style="width: 23px; margin-top: -3px;margin-right: -5px;">
+                                <i style="color: #247571;">{{ parent_details.date_closed ? 'Completed' : po_status }}</i>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-4 row">
+                                        <div class="col-sm-4">
+                                            <strong>Supplier</strong>
+                                            <br>
+                                            <strong>Deliver to</strong>
+                                        </div>
+                                        <div class="col-sm-6 pl-0">
+                                            <span>{{parent_details.supplier.name}}</span>
+                                            <br>
+                                            <span>{{parent_details.deliver_to}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 row">
+                                        <div class="col-sm-3">
+                                            <strong>Date Created</strong>
+                                            <br>
+                                            <strong>Delivery Date</strong>
+                                        </div>
+                                        <div class="col-sm-6 pl-0">
+                                            <span>{{datenow}}</span>
+                                            <br>
+                                            <span>{{parseDate(parent_details.delivery_date)}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row">
+                                        <div class="col-sm-12 POdesc">
+                                            <span ng-bind-html="parent_details.shipping_terms">
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group bt-1 table-responsive" style="min-height: 100px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Stock on Hand</th>
+                                        <th>Unit</th>
+                                        <th>Qty. Ordered</th>
+                                        <th>Total Received</th>
+                                        <th>Received</th>
+                                        <th>Price</th>
+                                        <th>Total Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in parent_details.details">
+                                        <td class="vam">
+                                            {{ item.item_name }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.stock_on_hand }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.unit.unit_symbol }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.quantity_ordered }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.total_received }}
+                                        </td>
+                                        <td class="vam">
+                                            <div class="form-group">
+                                                <input ng-keyup="specialVar1[$index] != null ? (specialVar1[$index] <= (item.quantity_ordered - item.total_received) ? updateReceiveItemScope(item,$index) : promptMsg1($index) ) : ''" ng-model="specialVar1[$index]" ng-disabled="po_status == 'Saved' || po_status=='Cancelled'" type="text" class="form-control" placeholder="" numbers-only required style="background:rgba(0, 0, 0, 0.08)" />
+                                            </div>
+                                        </td>
+                                        <td class="vam">
+                                            <div class="form-group">
+                                                <input ng-keyup="updateSupplyCostScope(item,$index)" ng-value="item.price" ng-model="specialVar2[$index]" ng-disabled="po_status == 'Saved'" type="text" class="form-control" placeholder="" numbers-only required style="background:rgba(0, 0, 0, 0.08)" />
+                                            </div>
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.quantity_ordered * item.price | number:2 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  fr">
+                    <div class="">
+                        <div class="form-group">
+                            <div class=" bt-1">
+                                <div class="w100p disp-inline-flex">
+                                    <h4>Total</h4><span><h4 class="text-center ">{{ overalltotal | number:2}}</h4></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form role="form" ng-if="parent_details.date_closed == null ? false : true">
+                <div class="col-md-12">
+                    <div class=" box-warning">
+                        <div class="box-body">
+                            <div class="p-15" style="line-height: 30px;">
+                                <strong class="f18">{{parent_details.po_name}}</strong>
+                                <br>
+                                <b>Purchase Order No.</b> <small>{{parent_details.po_number}}</small>
+                                <br>
+                                <img src="../images/icon/ic_clear_all_black_24px.svg" style="width: 23px; margin-top: -3px;margin-right: -5px;">
+                                <i style="color: #247571;">{{ parent_details.date_closed ? 'Completed' : po_status }}</i>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-4 row">
+                                        <div class="col-sm-4">
+                                            <strong>Supplier</strong>
+                                            <br>
+                                            <strong>Deliver to</strong>
+                                        </div>
+                                        <div class="col-sm-6 pl-0">
+                                            <span>{{parent_details.supplier.name}}</span>
+                                            <br>
+                                            <span>{{parent_details.deliver_to}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 row">
+                                        <div class="col-sm-3">
+                                            <strong>Date Created</strong>
+                                            <br>
+                                            <strong>Delivery Date</strong>
+                                        </div>
+                                        <div class="col-sm-6 pl-0">
+                                            <span>{{datenow}}</span>
+                                            <br>
+                                            <span>{{parseDate(parent_details.delivery_date)}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 row">
+                                        <div class="col-sm-12 POdesc">
+                                            <span ng-bind-html="parent_details.shipping_terms">
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group bt-1 table-responsive" style="min-height: 100px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Stock on Hand</th>
+                                        <th>Unit</th>
+                                        <th>Qty. Ordered</th>
+                                        <th>Total Received</th>
+                                        <th>Total Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in parent_details.details">
+                                        <td class="vam">
+                                            {{ item.item_name }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.stock_on_hand }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.sales_unit }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.quantity_ordered}}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.total_received }}
+                                        </td>
+                                        <td class="vam">
+                                            {{ item.quantity_ordered * item.price | number:2 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  fr">
+                    <div class="">
+                        <div class="form-group">
+                            <div class=" bt-1">
+                                <div class="w100p disp-inline-flex">
+                                    <h4>Total</h4><span><h4 class="text-center ">{{ overalltotal | number:2}}</h4></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <button ng-show="scndpage && (po_status=='Saved') && (parent_details.date_closed ? false : true)" class="btnflat primary-color waves-effect ml-10 mr-20 fr" ui-sref="main.add_order({selected_id:po_id})" angular-ripple>Edit Purchase Order</button>
+        <button ng-show="scndpage && (po_status=='Saved') && (parent_details.date_closed ? false : true)" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple ng-click="doExport()">Export CSV</button>
+        <button ng-show="scndpage && (po_status=='Saved') && (parent_details.date_closed ? false : true)" class="btnflat success-color waves-effect ml-10 fr" angular-ripple ng-click="openPOUpdateModal2(true)">Send Order</button>
+        
+        <button ng-show="scndpage && (!checkSpecialVar1()) && (po_status=='Sent')  && (parent_details.date_closed ? false : true)" class="btnflat primary-color waves-effect ml-10 mr-20 fr" ng-click="receivePO()" angular-ripple>Received Order</button>
+        <button ng-show="scndpage && (po_status!='Saved') && (po_status!='Cancelled')  && (parent_details.date_closed ? false : true)" class="btnflat success-color waves-effect ml-10 fr" angular-ripple ng-click="openPOUpdateModal2(true)">Resend Order</button>
+        
+        <button ng-show="scndpage && (po_status!='Sent' && po_status!='Completed')  && (parent_details.date_closed ? false : true)" class="btnflat default-color waves-effect fl ml-15" ng-click="po_status!='Cancelled' ? cancelPO() : reactivatePO()" angular-ripple>{{ po_status!='Cancelled' ? 'Cancel Order' : 'Reactivate Order' }}</button>
+        
+        <div class="sendcontainer" ng-show="showMessage">
+            <div class="head">Sending..</div>
+            <div class="body">
+                <img src="../images/icon/note-text.svg" style="width: 27px;height: 27px;">
+                <div style="margin-left: 10px;"><b>Purchase Order No.</b> <small>00011</small>
+                    <div class="progress-bar">
+                        <div class="progress">
+                            <div class="progress-shadow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sendcontainer" ng-show="showsecondMessage">
+            <div class="head">Sending Complete</div>
+            <div class="body">
+                <img src="../images/icon/note-text.svg" style="width: 25px;height: 25px;">
+                <div style="margin-left: 10px;">
+                    <div class="successlabel"><b>Purchase Order No.</b> <small>00011</small></div>
+                </div>
+            </div>
+        </div>
+        <div class="sendcontainer" ng-show="showExportMessage">
+            <div class="head">Exporting..</div>
+            <div class="body">
+                <img src="./images/icon/note-text.svg" style="width: 25px;height: 25px;">
+                <div style="margin-left: 10px;">
+                    <div class="successlabel">Purchase Order No.<small>00011</small></div>
+                    <div class="pieholder">
+                        <figure class="chart-two animate">
+                            <svg role="img" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-background" />
+                                <circle class="circle-foreground" />
+                            </svg>
+                            <figcaption>50%</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sendcontainer" ng-show="showsecondExportMessage">
+            <div class="head">Export Complete</div>
+            <div class="body">
+                <img src="./images/icon/note-text.svg" style="width: 25px;height: 25px;">
+                <div style="margin-left: 10px;">
+                    <div class="successlabel">Purchase Order No.<small>00011</small></div>
+                    <div class="pieholder">
+                        <figure class="chart-two animate">
+                            <svg role="img" xmlns="http://www.w3.org/2000/svg">
+                                <circle class="circle-background2" />
+                            </svg>
+                            <figcaption>50%</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style type="text/css">
+.vam {
+    vertical-align: middle !important;
+}
+
+.dndPlaceholder {
+    background-color: #efefef !important;
+    min-height: 10px;
+    border-radius: 2px;
+    padding: 3px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    /** vertical-align: middle; **/
+    display: block;
+    padding: 55px
+}
+
+.pieholder {
+    position: absolute;
+    top: 72px;
+    right: 17px;
+}
+
+.successlabel {
+    font-size: 17px;
+    padding-top: 5px;
+}
+
+.sendcontainer {
+    width: 400px;
+    position: fixed;
+    background: #fff;
+    right: 15px;
+    z-index: 99999;
+    bottom: 15px;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .2);
+    -webkit-border-radius: 2px;
+    border-radius: 3px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: transform .15s cubic-bezier(0.4, 0.0, 1, 1), opacity .15s cubic-bezier(0.4, 0.0, 1, 1), visibility 0ms linear .15s;
+    transition: transform .15s cubic-bezier(0.4, 0.0, 1, 1), opacity .15s cubic-bezier(0.4, 0.0, 1, 1), visibility 0ms linear .15s;
+    max-height: 323px;
+    overflow: visible;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+
+.sendcontainer .head {
+    background-color: #444;
+    color: #fff !important;
+    padding: 18px;
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    font-size: 14px;
+}
+
+.sendcontainer .body {
+    padding: 15px;
+    display: flex;
+    height: 58px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    background: rgba(115, 115, 115, 0.58)
+}
+
+.cont {
+    margin: 0 auto;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
+    padding: 40px;
+    color: #fff;
+    font-weight: 500;
+}
+
+
+/* Progress Bar Variables */
+
+
+/* Progress Bar CSS*/
+
+.progress-bar {
+    margin: 0 auto;
+    width: 335px;
+    height: 5px;
+    background-color: #e5e9eb;
+    border-radius: 4px;
+}
+
+.progress-bar .progress {
+    position: relative;
+    background-color: #36a9a8;
+    height: 5px;
+    width: 100%;
+    /** -webkit-animation-duration: 5s;
+    -webkit-animation-name: width;**/
+    border-radius: 4px;
+}
+
+.progress-bar .progress .progress-shadow {
+    background-image: -webkit-linear-gradient(top, #eaecee, transparent);
+    background-image: linear-gradient(to bottom, #eaecee, transparent);
+    position: absolute;
+    height: 4em;
+    width: 100%;
+    top: 100%;
+    -webkit-transform: skew(-22.5deg);
+    transform: skew(-22.5deg);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+@-webkit-keyframes width {
+    0%,
+    100% {
+        -webkit-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+        transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+    }
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes width {
+    0%,
+    100% {
+        -webkit-transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+        transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+    }
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+button .content {
+    min-height: inherit;
+}
+
+
+/* ------- DO NOT EDIT BELOW --------- */
+
+
+/*@import url(https://fonts.googleapis.com/css?family=Abel);*/
+
+.chart-one {
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    position: relative;
+}
+
+.chart-one.animate svg .circle-foreground {
+    -webkit-animation: offset 3s ease-in-out forwards;
+    animation: offset 3s ease-in-out forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-one.animate figcaption:after {
+    -webkit-animation: chart-one-label 3s steps(25) forwards;
+    animation: chart-one-label 3s steps(25) forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-one svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-two svg .circle-background2 {
+    stroke: #36aaa7;
+}
+
+.chart-one svg .circle-background,
+.chart-one svg .circle-foreground {
+    r: 99.5px;
+    cx: 50%;
+    cy: 50%;
+    fill: none;
+    stroke: #305556;
+    stroke-width: 1px;
+}
+
+.chart-one svg .circle-foreground {
+    stroke: #79be9b;
+    stroke-dasharray: 156.215px 624.86px;
+    stroke-dashoffset: 156.215px;
+    stroke-linecap: round;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.chart-one figcaption {
+    display: inline-block;
+    width: 100%;
+    height: 2.5rem;
+    overflow: hidden;
+    text-align: center;
+    color: #c6e8d7;
+    position: absolute;
+    top: calc(50% - 1.25rem);
+    left: 0;
+    font-size: 0;
+}
+
+.chart-one figcaption:after {
+    display: inline-block;
+    content: "0%\a 1%\a 2%\a 3%\a 4%\a 5%\a 6%\a 7%\a 8%\a 9%\a 10%\a 11%\a 12%\a 13%\a 14%\a 15%\a 16%\a 17%\a 18%\a 19%\a 20%\a 21%\a 22%\a 23%\a 24%\a 25%\a 26%\a 27%\a 28%\a 29%\a 30%\a 31%\a 32%\a 33%\a 34%\a 35%\a 36%\a 37%\a 38%\a 39%\a 40%\a 41%\a 42%\a 43%\a 44%\a 45%\a 46%\a 47%\a 48%\a 49%\a 50%\a 51%\a 52%\a 53%\a 54%\a 55%\a 56%\a 57%\a 58%\a 59%\a 60%\a 61%\a 62%\a 63%\a 64%\a 65%\a 66%\a 67%\a 68%\a 69%\a 70%\a 71%\a 72%\a 73%\a 74%\a 75%\a 76%\a 77%\a 78%\a 79%\a 80%\a 81%\a 82%\a 83%\a 84%\a 85%\a 86%\a 87%\a 88%\a 89%\a 90%\a 91%\a 92%\a 93%\a 94%\a 95%\a 96%\a 97%\a 98%\a 99%\a 100%\a";
+    white-space: pre;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+}
+
+@-webkit-keyframes chart-one-label {
+    100% {
+        -webkit-transform: translateY(-62.5rem);
+        transform: translateY(-62.5rem);
+    }
+}
+
+@keyframes chart-one-label {
+    100% {
+        -webkit-transform: translateY(-62.5rem);
+        transform: translateY(-62.5rem);
+    }
+}
+
+.chart-two {
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    position: relative;
+}
+
+.chart-two.animate svg .circle-foreground {
+    -webkit-animation: offset 3s ease-in-out forwards;
+    animation: offset 3s ease-in-out forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-two.animate figcaption:after {
+    -webkit-animation: chart-two-label 3s steps(50) forwards;
+    animation: chart-two-label 3s steps(50) forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-two svg {
+    width: 10%;
+    height: 10%;
+    float: right;
+    margin-top: 1px;
+}
+
+.chart-two svg .circle-background,
+.chart-two svg .circle-foreground {
+    r: 8px;
+    cx: 50%;
+    cy: 53%;
+    fill: none;
+    stroke: #d6d6d6;
+    stroke-width: 3px;
+}
+
+.chart-two svg .circle-foreground {
+    stroke: #36aaa7;
+    stroke-dasharray: 290.45px 580.9px;
+    stroke-dashoffset: 290.45px;
+    stroke-linecap: round;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.chart-two figcaption {
+    display: inline-block;
+    width: 100%;
+    height: 2.5rem;
+    overflow: hidden;
+    text-align: center;
+    color: #c6e8d7;
+    position: absolute;
+    top: calc(50% - 1.25rem);
+    left: 0;
+    font-size: 0;
+}
+
+.chart-two figcaption:after {
+    display: inline-block;
+    content: "0%\a 1%\a 2%\a 3%\a 4%\a 5%\a 6%\a 7%\a 8%\a 9%\a 10%\a 11%\a 12%\a 13%\a 14%\a 15%\a 16%\a 17%\a 18%\a 19%\a 20%\a 21%\a 22%\a 23%\a 24%\a 25%\a 26%\a 27%\a 28%\a 29%\a 30%\a 31%\a 32%\a 33%\a 34%\a 35%\a 36%\a 37%\a 38%\a 39%\a 40%\a 41%\a 42%\a 43%\a 44%\a 45%\a 46%\a 47%\a 48%\a 49%\a 50%\a 51%\a 52%\a 53%\a 54%\a 55%\a 56%\a 57%\a 58%\a 59%\a 60%\a 61%\a 62%\a 63%\a 64%\a 65%\a 66%\a 67%\a 68%\a 69%\a 70%\a 71%\a 72%\a 73%\a 74%\a 75%\a 76%\a 77%\a 78%\a 79%\a 80%\a 81%\a 82%\a 83%\a 84%\a 85%\a 86%\a 87%\a 88%\a 89%\a 90%\a 91%\a 92%\a 93%\a 94%\a 95%\a 96%\a 97%\a 98%\a 99%\a 100%\a";
+    white-space: pre;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+}
+
+@-webkit-keyframes chart-two-label {
+    100% {
+        -webkit-transform: translateY(-125rem);
+        transform: translateY(-125rem);
+    }
+}
+
+@keyframes chart-two-label {
+    100% {
+        -webkit-transform: translateY(-125rem);
+        transform: translateY(-125rem);
+    }
+}
+
+.chart-three {
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    position: relative;
+}
+
+.chart-three.animate svg .circle-foreground {
+    -webkit-animation: offset 3s ease-in-out forwards;
+    animation: offset 3s ease-in-out forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-three.animate figcaption:after {
+    -webkit-animation: chart-three-label 3s steps(75) forwards;
+    animation: chart-three-label 3s steps(75) forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.chart-three svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-three svg .circle-background,
+.chart-three svg .circle-foreground {
+    r: 87.5px;
+    cx: 50%;
+    cy: 50%;
+    fill: none;
+    stroke: #305556;
+    stroke-width: 25px;
+}
+
+.chart-three svg .circle-foreground {
+    stroke: #389967;
+    stroke-dasharray: 412.125px 549.5px;
+    stroke-dashoffset: 412.125px;
+    stroke-linecap: round;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.chart-three figcaption {
+    display: inline-block;
+    width: 100%;
+    height: 2.5rem;
+    overflow: hidden;
+    text-align: center;
+    color: #c6e8d7;
+    position: absolute;
+    top: calc(50% - 1.25rem);
+    left: 0;
+    font-size: 0;
+}
+
+.chart-three figcaption:after {
+    display: inline-block;
+    content: "0%\a 1%\a 2%\a 3%\a 4%\a 5%\a 6%\a 7%\a 8%\a 9%\a 10%\a 11%\a 12%\a 13%\a 14%\a 15%\a 16%\a 17%\a 18%\a 19%\a 20%\a 21%\a 22%\a 23%\a 24%\a 25%\a 26%\a 27%\a 28%\a 29%\a 30%\a 31%\a 32%\a 33%\a 34%\a 35%\a 36%\a 37%\a 38%\a 39%\a 40%\a 41%\a 42%\a 43%\a 44%\a 45%\a 46%\a 47%\a 48%\a 49%\a 50%\a 51%\a 52%\a 53%\a 54%\a 55%\a 56%\a 57%\a 58%\a 59%\a 60%\a 61%\a 62%\a 63%\a 64%\a 65%\a 66%\a 67%\a 68%\a 69%\a 70%\a 71%\a 72%\a 73%\a 74%\a 75%\a 76%\a 77%\a 78%\a 79%\a 80%\a 81%\a 82%\a 83%\a 84%\a 85%\a 86%\a 87%\a 88%\a 89%\a 90%\a 91%\a 92%\a 93%\a 94%\a 95%\a 96%\a 97%\a 98%\a 99%\a 100%\a";
+    white-space: pre;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+}
+
+.boxbodyzzz {
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+    padding-bottom: 60px;
+}
+
+@-webkit-keyframes chart-three-label {
+    100% {
+        -webkit-transform: translateY(-187.5rem);
+        transform: translateY(-187.5rem);
+    }
+}
+
+@keyframes chart-three-label {
+    100% {
+        -webkit-transform: translateY(-187.5rem);
+        transform: translateY(-187.5rem);
+    }
+}
+
+@-webkit-keyframes offset {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes offset {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+</style>

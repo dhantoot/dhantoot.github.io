@@ -1,0 +1,324 @@
+<div class="row variants" ng-controller="productVariantsCtrl" ng-init="init_1">
+    <form role="form">
+        <div class="col-md-12">
+            <div class=" box-warning" style="padding: 20px;">
+                <div class="col-md-12 varbanner">
+                    <div class="col-md-4">
+                        <div class="form-group col-md-12" style="padding:0;">
+                            <div class="">
+                                <big class="control-label" style="margin-right: 4px;">This product has variant</big>
+                                <input id="check_variants" bs-switch ng-model="has_variants" ng-true-value="1" ng-false-value="0" type="checkbox" switch-change="switchChange()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <small>There are products that have a different versions, like size or color, and are called attributes. Specific attributes like red, blue, small, large are called values. Declare up to 3 attributes and values and specify the variants of this products.</small>
+                    </div>
+                </div>
+                <div ng-if="has_variants" class="col-md-12" style="min-height: 180px;border-bottom: 1px solid #ccc;padding-left: 0px;">
+                    <div class="" style="margin-top: 25px;">
+                        <div class="row" ng-hide="doneAddedThisAttribx">
+                            <div class="col-md-5">
+                                <label>Attribute <small style="color: #a7a7a7;"> (e.g Color)</small></label>
+                                <ui-select ng-disabled="filteredAttributesByVariants.length < 1" ng-model="attributesByVariants.selected" style="margin-top: 5px;" on-select="filterDefaultAttributes($item)">
+                                    <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="attrib in filteredAttributesByVariants | filter: $select.search track by attrib.attribute">
+                                        <div ng-bind-html="attrib.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>values <small style="color: #a7a7a7;"> (e.g Red, Blue, Green)</small></label>
+                                <div>
+                                    <tags-input ng-disabled="filteredAttributesByVariants.length < 1" ng-model="dynamicAttributesHolder" placeholder="Add value" replace-spaces-with-dashes="false" add-from-autocomplete-only="false">
+                                        <auto-complete source="dummyData" select-first-match="false" min-length="0" debounce-delay="0" max-results-to-show="10"></auto-complete>
+                                    </tags-input>
+                                </div>
+                            </div>
+                            <div class="col-md-1 pull-left" style="margin-top: 27px;margin-left: -23px;">
+                                <a ng-disabled="filteredAttributesByVariants.length < 1" href="javascript:void(0)" style="width:28px" ng-click="dynamicAttributesHolder.length > 0 ? pullSomeRecords(false) : ''" class="btn btn-primary actbutton btn-xs btn-flat mr-10" uib-tooltip="Add New" angular-ripple>
+                                    <img src="./images/icon/ic_add_white_24px.svg">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" ng-repeat="all in arraysOfSelectedAttributesByVariants track by $index" ng-if="all.attribute_values.length > 0">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" readonly="" ng-value="all.attributes.attribute">
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <tags-input ng-model="all.attribute_values" style="margin-top: -6px;" on-tag-removed="remove_attrib_val_list($tag)" on-tag-added="save_attrib_val_list_single($tag,all.attributes)" placeholder="Add value"></tags-input>
+                                </div>
+                            </div>
+                            <div class="col-md-1 pull-left">
+                                <a ng-hide="doneAddedThisAttribx" ng-click="reverse(all)" style="margin-left: -18px;"><i class="zmdi zmdi-delete" style="font-size: 30px;"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="has_variants && isVariant" class="col-md-12" style="padding: 25px 46px;">Combine values to add product variants. or <span ng-click="saveVariantDetails(true)" style="color: #1b6761;font-weight: 500;cursor: pointer">Create Variations Automatically.</span>
+                </div>
+                <div ng-if="has_variants && isVariant" class="col-md-12">
+                    <div class="row" style="display: flex;margin-bottom: 10px;">
+                        <div ng-repeat="allx in arraysOfSelectedAttributesByVariants track by $index" ng-show="allx.attribute_values.length > 0" style="margin-right: 5px;">
+                            <b>{{allx.attributes.attribute}}</b>
+                            <ui-select ng-model="attribx[$index].selected" style="margin-top: 5px;" ng-disabled="loading_two">
+                                <ui-select-match placeholder="Pick one...">{{$select.selected.text}}</ui-select-match>
+                                <ui-select-choices repeat="attribx in allx.attribute_values | filter: $select.search track by attribx.text">
+                                    <div ng-bind-html="attribx.text | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="input-group">
+                            <button ng-disabled="loading_two" ng-show="arraysOfSelectedAttributesByVariants.length > 0" style="width: 100%;margin-top:22px;" ng-click="addAcombination()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple><i ng-show="loading_two" class="fa fa-spinner fa-spin"></i> {{loading_two ? 'loading' : 'ADD'}}</button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="box">
+                            <div class="box-body table-responsive padding p-0">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th class="text-center">
+                                            
+                                        </th>
+                                        <th class="text-center">
+                                            Variant Name
+                                        </th>
+                                        <th class="text-center">
+                                            Purchase Price
+                                        </th>
+                                        <th class="text-center">
+                                            Mark Up (%)
+                                        </th>
+                                        <th class="text-center">
+                                            Retail Price
+                                        </th>
+                                        <th class="text-center">
+                                            Active
+                                        </th>
+                                        <th class="text-center">
+                                            Publish
+                                        </th>
+                                        <th class="text-center">
+                                            Action
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="xx in listOfvariants">
+                                        <td class="text-center">
+                                            <div class="left-panel">
+                                                <img ng-src="{{xx.product_imgPath}}" err-src="http://placehold.it/150x150" />
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            {{xx.variant_name}}
+                                        </td>
+                                        <td class="text-center">
+                                            <input valid-float class="form-control" style="width: 105px;" type="text" min="0.000" step="any" name="purchase_price" ng-value="xx.purchase_price" ng-model="xx.purchase_price" ng-keyup="changePP_2(xx, $event)">
+                                        </td>
+                                        <td class="text-center">
+                                            <input valid-float class="form-control" min="0" style="width: 100px;" type="text" min="0.000" step="any" name="markup" ng-value="xx.markup" ng-model="xx.markup" ng-keyup="changeMU_2(xx, $event)">
+                                        </td>
+                                        <td class="text-center">
+                                            <input valid-float class="form-control" min="0" style="width: 105px;" type="text" min="0.000" step="any" name="sell_price" ng-value="xx.sell_price" ng-model="xx.sell_price" ng-keyup="changeSP_2(xx, $event)" ng-disabled="!xx.purchase_price">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" class="checkbox" ng-true-value="1" ng-false-value="0" ng-model="xx.is_active" ng-change="">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" class="checkbox" ng-true-value="1" ng-false-value="0" ng-model="xx.is_published" ng-change="">
+                                        </td>
+                                        <td class="text-center">
+                                            <button style="{{!xx.variant_id ? cursorDisable : ''}}" name="xx.variant_id" ng-disabled="!xx.variant_id" ng-click="openInvTrackingModal(xx.variant_id,xx.variant_name)" class="btn-small" title="{{!xx.variant_id ? 'Save this variant first (button below) before you can track it to inventory' : 'Inventory Tracking'}}"><i class="zmdi zmdi-more-vert" style="font-size: 20px;"></i></button>
+                                            <button style="{{!xx.variant_id ? cursorDisable : ''}}" ng-click="xx.variant_id ? delete_variant(xx.variant_id) : ''"><i class="zmdi zmdi-delete" title="{{xx.variant_id ? 'remove' : 'Cant remove this, save this variant first.'}}" style="font-size: 20px;"></i></button>
+                                            <button style="{{!xx.variant_id ? cursorDisable : ''}}" ng-click="openVariantImgUploader(xx.variant_id, xx.variant_name)"><i class="zmdi zmdi-upload" title="{{xx.variant_id ? 'remove' : 'Cant remove this, save this variant first.'}}" style="font-size: 20px;"></i></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="input-group pull-right" style="margin-right: -10px;margin-bottom: 15px;">
+                            <button style="{{loading_one==true ? cursorDisable : ''}}" ng-hide="listOfvariants.length < 1" ng-disabled="loading_one || listOfvariants.length < 1" ng-click="!loading_one==true ? saveVariantDetails(false) : ''" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple><i ng-show="loading_one" class="fa fa-spinner fa-spin"></i> {{loading_one==true ? 'Saving' : 'Save Details'}}</button>
+                        </div>
+                    </div>
+                </div>
+                <br></br>
+                <br></br>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.tab-content .open>.dropdown-menu {
+    display: block;
+    float: right !important;
+    margin-left: 0;
+    margin-top: -1px;
+}
+
+.varbanner {
+    background: #E4F7F5;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.switchess {
+    position: absolute;
+    right: 25px;
+    margin-top: 6px;
+}
+
+.spannerz {
+    position: absolute;
+    margin-top: 18px;
+    right: 90px;
+    font-weight: 500;
+}
+
+.varBtnDelete {
+    background: #fff;
+    border: 0;
+    font-size: 22px;
+    margin-top: 23px;
+    outline: 0;
+    color: #b5b5b5;
+    position: absolute;
+    right: -21px;
+    margin-top: -30px;
+}
+
+.secondBtndel {
+    right: 12px !important;
+    margin-top: 4px !important;
+}
+
+.varBtnDelete:hover {
+    color: #8c8c8c;
+}
+
+.ui-select-multiple.ui-select-bootstrap input.ui-select-search {
+    height: 1.9em;
+}
+
+.addNewLine {
+    padding-left: 30px;
+    padding-top: 5px;
+    color: #0C5D56;
+}
+
+td .form-control {
+    background-color: #fff !important;
+    border-color: #d2d6de !important;
+}
+
+table .form-control {
+    margin-top: 0px !important;
+}
+
+tbody>tr:nth-of-type(odd) {
+    background-color: #fff !important;
+}
+
+.table>tbody>tr>td {
+    border-top: 0px solid #ddd;
+}
+
+.customCounter {
+    width: 2% !important;
+    padding: 15px 0 10px 23px !important;
+}
+
+.setDetails {
+    /** font-size: 17px; **/
+    color: #0C5D56;
+    padding: 9px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.setDetails .zmdi {
+    font-size: 25px;
+    position: absolute;
+    padding-left: 10px;
+    margin-top: -2px;
+}
+
+.counteror {
+    width: 20px;
+    padding: 8px 0px;
+    text-align: center;
+}
+
+.uploaderzzzzz {
+    border: 1px solid #ccc;
+    text-align: center;
+    width: 150px;
+    height: 140px;
+    margin-left: 78px;
+}
+
+.uploaderzzzzz i {
+    font-size: 30px;
+    color: #0C5D56;
+    padding-top: 45px;
+}
+
+.saveDet {
+    background: #0C5D56;
+    color: #fff;
+    border: 0;
+    padding: 7px 12px;
+    border-radius: 3px;
+    float: right;
+    margin-right: 15px;
+    margin-bottom: 25px;
+}
+
+input[type="radio"][name="tabs"]:checked+.tab-label-content .tab-content {
+    display: block;
+    min-height: 600px;
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    font-weight: 500 !important;
+}
+
+.table>thead>tr>td {
+    padding: 8px 23px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    text-align: left !important;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.pinakabitBtn {
+    outline: 0;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-left: 0px;
+    color: #0C5D56;
+    font-size: 23px;
+    padding: 0px 8px;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on,
+.bootstrap-switch .bootstrap-switch-handle-off,
+.bootstrap-switch .bootstrap-switch-label {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block !important;
+    height: 100%;
+    padding: 0px 8px;
+    font-size: 14px;
+    line-height: 20px;
+}
+</style>

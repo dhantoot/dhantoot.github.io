@@ -1,0 +1,133 @@
+<section class="p-20">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                <img src="./images/icon/file-document-black.svg"> Quotation #{{details.quote_number}}
+                <small class="pull-right">Date: <span date-now="MM/dd/yyyy"></span></small>
+              </h2>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+            <address>
+                <strong>{{details.store.name}}</strong>
+                <br> {{details.store.address}}
+                <br><span ng-show="details.store.telno">Phone:</span> {{details.store.telno}}
+                <br/><span ng-show="details.store.email_address">Email:</span> {{details.store.email_address}}
+            </address>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+            <strong ng-show="details.customer">Bill To</strong>
+            <address>
+                <strong>{{details.customer.displayName}}</strong>
+                <br> {{details.bill_to_address}}
+                <br> {{details.bill_to_state}}<span ng-show="details.ship_to_zipcode">,</span> {{details.bill_to_zipcode}}
+                <br> {{details.bill_to_country}}
+                <br> <span ng-show="details.customer.mobile">Phone: </span>{{details.customer.mobile}}
+                <br/> <span ng-show="details.customer.email">Email: </span>{{details.customer.email}}
+            </address>
+        </div>
+        <div class="col-sm-4 invoice-col">
+            <strong ng-show="details.customer">Ship To</strong>
+            <address>
+                <strong>{{details.customer.displayName}}</strong>
+                <br> {{details.ship_to_address}}
+                <br> {{details.ship_to_state}}<span ng-show="details.ship_to_zipcode">,</span> {{details.ship_to_zipcode}}
+                <br> {{details.ship_to_country}}
+                <br> <span ng-show="details.customer.mobile">Phone: </span>{{details.customer.mobile}}
+                <br/> <span ng-show="details.customer.email">Email: </span>{{details.customer.email}}
+            </address>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th>Qty</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in details.quoteproduct_list">
+                        <td>{{ item.quantity}}</td>
+                        <td>{{ item.item_name }}</td>
+                        <td>{{ item.price | number:2}}</td>
+                        <td>{{ item.discount | number:2}}</td>
+                        <td>{{ item.total | number:2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <!-- accepted payments column -->
+        <div class="col-xs-6">
+            <p class="lead">Payment Methods:</p>
+            <img src="images/credit/visa.png" alt="Visa" />
+            <img src="images/credit/mastercard.png" alt="Mastercard" />
+            <img src="images/credit/american-express.png" alt="American Express" />
+            <img src="images/credit/paypal2.png" alt="Paypal" />
+            <p class="lead">Terms:</p>
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;" ng-show="details.terms">
+                {{details.terms}}
+            </p>
+            <p class="lead">Memo / Notes:</p>
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;" ng-show="details.comments">
+                {{details.comments}}
+            </p>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-6">
+            <p class="lead">Quotation Due on {{details.valid_until | date:'MM/dd/yyyy'}}</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th style="width:50%">Subtotal:</th>
+                        <td>{{details.currency.symbol}} {{details.sub_total | number: 2}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tax
+                        </th>
+                        <td>{{details.currency.symbol}} {{details.tax | number: 2}}</td>
+                    </tr>
+                    <tr>
+                        <th>Other Fee:</th>
+                        <td>{{details.currency.symbol}} {{details.other_fee | number: 2}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total:</th>
+                        <td>{{details.currency.symbol}} {{details.total | number: 2}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <div class="form-inline w100p disp-inline-flex ">
+                <div class=" btn-group mailbox-controls  ">
+                    <button ng-click="goBack()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Cancel</button>
+                    <button ng-click="goBack()" class="btnflat primary-color  waves-effect fl mr-10 " angular-ripple>Save Quotation</button>
+                    <button ng-click="saveQuoteInfo()" ng-disabled="quoteInfoForm.$invalid" class="btnflat success-color fl waves-effect mr-10 " angular-ripple>Print</button>
+                    <button ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length" class="btnflat danger-color waves-effect fl mr-10 " angular-ripple>Generate Quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

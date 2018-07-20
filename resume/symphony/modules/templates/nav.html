@@ -1,0 +1,201 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<div class="sidebar" ng-show="bigside" ng-init="hideOther = true">
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img ng-src="{{profile.profile.image}}" err-src="./images/avatar5.png" class="img-circle" alt="User Image" />
+        </div>
+        <div class="pull-right info">
+            <b ng-bind="profile.EmpName"></b>
+            <br>
+            <br>
+            <small><i class="fa fa-circle text-success"></i> ( {{activeSub}} )</small>
+        </div>
+    </div>
+    <!-- Sidebar user panel -->
+    <div class="autoscroll">
+        <ul class="sidebar-menu" style="min-height: 100%;">
+            <li class="header">NAVIGATION</li>
+            <li angular-ripple>
+                <a ui-sref="main.dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a>
+            </li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-square-o"></i> <span> Products</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple>
+                        <a ui-sref="main.products"> Product List</a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-producttype">Product Type</a>
+                    </li>
+                </ul>
+            </li>
+            <li angular-ripple>
+                <a ui-sref="main.products-bundles"><i class="zmdi zmdi-collection-item"></i> Product Bundles</a>
+            </li>
+            <li angular-ripple>
+                <a ui-sref="main.articles"><i class="zmdi zmdi-file"></i> Articles</a>
+            </li>
+            <li angular-ripple>
+                <a ui-sref="main.quotes"><i class="zmdi zmdi-file-text"></i> Quotation</a>
+            </li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-view-module"></i> <span>Price Books</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple><a ui-sref="main.pricebook">Price Books List</a></li>
+                    <li angular-ripple><a ui-sref="main.pricebooktype">Price Book Type</a></li>
+                    <li angular-ripple><a ui-sref="main.pricebookassoctype">Price Book Assoc.. Type</a></li>
+                </ul>
+            </li>
+            <li angular-ripple>
+                <a href=""><i class="zmdi zmdi-book"></i> Sales Ledger</a>
+            </li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-storage"></i> <span>Inventory</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple><a ui-sref="main.purchase_order">Purchase Order</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-assignment-o"></i>
+                    <span>Reports</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple><a ui-sref="main.reports-dashboard">Dashboard Report</a></li>
+                    <li angular-ripple><a ui-sref="main.reports-sales">Sales Report</a></li>
+                    <li angular-ripple><a ui-sref="main.reports-inventory">Inventory Report</a></li>
+                    <li angular-ripple><a ui-sref="main.reports-subscription">Subscription Report</a></li>
+                </ul>
+            </li>
+            <li class="header">SETTINGS</li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-folder" style="margin-right: 5px;"></i><span>Preferences</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-attributes">
+                            <span>Attributes</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-banks">
+                            <span>Banks</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-categories">
+                            <span>Category</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-currencies">
+                            <span>Currency</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-stores">
+                            <span>Stores</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-suppliers">
+                            <span>Suppliers</span></a>
+                    </li>
+                    <!-- <li angular-ripple>
+                        <a href="">
+                            <span>Variations</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li class="treeview">
+                <a angular-ripple>
+                    <i class="zmdi zmdi-accounts"></i>
+                    <span>Personnel / Customer</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-down pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-humanresource">
+                            <span>Staff Management</span>
+                        </a>
+                    </li>
+                    <li angular-ripple>
+                        <a ui-sref="main.settings-company">
+                            <span>Companies/Customer</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li angular-ripple>
+                <a ui-sref="main.settings-useraccounts">
+                    <i class="zmdi zmdi-male"></i>
+                    <span>Roles / Access</span>
+                </a>
+            </li>
+            <li angular-ripple>
+                <a ui-sref="main.settings-app">
+                    <i class="zmdi zmdi-settings"></i>
+                    <span>Application Settings</span>
+                </a>
+            </li>
+            <li class="header">OTHERS</li>
+            <li angular-ripple ng-class="{'active': active === true}" ng-click="active = !active">
+                <a ui-sref="main.aim-tab" ng-click="hideOther = false"><i class="zmdi zmdi-group-work"></i> AIM Item Code Inventory</a>
+            </li>
+            <li class="header">CUSTOMER SUPPORT</li>
+            <li angular-ripple>
+                <a href="" ng-click="showChat()">
+                    <i class="zmdi zmdi-comment-text-alt"></i>
+                    <span>Chat Support</span>
+                    <span class="headbadge" ng-if="(getmessage|filter:query|filter:getchanges(getmessage)).length > 0">{{(getmessage|filter:query|filter:getchanges(getmessage)).length}}</span>
+                </a>
+            </li>
+            <li angular-ripple>
+                <a href="">
+                    <i class="zmdi zmdi-comments"></i>
+                    <span>Community Forum</span>
+                </a>
+            </li>
+            <li angular-ripple>
+                <a href="https://symphony-4loop.herokuapp.com/" target="_blank">
+                    <i class="zmdi zmdi-border-all"></i>
+                    <span>Slack</span>
+                </a>
+            </li>
+            <li angular-ripple>
+                <a href="">
+                    <i class="zmdi zmdi-stackoverflow"></i>
+                    <span>StackOverflow</span>
+                </a>
+            </li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+            <li class="header"></li>
+        </ul>
+    </div>
+</div>

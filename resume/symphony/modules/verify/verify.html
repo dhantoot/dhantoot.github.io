@@ -1,0 +1,22 @@
+<div class="login-box" ng-init="isVerified()">
+    <div class="login-box-body">
+        <form ng-submit="forgotpass()">
+            <div class="text-center">
+                <p ng-if="!showLogin">
+                    <h2 ng-if="!showLogin"> <i class="fa fa-info-circle zmdi-hc-2x text-info"></i> Verifying account.</h2>
+                    <br>
+                    <i ng-if="!showLogin" class="zmdi zmdi-spinner zmdi-hc-spin zmdi-hc-3x text-blue"></i>
+                </p>
+                <h1 ng-if="showLogin"><i class="fa fa-warning zmdi-hc-2x text-yellow"></i></h1>
+                <p ng-if="showLogin">
+                    <h3 ng-if="showLogin">{{response.msg}}</h3>
+                    <p ng-if="showLogin && isVerified">Please check your email as we send your User Account details.</p>
+                    <br>
+                    <p ng-if="showLogin">You may now <a ui-sref="login">Login</a> with your account</p>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="subscriptionEmail" ng-include="'./templates/verification.html'" scope="" onload="" style="display:none;"></div>
+<!-- <div id="subscriptionEmail" ng-include="'./templates/verification.html'" scope="" onload=""></div> -->

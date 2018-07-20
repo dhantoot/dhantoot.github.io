@@ -1,0 +1,81 @@
+<div class="margin-bottom15">
+    <div class="col-md-9 p-0">
+        <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_name" placeholder="Name">
+        <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_value" placeholder="Value">
+        <textarea class="form-control margin-bottom10" ng-model="attrib_type.attrib_description" placeholder="Description"></textarea>
+        <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.contenttype" placeholder="Content Type" />
+        <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.sku" placeholder="SKU" />
+    </div>
+    <div class="col-md-3 attribmulti">
+        <img ngf-src="attrib_type.value_image || 'http://placehold.it/250x250'" err-src="http://placehold.it/150x150" class="thumbnail" width="120" height="200">
+        <div class="input-group image-preview margin-bottom10">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="attrib_type.value_image">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+                <div class="btnflat primary-color waves-effect fl image-preview-input"> <span class="fa fa-file-image-o" style="margin-left: 50px;margin-top: -35px;"></span> Browse<span class="image-preview-input-title"></span>
+                    <input type="file" accept="image/*" name="input-file-preview" ng-model="attrib_type.value_image" ngf-max-size="8MB" ngf-select />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margin-bottom15">
+    <div class="col-md-12">
+        <button ng-click="addtoList1()" class="btnflat primary-color waves-effect mr-10 fl" angular-ripple>{{btn_save_update}}</button>
+        <button ng-click="clearInput()" class="btnflat danger-color waves-effect fl" angular-ripple>Clear</button>
+    </div>
+</div>
+<div class="row">
+    <form role="form">
+        <div class="col-md-12 p-0">
+            <div class=" box-warning">
+                <div class="box-body p-0">
+                    <div class="form-group">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                    <th>Description</th>
+                                    <th>Content Type</th>
+                                    <th>SKU</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in attrib_type.attribute_list_value">
+                                    <td>
+                                        {{ item.name }}
+                                    </td>
+                                    <td>
+                                        {{ item.value }}
+                                    </td>
+                                    <td>
+                                        {{ item.description }}
+                                    </td>
+                                    <td>
+                                        {{item.contenttype}}
+                                    </td>
+                                    <td>
+                                        {{item.sku}}
+                                    </td>
+                                    <td>
+                                        <img ngf-src="item.value_image" err-src="http://placehold.it/150x150" class="img-rounded" width="42" height="42">
+                                    </td>
+                                    <td nowrap>
+                                        <div class="disp-inline-flex">
+                                            <a ng-click="viewFromList(item)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit"><img src="./images/icon/ic_mode_edit_white_18px.svg"></a>
+                                            <a ng-click="deleteSelected(item)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

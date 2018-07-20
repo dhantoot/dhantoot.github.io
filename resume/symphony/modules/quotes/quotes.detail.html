@@ -1,0 +1,171 @@
+<section class="content-header">
+    <h1>
+            Quotation Details
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.quotes">Quotation</a></li>
+        <li class="active">Quotation Entry</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content b quote">
+    <!-- <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="General Info" bs-pane>
+            <div ng-include="'modules/quotes/details/general.html'"></div>
+        </div>
+        <div data-title="Items" bs-pane>
+            <div ng-include="'modules/quotes/details/items.html'"></div>
+        </div>
+        <div data-title="Review" bs-pane>
+            <div ng-include="'modules/quotes/details/report.html'"></div>
+        </div>
+    </div> -->
+    <div class="tab-wrap">
+        <input type="radio" name="tabs" id="tab1" checked>
+        <div class="tab-label-content" id="tab1-content">
+            <label class="tab-label-header" for="tab1" angular-ripple>General Info</label>
+            <div class="tab-content">
+               <div ng-include="'modules/quotes/details/general.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab2">
+        <div class="tab-label-content" id="tab2-content">
+            <label class="tab-label-header" for="tab2" angular-ripple>Items</label>
+            <div class="tab-content">
+                <div ng-include="'modules/quotes/details/items.html'"></div>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab3">
+        <div class="tab-label-content" id="tab3-content">
+            <label class="tab-label-header" for="tab3" angular-ripple>Review</label>
+            <div class="tab-content">
+                <div ng-include="'modules/quotes/details/report.html'"></div>
+            </div>
+        </div>
+        <div class="slide"></div>
+    </div> 
+</section>
+<section class="content s quote">
+    <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="<img src='./images/icon/ic_info_outline_black_24px.svg'>" bs-pane>
+            <div ng-include="'modules/quotes/details/general.html'"></div>
+        </div>
+        <div data-title="<img src='./images/icon/package copy.svg'>" bs-pane>
+            <div ng-include="'modules/quotes/details/items.html'"></div>
+        </div>
+        <div data-title="<img src='./images/icon/clipboard-check.svg'>" bs-pane>
+            <div ng-include="'modules/quotes/details/report.html'"></div>
+        </div>
+</section>
+<style type="text/css">
+.tab-wrap {
+    /* width: 50%;*/
+    /* margin-left: 20%; */
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 0px;
+    box-shadow: inset 0 -2px 0 0 #e2e2e2;
+}
+
+input[type="radio"][name="tabs"] {
+    position: absolute;
+    z-index: -1;
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content label {
+    color: rgb(72, 72, 72);
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content .tab-content {
+    display: block;
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(1):checked ~ .slide {
+    left: calc((100% / 3) * 0);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(2):checked ~ .slide {
+    left: calc((100% / 3) * 1);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(3):checked ~ .slide {
+    left: calc((100% / 3) * 2);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(4):checked ~ .slide {
+    left: calc((100% / 3) * 3);
+}
+
+input[type="radio"][name="tabs"]:first-of-type:checked ~ .slide {
+    left: 0;
+}
+
+.tab-label-header {
+    cursor: pointer;
+    color: #777777;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.slide {
+    background: #247571;
+    width: calc(100% / 3);
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: calc(100% - 6px);
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+}
+
+.tab-label-content {
+    width: 100%;
+}
+
+.tab-label-content .tab-content {
+    position: absolute;
+    top: 62px;
+    left: 16px;
+    line-height: 130%;
+    display: none;
+    margin-left: -16px;
+    background: #fff;
+    padding: 0px;
+    width: 100%;
+    /*height: 475px;*/
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        padding: 40px 0 90px 10%;
+    }
+    .tab-wrap {
+        width: 100%;
+    }
+}
+</style>

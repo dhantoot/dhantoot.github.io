@@ -1,0 +1,161 @@
+<div class="row">
+    <form role="form" name="productForm" ng-submit="addProduct()">
+        <div class="col-md-12">
+            <div class="product box-warning">
+                <div class="s">
+                    <h4 class="box-title">Product Info</h4>
+                </div>
+                <div class="box-body">
+                    <div class="form-group pl-15" ng-if="details.p_id">
+                        <label>Status: </label>
+                        <span ng-if="details.is_published == 0 && details.is_archived == 0" class="label label-warning" style="width: 100px;">draft</span>
+                        <span ng-if="details.is_published == 1 && details.is_archived == 0" class="label label-success" style="width: 100px;"> published</span>
+                        <span ng-if="details.is_archived && details.is_published == 0" class="label label-danger" style="width: 100px;">archived</span>
+                    </div>
+                    <div class="form-group pl-15" ng-if="details.p_id">
+                        <label>Views: </label>
+                        <span class="badge bg-light-blue">{{details.product_views}}</span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product Name</label>
+                        <input type="text" name="required" class="form-control" ng-model="details.item_name" placeholder="Product Name" required />
+                    </div>
+                    <!-- D O N T  R E M O V E  T H I S -->
+                    <!-- <div class="form-group col-md-6">
+                        <div class="form-group">
+                            <label>Stores :</label>
+                            <ui-select multiple ng-model="_stores.selected" theme="bootstrap" ng-disabled="_stores.disabled" sortable="true" close-on-select="false" style="width: 100%;">
+                                <ui-select-match placeholder="Select store...">{{$item.label}} </ui-select-match>
+                                <ui-select-choices repeat="store in _stores.list | propsFilter: {label: $select.search}">
+                                    <div ng-bind-html="store.label | highlight: $select.search"></div>
+                                    <small>
+                                    address: {{store.address}}
+                                </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group col-md-6">
+                        <label>Store </label>
+                        <ui-select ng-model="_store.selected" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Choose a person">
+                            <ui-select-match placeholder="Select store...">{{$select.selected.label}}&nbsp&nbsp&nbsp<small>( {{$select.selected.address}} )</small></ui-select-match>
+                            <ui-select-choices repeat="store in _stores.list | propsFilter: {label: $select.search}">
+                                <div ng-bind-html="store.name | highlight: $select.search"></div>
+                                <p>
+                                    {{store.label | highlight: $select.search}}
+                                </p>
+                                <small>
+                                        address : {{store.address | highlight: $select.search}}
+                                    </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div> -->
+                    <div class="form-group col-md-6">
+                        <label>Product Codess</label>
+                        <input type="text" ng-model="details.product_code" class="form-control" placeholder="Product Code" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product Type</label>
+                        <select class="form-control" ng-model="details.ptype_id" ng-options="option.ptype_id as option.name for option in ptypes" required />
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product Brand</label>
+                        <input type="text" class="form-control" ng-model="details.brand" placeholder="Product Brand" />
+                    </div>
+                    <div class="form-group col-md-6" ng-show="false">
+                        <label>Product Price</label>
+                        <input type="text" class="form-control" ng-model="details.sell_price" step="any">
+                    </div>
+                    <div class="col-md-6" style="padding: 0px;">
+                        <div class="form-group col-md-4">
+                            <label>Purchase Price</label>
+                            <input valid-float type="text" min="0.001" step="any" ng-model="details.purchase_price" ng-keyup="changeOf_PP(details, $event)"  class="form-control" placeholder="Purchase Price" />
+                        </div>
+                        <div class="form-group form-group col-md-4">
+                            <label>Mark Up (%)</label>
+                            <input valid-float type="text" min="0.001" step="any" ng-model="details.markup" ng-keyup="changeOf_MU(details, $event)" class="form-control" placeholder="Mark Up" />
+                        </div>
+                        <div class="form-group form-group col-md-4">
+                            <label>Retail Price</label>
+                            <input valid-float type="text" min="0.001" step="any" ng-model="details.retail_price" ng-keyup="changeOf_RP(details, $event)" class="form-control" placeholder="Retail Price" ng-disabled="!details.purchase_price"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Start Date: </label>
+                        <input type="text" class="form-control" ng-model="details.start_date" data-date-format="MM-dd-yyyy" data-max-date="{{details.end_date}}" bs-datepicker/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>End Date: </label>
+                        <input type="text" class="form-control" data-date-format="MM-dd-yyyy" ng-model="details.end_date" data-min-date="{{details.start_date}}" bs-datepicker/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Product Barcode</label>
+                        <input type="text" ng-model="details.barcode" class="form-control" placeholder="Product Barcode" />
+                        <br>
+                        <select class="form-control" ng-model="mycode.type" ng-options="option.type as option.code for option in barcodesType" ng-change="changeBarcodeType(mycode.type)" />
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6 text-center">
+                        <barcode type="{{mycode.type}}" render="img" string="{{details.barcode}}" options="barcodeoptions"></barcode>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Description</label>
+                        <text-angular ng-model="details.item_description"></text-angular>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Tags <i class="fa fa-tags"></i></label>
+                        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                            <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <!-- <div class="form-group col-md-12" ng-hide="!_store.selected._id">
+                        <label>
+                            <input for="check" type="checkbox" class="checkbox ng-pristine ng-valid ng-empty ng-touched" ng-model="stockTrack" ng-true-value="true" ng-false-value="false" ng-change="changestockTrack(stockTrack)">
+                            <div id="check" class="lab"> Track Stock Level </div>
+                        </label>
+                    </div> -->
+                    <!-- for muliple stores <div class=" form-group col-md-12" ng-show="_stores.selected.length > 0"> -->
+                    <!-- <div class=" form-group col-md-12" ng-show="_store.selected._id && stockTrack">
+                        <div class="well p-0">
+                            <div class="box-body  padding p-0">
+                                <table class="table">
+                                    <thead>
+                                        <th>Qty.</th>
+                                        <th>Unit</th>
+                                        <th class="text-right">Re-order Level</th>
+                                    </thead>
+                                    <tbody>
+                                        <td>
+                                            <input type="text" class="form-control" name="" style="margin-top: 7px;" ng-model="inv.stockTrackQty">
+                                        </td>
+                                        <td>
+                                            <ui-select ng-model="inv.unit.selected" theme="bootstrap" ng-disabled="inv.unit.disabled" style="width: 300px;" title="Choose a unit">
+                                                <ui-select-match placeholder="Select or search a unit in the list...">{{$select.selected.label}}</ui-select-match>
+                                                <ui-select-choices repeat="_unit in inv.unit.list | filter: $select.search">
+                                                    <span ng-bind-html="_unit.label | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </td>
+                                        <td class="text-right">
+                                            <input type="text" class="form-control" name="" style="margin-top: 7px;" ng-model="inv.stockTrackLevel">
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="box-body disp-inline-flex  pr-25 pb-20 fr">
+            <a ng-click="goBack()" class="btnflat default-color waves-effect fr" angular-ripple>Cancel</a>
+            <button ng-if="details.p_id && (!(details.is_archived && details.is_published == 0))" ng-click="archiveProduct(details.p_id)" type="button" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple>Archive</button>
+            <button ng-show="showPublish" type="button" ng-click="publishProduct(details.p_id)" class="btnflat success-color waves-effect ml-10 fr" angular-ripple>Publish</button>
+            <button ng-disabled="loading1" type="submit" class="btnflat primary-color waves-effect ml-10 fr" ng-disabled="productForm.$invalid" angular-ripple>{{saveText}} <span ng-show="loading1 == true"></button>
+        </div>
+    </form>
+</div>

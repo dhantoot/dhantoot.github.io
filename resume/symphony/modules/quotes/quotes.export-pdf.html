@@ -1,0 +1,78 @@
+<section class="content-header">
+    <h1>
+        Export
+        <small>Quotation</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.quotes">Quotation</a></li>
+        <li class="active">Export</li>
+    </ol>
+</section>
+<section class="invoice">
+    <div class="row no-print">
+        <div class="col-xs-12">
+            <button ng-click="export()" ng-disabled="!IsExport" class="btn btn-primary" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+        </div>
+    </div>
+</section>
+
+<section class="invoice" id="exportthis">
+    <!-- title row -->
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 class="page-header">
+                &nbsp;
+                <small class="pull-right">Date: {{currentDate | amDateFormat:'MM/DD/YYYY HH:mm a'}}</small>
+            </h2>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-xs-12 table-responsive">
+            <table class="table table-striped" id="basic-table">
+                <thead>
+                    <tr>
+                        <th>Quote #</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Bill To</th>
+                        <th>Billing Address</th>
+                        <th>Ship To</th>
+                        <th>Shipping Address</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="quote in quotes" ng-repeat-end-watch="myFunction">
+                        <td style="word-wrap:break-word;">{{quote.quote_number}}</td>
+                        <td>{{quote.quote_date | amDateFormat:'MM/DD/YYYY'}}</td>
+                        <td>{{quote.bill_qoute_info.displayName}}</td>
+                        <td>{{quote.bill_to_name}}</td>
+                        <td>
+                            {{quote.bill_to_address}} {{quote.bill_to_city}} {{quote.bill_to_state}} {{quote.bill_to_zipcode}} {{quote.bill_to_country}}
+                        </td>
+                        <td>{{quote.ship_to_name}}</td>
+                        <td>
+                            {{quote.ship_to_address}} {{quote.ship_to_city}} {{quote.ship_to_state}} {{quote.ship_to_zipcode}} {{quote.ship_to_country}}
+                        </td>
+                        <td>{{quote.sub_total | number:2}}</td>
+                    </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="6">
+                            <ul class="pagination"></ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.col -->
+    </div>
+
+</section>
+<!-- /.content -->
+<div class="clearfix"></div>

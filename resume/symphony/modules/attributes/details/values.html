@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-header">
+                <div class="pull-left">
+                    <form class="form-inline">
+                        <button class="btn btn-flat btn-sm btn-success" ng-click="getAllAttributeValues()">
+                            <i class="fa fa-refresh"></i> Refresh
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Attribute Values</label>
+                    <div ng-if="details.attrib_type.name == 'Textbox'">
+                        <div ng-include="'./modules/attributes/types/textbox.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Numeric Textbox'">
+                        <div ng-include="'./modules/attributes/types/numeric.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Textarea' || details.attrib_type.name == 'Rich Textbox'">
+                        <div ng-include="'./modules/attributes/types/rtb.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Dropdownlist'">
+                        <div ng-include="'./modules/attributes/types/multiselect.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Multiselect'">
+                        <div ng-include="'./modules/attributes/types/multiselect.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Checkbox'">
+                        <div ng-include="'./modules/attributes/types/checkbox.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Image'">
+                        <div ng-include="'./modules/attributes/types/image.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'QRCode Textbox'">
+                        <div ng-include="'./modules/attributes/types/qrcode.html'"></div>
+                    </div>
+                    <div ng-if="details.attrib_type.name == 'Attachment'">
+                        <div ng-include="'./modules/attributes/types/attachment.html'"></div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

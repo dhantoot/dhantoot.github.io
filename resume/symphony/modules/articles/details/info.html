@@ -1,0 +1,92 @@
+<div class="row">
+    <form role="form" name="articleForm" ng-submit="saveArticle()">
+        <div class="col-md-12">
+            <div class=" box-warning p-15">
+               <!--  <div class="box-header">
+                    <h3 class="box-title">Enter Article Info</h3>
+                </div> -->
+                <div class="box-body">
+                    <div class="form-group" ng-if="details.article_id">
+                        <label>Status: </label>
+                        <span ng-if="details.is_active == '1' " class="label label-success" style="width: 100px;">Published</span>
+                        <span ng-if="details.is_active == '0' " class="label label-warning" style="width: 100px;">Draft</span>
+                    </div>
+                    <div class="form-group" ng-if="details.article_id">
+                        <label>Views: </label>
+                        <span class="badge bg-light-blue">{{details.article_views}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Article Title</label>
+                        <input type="text" ng-model="details.title" class="form-control" placeholder="Title" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Article Summary</label>
+                        <text-angular ng-model="details.article"></text-angular>
+                    </div>
+                    <div class="form-group">
+                        <label>Article Description</label>
+                        <text-angular ng-model="details.description"></text-angular>
+                    </div>
+                    <div class="form-group" ng-if="mediafile.length > 0">
+                        <label>Article Thumbnail</label>
+                        <ui-select ng-model="details.media" on-select="showArticleMedia()">
+                            <ui-select-match>
+                                {{$select.selected.media_name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (mediafile | filter: $select.search) track by item._id">
+                                <div ng-bind-html="item.media_name | highlight: $select.search"></div>
+                                <small><span ng-bind-html="company.media_mimetype | highlight: $select.search"></span></small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group" ng-if="mediafile.length > 0">
+                        <img class="img-responsive img-rounded" ng-src="{{mediaSource.media_path}}" err-src="http://placehold.it/750x450" ng-if="!mediaSource.media">
+                        <div class="videogular-container" ng-class="{'audio': audio}" ng-if="mediaSource.media">
+                            <videogular vg-theme="mediaSource.url">
+                                <vg-media vg-src="mediaSource.media_path"></vg-media>
+                                <vg-controls>
+                                    <vg-play-pause-button></vg-play-pause-button>
+                                    <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                                    <vg-scrub-bar>
+                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                    </vg-scrub-bar>
+                                    <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
+                                    <vg-volume>
+                                        <vg-mute-button></vg-mute-button>
+                                        <vg-volume-bar></vg-volume-bar>
+                                    </vg-volume>
+                                    <vg-fullscreen-button></vg-fullscreen-button>
+                                </vg-controls>
+                                <vg-overlay-play></vg-overlay-play>
+                            </videogular>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags <i class="fa fa-tags"></i></label>
+                        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                            <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <button type="submit" ng-disabled="articleForm.$invalid" class=" btn btn-primary btn-block">Save Entry</button>
+                    <a class="btn btn-success btn-flat btn-block" ng-disabled="!showPublish" ng-click="publishArticle(details.article_id)">Publish</a>
+                    <a class="btn btn-default btn-block" ng-click="goBack()">Cancel</a>
+                </div>
+            </div>
+        </div> -->
+        <div class="box-body disp-inline-flex  pr-25 pb-20 fr">
+            <a ng-click="goBack()" class="btnflat default-color waves-effect fr" angular-ripple>Cancel</a>
+            <!-- <button ng-click="archiveProduct(details.p_id)" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple>Archive</button> -->
+            <button type="button" ng-disabled="!showPublish" ng-click="publishArticle(details.article_id)" class="btnflat success-color waves-effect ml-10 fr" angular-ripple>Publish</button>
+            <button type="submit" ng-disabled="articleForm.$invalid" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple>Save Entry</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,374 @@
+<!-- Logo -->
+<a href="" class="logo" ng-init="bigside = true; show = true; chatbox = false;">Stockland</a>
+<nav class="navbar navbar-static-top" role="navigation">
+    <img href="" src="./images/icon/ic_menu_black_24px (1).svg" class="sidebar-toggle" data-toggle="offcanvas" role="button" angular-ripple>
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <!--  <li class="dropdown messages-menu">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" uib-tooltip="Messages" tooltip-placement="bottom">
+                    <div class="notbtnback" angular-ripple>
+                        <img src="./images/icon/ic_message_black_24px.svg">
+                    </div><span class="headbadge">2</span>
+                </a>
+                <ul class="dropdown-menu notificationzz" style="top: 9px;right: 5px;">
+                    <li class="header">You have 2 messages</li>
+                    <li>
+                        <ul class="menu">
+                            <li ng-click="chatbox = true;">
+                                <a style="cursor: pointer;">
+                                    <div class="pull-left">
+                                        <img ng-src="{{profile.profile.image}}" err-src="./images/avatar5.png" class="img-circle" alt="User Image">
+                                    </div>
+                                    <h4>{{profile.EmpName}}<small><i class="fa fa-clock-o"></i> Today</small>
+                                    </h4>
+                                    <p>G?</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a style="cursor: pointer;">
+                                    <div class="pull-left">
+                                        <img src="images/user3-128x128.jpg" err-src="./images/avatar5.png" class="img-circle" alt="User Image">
+                                    </div>
+                                    <h4>Sales Department<small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                    </h4>
+                                    <p>Why not buy a new awesome theme?</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="footer"><a href="" ui-sref="main.mailbox">See All Messages</a></li>
+                </ul>
+            </li> -->
+            <li>
+                <a ui-sref="main.assets" class="dropdown-toggle" data-toggle="dropdown" uib-tooltip="Assets" tooltip-placement="bottom">
+                    <div class="notbtnback" angular-ripple>
+                        <img src="./images/icon/ic_storage_black_24px.svg">
+                    </div>
+                </a>
+            </li>
+            <!-- <li class="dropdown notifications-menu">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="label label-warning">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="header">You have 10 notifications</li>
+                    <li ng-include="'./modules/templates/header.notif.html'"></li>
+                    <li class="footer"><a href="">View all</a></li>
+                </ul>
+            </li> -->
+            <li class="dropdown user user-menu bg">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <div class="notbtnback" style="padding: 6px 6px 6px;" angular-ripple>
+                        <img ng-src="{{profile.profile.image}}" err-src="./images/avatar5.png" class="img-circle" alt="User Image" style="width: 32px;height: 32px;">
+                        <span class="hidden-xs"></span>
+                        <!-- <span class="hidden-xs" ng-bind="profile.EmpName"></span> -->
+                    </div>
+                </a>
+                <!-- <ul class="dropdown-menu">
+                    <li class="user-header">
+                        <img ng-src="{{profile.profile.image}}" err-src="../images/avatar5.png" class="img-circle" alt="User Image">
+                        <p>
+                            {{profile.EmpName}}
+                            <small>Member <span am-time-ago="profile.profile.date_created"></span></small>
+                            <small>{{profile.company_name}}</small>
+                        </p>
+                    </li>
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a ui-sref="main.settings-profile" class="btn btn-default btn-flat"><i class="fa fa-user"></i> Profile</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="" ng-click="logoutApp()" class="btn btn-default btn-flat">Sign out</a>
+                        </div>
+                    </li>
+                </ul> -->
+                <ul class="dropdown-menu " style="top: 9px;right: 5px;">
+                    <!-- User image -->
+                    <li class="user-header bg-light-blue">
+                        <img ng-src="{{profile.profile.image}}" err-src="./images/avatar5.png" class="img-circle" alt="User Image" />
+                        <p>
+                            {{profile.EmpName}}
+                            <small style="margin-top: 5px;">{{profile.company_name}}</small>
+                            <small style="font-size: 11px !important;color: #797979;">Member <span am-time-ago="profile.profile.date_created"></span></small>
+                        </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <div class="dropheadmenu" ui-sref="main.settings-profile" angular-ripple>
+                        <a>
+                            <img src="./images/icon/account-settings.svg" style="margin-right: 10px;margin-top: -2px;">
+                            <span style="color:#383838;">Manage account</span>
+                        </a>
+                    </div>
+                    <div class="dropheadmenu" ng-click="logoutApp()" angular-ripple>
+                        <a>
+                            <img src="./images/icon/logout-variant.svg" style="margin-right: 10px;margin-top: -2px;">
+                            <span style="color:#383838;">Sign out</span>
+                        </a>
+                    </div>
+                </ul>
+            </li>
+            <li class="dropdown messages-menu">
+                <a href="" ng-click="openSubscription()" ng-show="profile.isOwner == 1" style="border-left: 1px solid #ccc;" uib-tooltip="Subscription" tooltip-placement="bottom">
+                    <div class="notbtnback" angular-ripple>
+                        <img src="./images/icon/ic_list_black_24px.svg">
+                    </div>
+                    <!-- <span class="label label-danger" ng-show="profile.subscriptions.length > 0">{{profile.subscriptions.length}}</span> -->
+                    <span class="headbadge" ng-show="profile.subscriptions.length > 0">{{profile.subscriptions.length}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="col-md-3 chatposition" ng-show="chatbox">
+    <div class="box box-primary direct-chat direct-chat-primary chatshadow">
+        <div class="box-header with-border chathead p-5 pl-10">
+            <span class="user-online" ng-show="portalAccount.active == 'true'"></span>
+            <span class="user-offline" ng-if="portalAccount.active == 'false'"></span>
+            <b style="padding-left: 15px;">Portal Service
+            </b>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool p-0 mr-10" uib-tooltip="Settings">
+                    <img src="./images/icon/ic_settings_black_18px.svg"></button>
+                <button type="button" class="btn btn-box-tool p-0" uib-tooltip="Close" ng-click="chatbox = false;">
+                    <img src="./images/icon/ic_close_black_18px.svg"></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="direct-chat-messages" scroll-glue="glued">
+                <span ng-repeat="msg in getmessage">
+                        <div class="direct-chat-msg" ng-class="{'right':msg.p_type == 1}">
+                            <img class="direct-chat-img" ng-src="./images/avatar.png" alt="Message User Image" ng-if="msg.p_type == 0">
+                            <li class="direct-chat-text"> <p ng-bind-html="msg.value | colonToCode | newlines"> </p></li>
+                        </div>
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp" ng-class="{'pull-right':msg.p_type == 1,'pull-left':msg.p_type == 0}">{{msg.send_at | amTimeAgo}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="box-footer emo p-0">
+        <!-- div emoji-form emoji-message="emojiMessage">
+                        <textarea id="messageInput" ng-model="emojiMessage.messagetext"></textarea>
+                        <button id="emojibtn">
+                            <i class="icon icon-emoji"></i>
+                        </button>
+                    </div> -->
+        <div class="input-group w100p" emoji-form emoji-message="emojiMessage" ng-enter="sendMessage()" ng-click="onfocus()">
+            <!-- <input type="text"  placeholder="Type a message..." class="pl-35 p-20 b-0 form-control" ng-model="emojiMessage.messagetext"> -->
+            <textarea ng-focus="onfocus()" class="pl-35 p-20 b-0 form-control" placeholder="Type a message..." ng-model="emojiMessage.messagetext" ng-click="onfocus()"></textarea>
+            <div class="emojis" id="emojibtn"></div>
+            <button class="sendBtn"><i class="zmdi zmdi-mail-send" ng-click="sendMessage()"></i></button>
+        </div>
+        <div style="height: 35px;"></div>
+        <!-- <div class="input-group w100p" emoji-form emoji-message="emojiMessage">
+            <input type="text" name="message" ng-model="chatMessage" placeholder="Type a message..." class="pl-35 p-20 b-0 form-control" ng-change="(chatMessage.length < 1)?sendMessage():0" ng-keypress="($event.which === 13)?sendMessage():0" ng-focus="onfocus()">
+            <div class="emojis" ng-click="sendMessage()"></div>
+            <button><i class="zmdi zmdi-mail-send"></i></button>
+        </div>
+        </div> -->
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+$("textarea").keydown(function(e) {
+    if (e.keyCode == 13 && !e.shiftKey) {
+        e.preventDefault();
+    }
+});
+</script>
+<style type="text/css">
+[scroll-glue-top],
+[scroll-glue-bottom],
+[scroll-glue] {
+    overflow-y: scroll !important;
+}
+
+.chatposition {
+    position: fixed;
+    bottom: -20px;
+    right: 0px;
+    z-index: 99999;
+    width: 350px !important;
+}
+
+.chatshadow {
+    box-shadow: 0 1px 10px 3px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12) !important;
+}
+
+.emo .form-control {
+    border-radius: 0px !important;
+    box-shadow: none;
+    border-color: transparent;
+    width: 320px;
+    padding-right: 35px;
+    height: auto;
+    max-height: 85px;
+}
+
+.direct-chat-text p {
+    word-wrap: break-word;
+    max-width: 222px;
+}
+
+.emo .form-control:focus {
+    border-color: transparent !important;
+    box-shadow: none;
+}
+
+.right .direct-chat-text {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.right .direct-chat-text:after {
+    border-width: 5px;
+    margin-top: -5px;
+    display: none !important;
+}
+
+.right .direct-chat-text:before {
+    border-width: 6px;
+    margin-top: -6px;
+    display: none !important;
+}
+
+.direct-chat-messages {
+    /*overflow-x: 0px !important;*/
+    overflow-x: hidden !important;
+}
+
+.direct-chat-info {
+    margin-left: 50px;
+}
+
+.direct-chat-primary .right>.direct-chat-text {
+    background: rgb(66, 133, 244);
+    border-color: rgb(66, 133, 244);
+    color: #fff;
+    float: right;
+}
+
+.chathead {
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .20);
+    border-bottom: 0 !important;
+    background: #565656;
+    color: #fff;
+}
+
+.emojis {
+    position: absolute;
+    display: block;
+    bottom: -30px;
+    left: 5px;
+    width: 24px;
+    height: 24px;
+    background-image: url(http://i.imgur.com/5WUpcPZ.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.direct-chat-messages {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+    padding: 10px;
+    height: 300px;
+    overflow: auto;
+}
+
+.direct-chat-messages li {
+    display: table;
+}
+
+.direct-chat-msg {
+    margin-bottom: 0px;
+}
+
+.direct-chat-text:after,
+.direct-chat-text:before {
+    left: 20px;
+    border: 0;
+}
+
+.direct-chat-text:before {
+    border-width: 6px;
+    margin-top: -6px;
+    content: "";
+    top: 5px;
+    right: 0px;
+    left: -10px;
+    width: 0px;
+    height: 0px;
+    border: 5px solid #d2d6de;
+    border-left-color: transparent;
+    border-bottom-color: transparent
+}
+
+.direct-chat-text {
+    border-radius: 2px;
+}
+
+.menu {
+    position: inherit !important;
+    width: inherit !important;
+    right: inherit !important;
+}
+
+.user-online {
+    background: rgb(2, 255, 45);
+    border-radius: 50%;
+    box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.28);
+    border: 0;
+    color: #fff;
+    font-weight: 600 !important;
+    /* right: 6px; */
+    position: absolute;
+    text-align: center;
+    top: 11px;
+    line-height: 17px;
+    min-height: 8px;
+    min-width: 8px;
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.user-offline {
+    background: rgb(210, 214, 222);
+    border-radius: 50%;
+    box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.28);
+    border: 0;
+    color: #fff;
+    font-weight: 600 !important;
+    /*right: 6px;*/
+    position: absolute;
+    text-align: center;
+    top: 11px;
+    line-height: 17px;
+    min-height: 8px;
+    min-width: 8px;
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.sendBtn {
+    position: absolute;
+    margin-left: -40px;
+    z-index: 9999;
+    height: 100%;
+    width: 40px;
+    border: 0px;
+    background: transparent;
+    outline: 0px;
+    font-size: 20px;
+}
+
+.emoji-menu {
+    top: 431px;
+    left: 1115px;
+    z-index: 99999;
+}
+</style>

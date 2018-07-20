@@ -1,0 +1,140 @@
+<div class="">
+    <div class="box-header">
+        <!-- <div class="pull-left disp-inline-flex ml-20" style="width: 150px;">
+            <datepicker date-format="dd MMM yyyy" selector="form-control">
+                <div class="input-group">
+                    <input class="form-control dateinput" ng-model="today" />
+                </div>
+            </datepicker>
+        </div> -->
+        <div class="pull-left disp-inline-flex">
+            <button ng-show="viewMore" class="btnflat btnflatzz waves-effect fl " ng-click="back();"><i class="zmdi zmdi-chevron-left"></i> Back</button>
+        </div>
+        <div class="pull-right disp-inline-flex ">
+            <button ng-click="search=true " class="btnflat btnflatzz waves-effect fl " uib-tooltip="Search "><i class="zmdi zmdi-search"></i></button>
+            <button class="btnflat btnflatzz waves-effect fl " uib-tooltip="Print " ng-click="printDoc()"><i class="zmdi zmdi-print"></i></button>
+            <button class="btnflat btnflatzz waves-effect fl " ng-click="startRequest()"><i class="zmdi zmdi-refresh"></i> Refresh</button>
+        </div>
+    </div>
+    <div ng-show="search " class="disp-inline-flex w100p searchnew ">
+        <input type="text" class="asset-search ng-pristine ng-valid ng-empty ng-touched " ng-model="searchText" style="margin-top: 1px;" />
+        <!-- <input type="text " class="asset-search ng-pristine ng-valid ng-empty ng-touched " placeholder="Search for Product " ng-model="txtSearch " ng-change="(txtSearch.length < 1)?searchData():0 " style="margin-top: 0px; "> -->
+        <button class="btnflat waves-effect " uib-tooltip="Close" ng-click="search=false "><i class="zmdi zmdi-close"></i></button>
+    </div>
+    <div id="receivings" ng-show="View">
+        <div class="divider ">Received Orders</div>
+        <div class="box-body table-responsive padding p-0 ">
+            <table class="table table-hover ">
+                <thead>
+                    <th ng-click="nameSort=! nameSort " style="text-align: left !important; ">Order Number
+                        <!--  <img ng-show="!nameSort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="nameSort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!nameSort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="nameSort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="codeSort=! codeSort ">Date Received
+                        <!--  <img ng-show="!codeSort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="codeSort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!codeSort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="codeSort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="itemQtySort=! itemQtySort ">Amount
+                        <!--  <img ng-show="!itemQtySort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="itemQtySort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!itemQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="itemQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="codeQtySort=! codeQtySort ">Supplier
+                        <!-- <img ng-show="!codeQtySort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="codeQtySort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!codeQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="codeQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                </thead>
+                <tr ng-repeat="receive in receives | filter:searchText">
+                    <td class="text-center " style="text-align: left !important; ">
+                        <a href="" ng-click="showMoreinfo(receive.row_id, receive.receive_number,receive.receive_date);">{{receive.receive_number}}</a>
+                    </td>
+                    <td class="text-right ">
+                        {{receive.receive_date}}
+                    </td>
+                    <td class="text-right ">
+                        0.00
+                    </td>
+                    <td class="text-right ">
+                        Company
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="codeinventory" ng-show="viewMore">
+        <div class="divider ">{{receivenumber}} <span> ({{parseDate(receivedate)}})</span></div>
+        <div class="box-body table-responsive padding p-0 ">
+            <table class="table table-hover ">
+                <thead>
+                    <th ng-click="nameSort=! nameSort " style="text-align: left !important; ">Item Name
+                        <!--  <img ng-show="!nameSort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="nameSort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!nameSort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="nameSort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="codeSort=! codeSort ">Item Code
+                        <!--  <img ng-show="!codeSort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="codeSort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!codeSort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="codeSort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="itemQtySort=! itemQtySort ">Item QTY Received
+                        <!--  <img ng-show="!itemQtySort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="itemQtySort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!itemQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="itemQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="codeQtySort=! codeQtySort ">Code QTY Received
+                        <!--   <img ng-show="!codeQtySort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="codeQtySort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!codeQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="codeQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                    <th ng-click="diffSort=! diffSort ">Difference
+                        <!--   <img ng-show="!diffSort " src="./images/icon/sort-descending.svg ">
+                        <img ng-show="diffSort " src="./images/icon/sort-ascending.svg "> -->
+                        <i ng-show="!diffSort " class="zmdi zmdi-sort-amount-desc"></i>
+                        <i ng-show="diffSort " class="zmdi zmdi-sort-amount-asc"></i>
+                    </th>
+                </thead>
+                <tr ng-repeat="product in products | filter:searchText">
+                    <td class="text-center " style="text-align: left !important; ">
+                        {{product.product_name}}
+                    </td>
+                    <td class="text-right ">
+                        <input class="form-control " type="text " ng-model="product.codename " uib-tooltip="Click to Edit" tooltip-enable="codeinventoryVal.$invalid" ng-disabled="is_disable" required>
+                    </td>
+                    <td class="text-right ">
+                        {{product.newquantity || 0}}
+                    </td>
+                    <td class="text-right ">
+                        <input name="codeqty" ng-change="checkValue(product.codes_on_hand,product.newquantity,product.row_id)" class="form-control" type="text " ng-model="product.codes_on_hand" uib-tooltip="Click to Edit" ng-change="check()" tooltip-enable="codeinventoryVal.$invalid" valid-number ng-disabled="is_disable" required>
+                        <span ng-show="product.val3" class="errors" style="font-size: 9px;">Amount is greater than the actual value.</span>
+                    </td>
+                    <td class="text-right ">
+                        {{product.newquantity - product.codes_on_hand}}
+                    </td>
+                </tr>
+            </table>
+            <div class="footer">
+                <div class="pull-right ">
+                    <button ng-click="save()" class="btnflat primary-color fr waves-effect mr-10 " angular-ripple="">Save</button>
+                    <!-- <button ng-click="" class="btnflat  waves-effect fr mr-10 " angular-ripple="">Edit</button> -->
+                    <button ng-click="back();" class="btnflat  waves-effect fr mr-10 " angular-ripple="">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.fontSize {
+    font-size: 20px !important;
+}
+</style>

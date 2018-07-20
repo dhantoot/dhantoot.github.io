@@ -1,0 +1,19 @@
+<div class="modal-header" style="border-bottom: transparent;
+    padding: 20px 50px 10px;">
+    <h4 class="modal-title" ng-if="!asset_file.isFolder" style="font-size: 20px;">Move {{asset_file.asset_name}}</h4>
+    <h4 class="modal-title" ng-if="asset_file.isFolder" style="font-size: 20px;">Move {{asset_file.folder_name}}</h4>
+</div>
+<div class="modal-body no-padding" id="modal-body">
+    <div class="box-body" style="padding: 10px 30px;">
+        <div data-angular-treeview="true" data-tree-id="abc" data-tree-model="treedata" data-node-id="id" data-node-label="label" data-node-children="children">
+        </div>
+    </div>
+    <div class="overlay" ng-show="isLoading">
+        <!-- <div class="overlay"> -->
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+</div>
+<div class="modal-footer" style="border-top: transparent;padding: 15px 50px 30px;text-align: left;">
+    <button class="btn  btn-primary" type="button" ng-click="Move()">Move</button>
+    <a class="btn  btn-default" ng-click="cancel()">Cancel</a>
+</div>

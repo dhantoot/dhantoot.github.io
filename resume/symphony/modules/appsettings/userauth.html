@@ -1,0 +1,147 @@
+<div class="brColor br-left box-warning" ng-controller="appSettingsUserAuthController">
+    <div class="box-header">
+        <h3 class="box-title">User Authentication<br>
+        <small>Configure user authentication providers and settings.</small>
+        </h3>
+        <br>
+        <br>
+    </div>
+    <div class="box-body padding">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-facebook text-primary"></i> Facebook
+                            <small ng-show="facebook.isEnable">
+                                <span style="margin-left: 5px;" class="label label-success">ACTIVE</span>
+                            </small>
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <input id="check_facebook" bs-switch switch-change="socialChange('facebook')" ng-model="facebook.isEnable" switch-active="facebook.activated" type="checkbox">
+                        </div>
+                    </div>
+                    <div class="box-body" ng-if="facebook.activated">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>App Id</label>
+                                <input type="text" class="form-control input-sm" ng-model="facebook.apiKey" ng-disabled="!facebook.isEnable" ng-readonly="facebook.isEnable" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>App Secret</label>
+                                <input type="text" class="form-control input-sm" ng-model="facebook.apiSecret" ng-disabled="!facebook.isEnable" ng-readonly="facebook.isEnable" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Redirect URL</label>
+                                <input type="text" class="form-control input-sm" ng-model="facebook.redirectUri" ng-disabled="!facebook.isEnable" ng-readonly="facebook.isEnable" placeholder="" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <button ng-if="!facebook.request" ng-click="activateSocialAuth('facebook')" class="btnflat primary-color waves-effect fl" angular-ripple="">Activate</button>
+                        <label class="label label-info" ng-if="facebook.request && !facebook.activated">Waiting for Approval</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-twitter text-info"></i> Twitter 
+                            <small ng-show="twitter.isEnable">
+                                <span style="margin-left: 5px;" class="label label-success">ACTIVE</span>
+                            </small>
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <input id="check_twitter" bs-switch switch-change="socialChange('twitter')" ng-model="twitter.isEnable" switch-active="twitter.activated" type="checkbox">
+                        </div>
+                    </div>
+                    <div class="box-body" ng-if="twitter.activated">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Consumer Key (API Key)</label>
+                                <input type="text" class="form-control input-sm" ng-model="twitter.apiKey" placeholder="" ng-disabled="!twitter.isEnable" ng-readonly="twitter.isEnable" />
+                            </div>
+                            <div class="form-group">
+                                <label>Consumer Secret (API Secret)</label>
+                                <input type="text" class="form-control input-sm" ng-model="twitter.apiSecret" placeholder="" ng-disabled="!twitter.isEnable" ng-readonly="twitter.isEnable" />
+                            </div>
+                            <div class="form-group">
+                                <label>Redirect URL</label>
+                                <input type="text" class="form-control input-sm" ng-model="twitter.redirectUri" placeholder="" ng-disabled="!twitter.isEnable" ng-readonly="twitter.isEnable" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <button ng-if="!twitter.request" ng-click="activateSocialAuth('twitter')" class="btnflat primary-color waves-effect fl" angular-ripple="">Activate</button>
+                        <label class="label label-info" ng-if="twitter.request  && !twitter.activated">Waiting for Approval</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-google text-danger"></i> Google
+                            <small ng-show="google.isEnable">
+                                <span style="margin-left: 5px;" class="label label-success">ACTIVE</span>
+                            </small>
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <input id="check_google" bs-switch switch-change="socialChange('google')" ng-model="google.isEnable" switch-active="google.activated" type="checkbox">
+                        </div>
+                    </div>
+                    <div class="box-body" ng-if="google.activated">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Client Id</label>
+                                <input type="text" class="form-control input-sm" ng-model="google.apiKey" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Client Secret</label>
+                                <input type="text" class="form-control input-sm" ng-model="google.apiSecret" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Redirect URL</label>
+                                <input type="text" class="form-control input-sm" ng-model="google.redirectUri" placeholder="" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                        <button ng-if="!google.request" ng-click="activateSocialAuth('google')" class="btnflat primary-color waves-effect fl" angular-ripple="">Activate</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-linkedin text-light-blue"></i> LinkedIn
+                        <small ng-show="linkedin.isEnable">
+                                <span style="margin-left: 5px;" class="label label-success">ACTIVE</span>
+                            </small>
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <input id="check_linkedin" bs-switch switch-change="socialChange('linkedin')" ng-model="linkedin.isEnable" switch-active="linkedin.activated" type="checkbox">
+                        </div>
+                    </div>
+                    <div class="box-body" ng-if="linkedin.activated">
+                        <form role="form">
+                            <div class="form-group">
+                                <label>Client Id</label>
+                                <input type="text" class="form-control input-sm" ng-model="linkedin.apiKey" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Client Secret</label>
+                                <input type="text" class="form-control input-sm" ng-model="linkedin.apiSecret" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Redirect URL</label>
+                                <input type="text" class="form-control input-sm" ng-model="linkedin.redirectUri" placeholder="" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="box-footer">
+                    <button ng-if="!linkedin.request" ng-click="activateSocialAuth('linkedin')" class="btnflat primary-color waves-effect fl" angular-ripple="">Activate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

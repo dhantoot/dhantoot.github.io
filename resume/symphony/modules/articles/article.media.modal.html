@@ -1,0 +1,30 @@
+<form class="form-horizontal">
+    <div class="modal-header">
+        <a ng-click="cancel()" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></a>
+    </div>
+    <div class="modal-body">
+        <div class="videogular-container" ng-class="{'audio': audio}">
+            <videogular vg-theme="config.theme.url">
+                <vg-media vg-src="config.sources" vg-type="audio" ng-if="audio"></vg-media>
+                <vg-media vg-src="config.sources"></vg-media>
+                <vg-controls>
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <vg-fullscreen-button></vg-fullscreen-button>
+                </vg-controls>
+                <vg-overlay-play ng-if="!audio"></vg-overlay-play>
+            </videogular>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Close</a>
+    </div>
+</form>

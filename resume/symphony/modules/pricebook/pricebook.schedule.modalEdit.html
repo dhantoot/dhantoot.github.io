@@ -1,0 +1,46 @@
+<div class="ngdialog-message">
+    <h3>Edit Pricebook Schedule </h3>
+    <hr></hr>
+    <div class="form">
+        <div class="row">
+            <div class="form-group col-sm-12" style="padding: 0;">
+                <label class="col-sm-3 control-label">On</label>
+                <div class="col-sm-5">
+                    <div class="input-group">
+                        <select class="form-control" ng-options="item as item.label for item in pricebook.days track by item.id" ng-model="pricebook.days.selected"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12" style="padding: 0;">
+                <div class="col-sm-6">
+                    <label class="col-sm-3 control-label">From:</label>
+                    <div uib-timepicker ng-model="pricebook.time_start" ng-change="changed1(pricebook.time_start)" hour-step="hstep1" minute-step="mstep1" show-meridian="ismeridian"></div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-sm-3 control-label">To:</label>
+                    <div uib-timepicker ng-model="pricebook.time_end" ng-change="changed2(pricebook.time_end)" hour-step="hstep2" minute-step="mstep2" show-meridian="ismeridian"></div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="pull-right checkbox ng-pristine ng-valid ng-empty ng-touched" ng-true-value="1" ng-false-value="0" ng-model="pricebook.notify_me" style="width: 20px;height: 20px">
+                </div>
+                <div class="col-sm-9">
+                    <label for="isnotifyme" id="isnotifyme" class="lab"> Notify me if pricebook is active</label>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="pull-right checkbox ng-pristine ng-valid ng-empty ng-touched" ng-true-value="1" ng-false-value="0" ng-model="pricebook.is_active" style="width: 20px;height: 20px">
+                </div>
+                <div class="col-sm-9">
+                    <label for="isactive" id="isactive" class="lab"> active</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">Update</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">Cancel</button>
+</div>

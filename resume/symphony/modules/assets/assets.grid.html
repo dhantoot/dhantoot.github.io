@@ -1,0 +1,64 @@
+<section class="content">
+    <h4 class="page-header" ng-if="assets.folders.length > 0">Folders</h4>
+    <div class="row" ng-if="assets.folders.length > 0" contextmenu-container="meta.contextmenu">
+        <div class="col-md-3 col-sm-3 col-xs-6" ng-repeat="file in assets.folders" contextmenu-item="file">
+            <div class="asset-box" ng-class="{'active':file.isActive}" ng-click="activeSelected(file,$event)" ng-dblclick="openFolder(file)" angular-ripple>
+                <span class="asset-box-icon " >
+                   
+                </span>
+                <div class="asset-box-content">
+                    <span class="info-box-number">
+                        <a href="" ng-dblclick="openFolder(file)">{{file.folder_name | ellipsis:true:10:'...'}}</a>
+                    </span>
+                    <!-- <span class="info-box-text">{{ file.folder_filesize/1024/1024|number:2 }} MB</span> -->
+                    <span class="info-box-text">{{ file.folder_filesize }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="page-header" ng-if="assets.assets.length > 0">Files</h4>
+    <div class="row" ng-if="assets.assets.length > 0">
+        <div class="col-md-12">
+            <ul class="mailbox-attachments clearfix" contextmenu-container="meta.contextmenu">
+                <li ng-repeat="files in assets.assets" class="mailbox-attachment" ng-class="{'active':files.isActive}" contextmenu-item="files">
+                    <span class="mailbox-attachment-icon" ng-click="activeSelected(files,$event)" ng-dblclick="openFile(files)" ng-class="{'has-img': files.asset_mimetype == 'image/jpeg' || files.asset_mimetype == 'image/jpg' || files.asset_mimetype == 'image/gif' || files.asset_mimetype == 'image/x-ms-bmp' || files.asset_mimetype == 'image/png'}" angular-ripple>
+                        <!-- PDF -->
+                        <i class="fa fa-file-pdf-o text-red" ng-if="files.asset_mimetype == 'application/pdf' && !files.thumbnail.thumbnail"></i>
+                        <img ng-src="{{files.thumbnail.thumbnail}}" alt="" style="height: 132px; width: 100%; overflow: hidden;" ng-if="files.asset_mimetype == 'application/pdf' && files.thumbnail.thumbnail"/>
+                        <!-- DOCS -->
+                        <i class="fa fa-file-word-o text-blue" ng-if="files.asset_mimetype == 'application/msword' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'"></i>
+                        <!-- AUDIO -->
+                        <i class="fa fa-file-audio-o" ng-if="files.asset_mimetype == 'audio/mp3' || files.asset_mimetype == 'audio/mp4'"></i>
+                        <!-- VIDEO -->
+                        <!-- <i class="fa fa-file-video-o" ng-if="files.asset_mimetype == 'video/mp4' || files.asset_mimetype == 'video/x-flv' || files.asset_mimetype == 'video/x-msvideo' || files.asset_mimetype == 'video/x-ms-wmv' || files.asset_mimetype == 'video/quicktime' || files.asset_mimetype =='video/3gpp'"></i> -->
+                        <div class="videogular-container" style="height: 132px !important;" ng-if="files.asset_mimetype == 'video/mp4' || files.asset_mimetype == 'video/x-flv' || files.asset_mimetype == 'video/x-msvideo' || files.asset_mimetype == 'video/x-ms-wmv' || files.asset_mimetype == 'video/quicktime' || files.asset_mimetype=='video/3gpp'">
+                            <videogular vg-theme="files.url">
+                                <vg-media vg-src="files.asset_url"></vg-media>
+                                <vg-buffering></vg-buffering>
+                            </videogular>
+                        </div>
+                        <!-- TEXT -->
+                        <i class="fa fa-file-text-o text-blue" ng-if="files.asset_mimetype == 'text/plain'"></i>
+                        <!-- EXCEL -->
+                        <i class="fa fa-file-excel-o text-green" ng-if="files.asset_mimetype == 'text/csv' || files.asset_mimetype == 'application/vnd.ms-excel' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"></i>
+                        <!-- POWERPOINT -->
+                        <i class="fa fa-file-powerpoint-o text-orange" ng-if="files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || files.asset_mimetype == 'application/vnd.ms-powerpoint'"></i>
+                        <!-- ZIP -->
+                        <i class="fa fa-file-zip-o text-purple" ng-if="files.asset_mimetype == 'application/zip'"></i>
+                        <!-- FILES -->
+                        <i class="fa fa-file-o text-purple" ng-if="files.asset_mimetype == 'application/octet-stream'"></i>
+                        <!-- IMAGE -->
+                        <img src="{{files.asset_url}}" alt="Attachment" ng-if="files.asset_mimetype == 'image/jpeg' || files.asset_mimetype == 'image/jpg' || files.asset_mimetype == 'image/gif' || files.asset_mimetype == 'image/x-ms-bmp' || files.asset_mimetype == 'image/png'"/>
+                    </span>
+                    <div class="mailbox-attachment-info" ng-click="activeSelected(files)">
+                        <a href="" ng-click="activeSelected(files)" ng-dblclick="openFile(files)" class="mailbox-attachment-name" uib-tooltip="{{files.asset_name}}"><i class="fa fa-paperclip"></i> {{files.asset_name | ellipsis:true:15:'...'}}</a>
+                        <span class="mailbox-attachment-size bg">
+                          <!-- {{ files.asset_filesize/1024/1024|number:2 }} MB -->
+                          {{ files.asset_filesize }}
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

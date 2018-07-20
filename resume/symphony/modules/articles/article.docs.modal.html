@@ -1,0 +1,12 @@
+<form class="form-horizontal">
+    <div class="modal-header">
+        <a ng-click="cancel()" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></a>
+    </div>
+    <div class="modal-body">
+        <iframe id="iframe1" style="width: 100%;height: 100%;" src="{{pdfUrl}}" frameborder='0' ng-if="file_type !=='application/pdf'"></iframe>
+        <object id="object1" style="width: 100%;height: 100%;" type="application/pdf" data="{{pdfUrl}}" id="pdf_content" ng-if="file_type =='application/pdf'"></object>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Close</a>
+    </div>
+</form>

@@ -1,0 +1,11 @@
+<img ngf-src="attrib_type.value_image || 'http://placehold.it/250x250'" err-src="http://placehold.it/150x150" class="thumbnail" width="150" height="150">
+<div class="input-group image-preview">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="attrib_type.value_image">
+            <span class="glyphicon glyphicon-remove">Clear</span>
+        </button>
+        <div class="btn btn-primary image-preview-input"> <span class="fa fa-file-image-o"></span> Browse<span class="image-preview-input-title"></span>
+            <input type="file" accept="image/*" name="input-file-preview" ng-model="attrib_type.value_image" ngf-max-size="8MB" ngf-select />
+        </div>
+    </div>
+</div>

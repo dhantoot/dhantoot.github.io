@@ -1,0 +1,144 @@
+<div class="row" ng-controller="productBundleAttributesCtrl">
+    <div class="col-md-12">
+        <div class=" box-warning  m-0">
+            <div class="s">
+                <h4 class="box-title">Attributes</h4>
+            </div>
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="">
+                    <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="getAllProductAttributes()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form role="form">
+        <div class="col-md-9 col-md-offset-2">
+            <div class=" box-primary">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group" ng-repeat="attrib in attributes">
+                            <!-- 
+
+                            Textbox 
+    
+                            -->
+                            <label ng-if="attrib.attribute_type=='Textbox'">{{attrib.attribute}}</label>
+                            <div class="input-group" ng-if="attrib.attribute_type=='Textbox'">
+                                <input type="text" class="form-control" ng-model="attrib.value">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                            </div>
+                            <!-- 
+
+                            Numeric Textbox 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Numeric Textbox'">{{attrib.attribute}}</label>
+                            <div class="input-group" ng-if="attrib.attribute_type=='Numeric Textbox'">
+                                <input type="number" class="form-control" ng-model="attrib.value">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                            </div>
+                            <!-- 
+
+                            Textarea 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Textarea' || attrib.attribute_type=='Rich Textbox'">{{attrib.attribute}}</label>
+                            <div class="input-group" ng-if="attrib.attribute_type=='Textarea' || attrib.attribute_type=='Rich Textbox'">
+                                <textarea class="form-control custom-control" rows="3" style="resize:none" ng-model="attrib.value"></textarea>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                            </div>
+                            <!-- 
+
+                            QRCode Textbox
+
+                             -->
+                            <label ng-if="attrib.attribute_type=='QRCode Textbox'">{{attrib.attribute}}</label>
+                            <div class="input-group margin-bottom10" ng-if="attrib.attribute_type=='QRCode Textbox'">
+                                <input type="text" class="form-control" value="{{attrib.value}}" ng-model="attrib.value">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="saveAttributeValue(attrib)"><i class="glyphicon glyphicon-ok"></i></button>
+                                    <button class="btn btn-default" ng-disabled="!attrib.value" ng-click="deleteAttributeValue(attrib)"><i class="glyphicon glyphicon-remove"></i></button>
+                                </div>
+                            </div>
+                            <qr type-number="6" correction-level="'M'" size="200" input-mode="''" text="attrib.value" image="true" ng-if="attrib.attribute_type=='QRCode Textbox'"></qr>
+                            <!-- 
+
+                            Dropdownlist 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Dropdownlist'">{{attrib.attribute}}</label>
+                            <select class="form-control" ng-if="attrib.attribute_type=='Dropdownlist'" ng-model="attrib.value" ng-options="val.value as val.name for val in attrib.attribute_list_value">
+                            </select>
+                            <!-- 
+
+                            Multiselect 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Multiselect'">{{attrib.attribute}}</label>
+                            <select multiple class="form-control" ng-if="attrib.attribute_type=='Multiselect'" ng-model="attrib.value" ng-options="val.value as val.name for val in attrib.attribute_list_value">
+                            </select>
+                            <!-- 
+
+                            Checkbox 
+
+                            -->
+                            <!-- <div class="checkbox" ng-if="attrib.attribute_type=='Checkbox'">
+                                <label>
+                                    <input type="checkbox" ng-click="saveAttributeValue(attrib)" ng-model="attrib.checked" /> {{attrib.attribute}}
+                                </label>
+                            </div> -->
+                            <div class="disp-inline-flex w100p">
+                                <label class="disp-inline-flex attributes" ng-if="attrib.attribute_type=='Checkbox'">
+                                    <input type="checkbox" class="checkbox" ng-click="saveAttributeValue(attrib)" ng-model="attrib.checked" >
+                                    <div id="check" class="lab ml-10" style="margin-top: 2px;">{{attrib.attribute}}</div>
+                                </label>
+                            </div>
+                            <!-- 
+
+                            Percentage 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Percentage'">{{attrib.attribute}}</label>
+                            <h3 class="box-title" ng-if="attrib.attribute_type=='Percentage'">{{attrib.value | percentage:2}}</h3>
+                            <!-- 
+
+                            Numeric 
+
+                            -->
+                            <label ng-if="attrib.attribute_type=='Numeric'">{{attrib.attribute}}</label>
+                            <h3 class="box-title" ng-if="attrib.attribute_type=='Numeric'">{{attrib.value | number:2}}</h3>
+                        </div>
+                    </div>
+                    <!-- <label>
+                            <input type="checkbox" ng-click="saveShow()" ng-model="details.doc" /> {{attrib.attribute}}
+                        </label> -->
+                    <!-- Attachment -->
+                    <div class="row">
+                        <div ng-repeat="attrib in attributes">
+                            <div class="col-md-3 col-sm-3 col-xs-3" ng-if="attrib.attribute_type=='Attachment'">
+                                    <span class="info-box-icon"><i class="fa fa-file-text-o"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-number">{{attrib.attribute}}</span>
+                                        <span class="info-box-text">{{attrib.value}}</span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

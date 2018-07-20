@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-header">
+                <div class="pull-left">
+                    <form class="form-inline">
+                        <button class="btn btn-flat btn-sm btn-success" ng-click="getAllStore()">
+                            <i class="fa fa-refresh"></i> Refresh
+                        </button>
+                    </form>
+                </div>
+                <div class="pull-right box-tools">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-sm" placeholder="Search for..." ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchStatus():0">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-flat btn-sm btn-default" ng-click="searchStore()" ng-keypress="($event.which === 13)?searchStore():0"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped footable" data-page-size="10" id="tblStore">
+                    <thead>
+                        <tr>
+                            <th width="30" data-sort-ignore="true">
+                                <input type="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+                            </th>
+                            <th class="" data-sort-ignore="true">Product Type</th>
+                            <th class="">Label</th>
+                            <th class="">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="var in productType">
+                            <td>
+                                <input type="checkbox" ng-model="var.selected" ng-change="checkDataChanges(var)">
+                            </td>
+                            <td>
+                                {{var.name}}
+                            </td>
+                            <td>
+                                {{var.label}}
+                            </td>
+                            <td>
+                                {{var.description}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

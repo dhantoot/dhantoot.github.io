@@ -1,0 +1,100 @@
+<div class="row" ng-controller="pricebookAssignCtrl">
+    <div class="col-md-12">
+        <div class="">
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="col-md-12" style="padding: 0">
+                    <div>
+                        <div class="pt-5">
+                            <div class="input-group pull-right imput" style="width: 250px;">
+                                <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="pbTxtSearch">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline  disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <button ng-click="openScheduleModal(1)" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Add New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="box-header priceprod">
+                <div class="pull-left">
+                    <select class="form-control" ng-model="details.pricebook_type_id" ng-options="option.pt_id as option.name for option in pricebooktype" required>
+                        <option value="">Choose Day</option>
+                    </select>
+                </div>
+            </div> -->
+            <div class="box-body p-0">
+                <table class="table table-hover" data-page-size="10" id="tblCategory">
+                    <thead>
+                        <tr>
+                            <!-- <th width="30" data-sort-ignore="true">
+                                <input type="checkbox" class="checkbox" ng-model="selectDeselectAllProduct" ng-click="" ng-change="">
+                            </th> -->
+                            <th data-sort-ignore="true">Day</th>
+                            <th data-sort-ignore="true" style="width: auto;">Start Time</th>
+                            <th data-sort-ignore="true" style="width: auto;">End Time</th>
+                            <th data-sort-ignore="true" style="width: auto;">Notify Me</th>
+                            <th data-sort-ignore="true" style="width: auto;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="alias in listOfSchedules | filter : pbTxtSearch" repeat-end="">
+                            <!-- <td angular-ripple>
+                                <input type="checkbox" class="checkbox" ng-model="product.selected" ng-change="checkDataChanges(product)">
+                            </td> -->
+                            <td>
+                                {{alias.day_name}}
+                            </td>
+                            <td>
+                                {{alias.time_start}}
+                            </td>
+                            <td>
+                                {{alias.time_end}}
+                            </td>
+                            <td>
+                                {{alias.notify_me == 1 ? 'Yes' : 'No'}}
+                            </td>
+                            <td class="text-right">
+                                <a href="javascript:void(0)" class="btn actbutton btn-flat btn-xs btn-info" ng-click="" uib-tooltip="">
+                                    <input type="checkbox" class="pull-right checkbox ng-pristine ng-valid ng-empty ng-touched" ng-true-value="1" ng-false-value="0" ng-model="alias.is_active" style="width: 10px;margin-bottom: 8px;" ng-change="toggle_active(alias)">
+                                </a>
+                                <a class="btn actbutton btn-flat btn ml-10 btn-xs btn-info" ng-click="openScheduleModalForEdit(alias)" uib-tooltip="Edit">
+                                    <i class="zmdi zmdi-edit"></i>
+                                </a>
+                                <a class="btn actbutton btn ml-10 btn-flat btn-xs btn-info" ng-click="deletePriceBookSched(alias.price_sched_id)" uib-tooltip="Remove">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+.btn-group>.btn.aw:first-child {
+    width: 160px !important;
+    text-align: left !important;
+    border-radius: 0 !important;
+    box-shadow: 0 2px 2px 0 rgba(179, 179, 179, 0.14), 0 1px 5px 0 rgba(144, 144, 144, 0.12), 0 3px 1px -2px rgba(224, 224, 224, 0.2) !important;
+    background: #fff;
+}
+
+.caret {
+    margin-left: 0;
+    float: right !important;
+    margin-top: 9px!important;
+}
+</style>

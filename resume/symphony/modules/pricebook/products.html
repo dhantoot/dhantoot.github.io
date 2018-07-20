@@ -1,0 +1,204 @@
+<div class="row" ng-controller="pricebookProductCtrl">
+    <div class="col-md-12">
+        <div class="">
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="col-md-12" style="padding: 0">
+                    <div>
+                        <div class="pt-5">
+                            <div class="input-group pull-right imput" style="width: 250px;">
+                                <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtProductSearch" ng-keypress="($event.which === 13)?searchProductData():0" ng-change="(txtProductSearch.length < 1)?searchProductData():0">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchProductData()" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline disp-inline-flex">
+                            <div class="btn-group mailbox-controls">
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="addNewEntry()" ng-disabled="productmodal" uib-tooltip="Add New" angular-ripple>
+                                    <i class="zmdi zmdi-plus"></i>
+                                </button>
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="importPricebookProduct('csv')" uib-tooltip="Import Products" angular-ripple>
+                                    <i class="zmdi zmdi-upload"></i>
+                                </button>
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="importPricebookProductByCategoryId('csv')" uib-tooltip="Import by Category" angular-ripple>
+                                    <i class="zmdi zmdi-upload"></i>
+                                </button>
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="deleteSelected()" ng-disabled="selectedDatas.length <= 0" uib-tooltip="Delete Products" angular-ripple>
+                                    <i class="zmdi zmdi-delete"></i>
+                                </button>
+                                <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="refreshData()" uib-tooltip="Refresh" angular-ripple>
+                                    <i class="zmdi zmdi-refresh"></i>
+                                </button>
+                                <!-- <button ng-click="importPricebookProduct('csv')" class="btnflat primary-color waves-effect fl mr-10" angular-ripple>Import Products</button>
+                                <button ng-click="importPricebookProductByCategoryId('csv')" class="btnflat primary-color waves-effect fl mr-10" angular-ripple>Import by Category</button>
+                                <button ng-click="addNewEntry()" ng-disabled="productmodal" class="btnflat primary-color fl waves-effect mr-10" angular-ripple><i ng-if="productmodal" class="fa fa-spinner fa-spin"></i> Add New</button>
+                                <button ng-click="deleteSelected()" class="btnflat danger-color waves-effect fl mr-10" angular-ripple ng-disabled="selectedDatas.length <= 0">Delete</button>
+                                <button ng-click="refreshData()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-header priceprod">
+                <div class="pull-left">
+                    <div class="mailbox-controls">
+                        <div class="col-md-12">
+                            <div class="btn-group">
+                                <div ng-dropdown-multiselect="" options="tagsArr" selected-model="tagsFilter" class="checkboxes" checkboxes="true" translation-texts="{buttonDefaultText: '- Filter By Tags -'}" extra-settings="example8settings" events="selectEvents"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <form class="form-inline">
+                        <div class="form-group pt-5">
+                            <!-- <input type="text" class="form-control prodsearch" placeholder="Sell Price" ng-model="item.sell_price" required /> -->
+                            <input type="text" class="form-control prodsearch" placeholder="Margin" ng-model="item.margin" required min="0" valid-float/>
+                            <input type="text" class="form-control prodsearch" placeholder="Discount" ng-model="item.discount" required min="0" valid-float/>
+                            <input valid-wholenumber type="text" step="any" class="form-control prodsearch" placeholder="Min. Qty" ng-model="item.min_quantity" required min="0" />
+                            <input valid-wholenumber type="text" step="any" class="form-control prodsearch" placeholder="Max. Qty" ng-model="item.max_quantity" required min="0" />
+                            <a class="btn btn-flat waves-effect createbutton btn-primary" ng-click="savePricebookItems(item)">
+                                <img src="./images/icon/playlist-check.svg"> Apply
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body p-0">
+                <table class="table table-hover" data-page-size="10" id="tblCategory">
+                    <thead>
+                        <tr>
+                            <th width="30" data-sort-ignore="true">
+                                <input type="checkbox" class="checkbox" ng-model="selectDeselectAllProduct" ng-click="clickselect()" ng-change="changeSelectDeselectAllProduct()">
+                            </th>
+                            <th data-sort-ignore="true">Product name</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Base Price</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Sell Price</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Margin</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Discount</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Discount type</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Min. Qty</th>
+                            <th data-sort-ignore="true" style="width: 110px;">Max. Qty</th>
+                            <th data-sort-ignore="true" class="text-right" style="width: 90px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="product in (pricebookItems | filter:isOnSelectedTag())" repeat-end="paginate()">
+                            <td angular-ripple>
+                                <input type="checkbox" class="checkbox" ng-model="product.selected" ng-change="checkDataChanges(product)">
+                            </td>
+                            <td ng-if="product.product_id">
+                                {{product.product_name}}
+                            </td>
+                            <td ng-if="product.bundle_id">
+                                {{product.bundle_detail.bundle_name}} <small>(bundle)</small>
+                            </td>
+                            <td ng-if="product.bundle_id">
+                                {{(product.bundle_detail.sell_price | number:2)}}
+                            </td>
+                            <td>
+                                {{ product.original_sell_price }}
+                            </td>
+                            <td>
+                                <a href="" uib-popover-template="'myPopoverTemplate.html'" popover-title="Update selling price" popover-is-open="product.popoverIsOpen" ng-click="showTooltip1(product)" popover-trigger="none"> 
+                                    {{product.selling_price | number:2}}
+                                </a>
+                            </td>
+                            <td>
+                                {{product.markup}}
+                            </td>
+                            <td ng-if="product.discount_type == 'Percentage'">
+                                {{product.discount}}%
+                                <!-- {{((product.discount | number:2)/100 )*1}} % -->
+                            </td>
+                            <td ng-if="product.discount_type == 'Amount'">
+                                {{product.discount | number:2}}
+                            </td>
+                            <td>
+                                {{product.discount_type}}
+                            </td>
+                            <td class="text-center">
+                                {{product.min_quantity}}
+                            </td>
+                            <td class="text-center">
+                                {{product.max_quantity}}
+                            </td>
+                            <td class="text-right">
+                                <a class="btn actbutton btn-flat btn-xs btn-info" ng-click="deleteSelectedItem(product)" uib-tooltip="Remove">
+                                    <i class="zmdi zmdi-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myPopoverTemplate.html">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Selling Price:</label>
+                    <input type="text" ng-model="product.sell_price" placeholder="0.00" class="form-control" ng-readonly="true">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Margin:</label>
+                    <input type="text" ng-model="product.markup" placeholder="0.00" class="form-control" ng-change="onCalculateRowPrice(product)">
+                </div>
+                <div class="form-group">
+                    <label>Min. Qty:</label>
+                    <input type="text" ng-model="product.min_quantity" placeholder="0.00" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Discount:</label>
+                    <input type="text" ng-model="product.discount" placeholder="0.00" class="form-control" ng-change="onCalculateRowPrice(product)">
+                </div>
+                <div class="form-group">
+                    <label>Max. Qty:</label>
+                    <input type="text" ng-model="product.max_quantity" placeholder="0.00" class="form-control">
+                </div>
+            </div>
+                <div class="col-md-12">
+                    <label>Dicount Option</label>
+                </div>
+              <div class="col-md-9">
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <label class="btn btn-primary" ng-model="product.discount_type" uib-btn-radio="'Amount'" style="color: #ffffff !important;" ng-click="onCalculateRowPrice(product)">Amount</label>
+                            <label class="btn btn-primary" ng-model="product.discount_type" uib-btn-radio="'Percentage'" style="color: #ffffff !important;" ng-click="onCalculateRowPrice(product)">Percentage</label>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-primary" ng-click="applyItemPrice(product)">Apply</a>
+            <a class="btn btn-default" ng-click="showTooltip1(product)">Cancel</a>
+        </div>
+    </script>
+</div>
+<style type="text/css">
+.btn-group>.btn.aw:first-child {
+    width: 160px !important;
+    text-align: left !important;
+    border-radius: 0 !important;
+    box-shadow: 0 2px 2px 0 rgba(179, 179, 179, 0.14), 0 1px 5px 0 rgba(144, 144, 144, 0.12), 0 3px 1px -2px rgba(224, 224, 224, 0.2) !important;
+    background: #fff;
+}
+
+.caret {
+    margin-left: 0;
+    float: right !important;
+    margin-top: 9px!important;
+}
+</style>

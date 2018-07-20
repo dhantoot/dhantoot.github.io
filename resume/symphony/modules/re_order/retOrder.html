@@ -1,0 +1,118 @@
+<div class="row">
+    <form role="form">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <div class="form-group">
+                        <div class="btn-group p-15">
+                            <label class="btn  btn-prime brtb-r-0 " ng-model="radioModel" uib-btn-radio="'product'" ng-click="changeData('product')">Product</label>
+                            <label class="btn  btn-prime bltb-r-0" ng-model="radioModel" uib-btn-radio="'productgroup'" ng-click="changeData('productgroup')">Product Group</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="radioModel == 'product'">
+                        <label>Products</label>
+                        <ui-select ng-model="items.product" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.item_name}}
+                            </ui-select-match>
+                            <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (products | filter: $select.search) track by emp.p_id">
+                                {{emp.item_name}}
+                                <small>{{emp.product_code}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="radioModel == 'productgroup'">
+                        <label>Products Groups</label>
+                        <ui-select ng-model="items.productgroup" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.bundle_name}}
+                            </ui-select-match>
+                            <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (productBundles | filter: $select.search) track by emp.pb_id">
+                                {{emp.bundle_name}}
+                                <small>{{emp.bundle_code}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Qty</label>
+                        <input type="number" ng-model="items.quantity" class="form-control" ng-change="calculateItem(items)">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Price</label>
+                        <input type="number" ng-model="items.price" class="form-control" ng-change="calculateItem(items)">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Total</label>
+                        <input type="number" ng-model="items.total" class="form-control" ng-change="calculateItem(items)" ng-disabled="true">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button ng-click="addToList(items)" class="btnflat primary-color waves-effect fr" angular-ripple><img src="./images/icon/ic_add_white_24px.svg"> Add</button>
+                    </div>
+                </div>
+                <div class="form-group bt-1 table-responsive" style="min-height: 100px;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="45%">Product</th>
+                                <th>Quantity</th>
+                                <th>Supplier Price</th>
+                                <th>Sub-Total</th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in details.details">
+                                <td>
+                                    {{ item.item_name }}
+                                </td>
+                                <td>
+                                    {{ item.quantity}}
+                                </td>
+                                <td>
+                                    {{ item.price | number:2 }}
+                                </td>
+                                <td>
+                                    {{ item.total | number:2}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="disp-inline-flex">
+                                        <a ng-click="removeProduct($index)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                                    </div>
+                                    <a ng-click="removeProduct($index)" class="smscreen">
+                                        <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></button> Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4  fr">
+            <div class="">
+                <div class="form-group">
+                    <div class=" bt-1">
+                        <div class="w100p disp-inline-flex">
+                            <h4>Total</h4><span><h4 class="text-center ">{{ item.total | number:2}}</h4></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.dndPlaceholder {
+    background-color: #efefef !important;
+    min-height: 10px;
+    border-radius: 2px;
+    /*border: 3px dashed #d0d0d0!important;*/
+    padding: 3px;
+    margin-bottom: 10px;
+    /*color: #d0d0d0;*/
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    display: block;
+    padding: 55px
+}
+</style>

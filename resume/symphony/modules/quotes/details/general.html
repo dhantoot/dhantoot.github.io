@@ -1,0 +1,168 @@
+<div class="row">
+    <form role="form" name="quoteInfoForm">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <!-- <div class="box-header">
+                    <h3 class="box-title">Enter Quote Info</h3>
+                </div> -->
+                <div class="box-body" style="min-height: 380px;">
+                    <div class="form-group col-md-12" ng-if="details.quote_id">
+                        <label>Status: </label>
+                        <span ng-if="details.quote_status == '0' " class="label label-danger">Process</span>
+                        <span ng-if="details.quote_status == '1' " class="label label-success">Pending</span>
+                        <span ng-if="details.quote_status == '1' " class="label label-success"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Quote Number</label>
+                        <input type="text" ng-model="details.quote_number" class="form-control" placeholder="#" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Quote Expiration: </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="details.valid_until" data-date-format="MM-dd-yyyy" bs-datepicker/>
+                            <div class="input-group-addon">
+                                <img src="./images/icon/calendar.svg">
+                            </div>
+                        </div>
+                    </div>
+                    <!--   <div class="form-group col-md-6">
+                        <label>Currency</label>
+                        <ui-select ng-model="details.currency">
+                            <ui-select-match>
+                                {{$select.selected.country + " " + $select.selected.currency}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="option in (currencies | filter: $select.search) track by option.id">
+                                {{option.country + " " + option.currency}}
+                                <small>{{"(" + option.code + " " + option.symbol + ")"}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div> -->
+                    <!-- <div class="form-group col-md-6">
+                        <label>Store / Subsidiary</label>
+                        <ui-select ng-model="details.store">
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="option in (store | filter: $select.search) track by option.store_id">
+                                {{option.name}}
+                                <small>{{option.address}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div> -->
+                    <div class="form-group col-md-6">
+                        <label>Customer Name</label>
+                        <ui-select ng-model="details.customer">
+                            <ui-select-match>
+                                {{$select.selected.displayName}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="option in (persons | filter: $select.search) track by option.person_id">
+                                {{option.displayName}}
+                                <small>{{option.email}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <!--  <div class="form-group col-md-12">
+                        <label>Terms: </label>
+                        <textarea class="form-control" rows="3" ng-model="details.terms" placeholder="Terms"></textarea>
+                    </div> -->
+                    <div class="form-group col-md-12">
+                        <label>Notes / Memo: </label>
+                        <textarea class="form-control" rows="3" ng-model="details.comments" placeholder="Notes / Memo"></textarea>
+                    </div>
+                </div>
+                <div class="box-header details">
+                    <h3 class="box-title pl-10">Billing & Shipping Information</h3>
+                    <div class="pull-right pr-5">
+                        <div >
+                            <label>
+                                <input type="checkbox" class="checkbox" ng-model="shippingAddress" ng-click="useBillingAddress(shippingAddress)"> 
+                                <div id="check" class="lab"> Use Billing Address as Shipping Address</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <!-- <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="billingAddress" ng-click="useCustomerAddress(billingAddress)"> Use Customer Address as Billing Address
+                            </label>
+                        </div> -->
+                        <div class="form-group">
+                            <label>Attention </label>
+                            <input type="text" ng-model="details.bill_to_name" class="form-control" placeholder="Bill to" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Billing Address: </label>
+                            <textarea class="form-control" rows="3" ng-model="details.bill_to_address" placeholder="Billing Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>City: </label>
+                            <input type="text" ng-model="details.bill_to_city" class="form-control" placeholder="Billing City" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>State: </label>
+                            <input type="text" ng-model="details.bill_to_state" class="form-control" placeholder="Billing State Address" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Zipcode: </label>
+                            <input type="text" ng-model="details.bill_to_zipcode" class="form-control" placeholder="Billing Zipcode" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Country: </label>
+                            <!-- <input type="text" ng-model="details.bill_to_country" class="form-control" placeholder="Billing Country" required/> -->
+                            <select class="form-control" ng-model="details.bill_to_country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!--  <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="shippingAddress" ng-click="useBillingAddress(shippingAddress)"> Use Billing Address as Shipping Address
+                            </label>
+                        </div> -->
+                        <div class="form-group">
+                            <label>Attention </label>
+                            <input type="text" ng-model="details.ship_to_name" class="form-control" placeholder="Ship to" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Shipping Address: </label>
+                            <textarea class="form-control" rows="3" ng-model="details.ship_to_address" placeholder="Shipping Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>City: </label>
+                            <input type="text" ng-model="details.ship_to_city" class="form-control" placeholder="Shipping City" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>State: </label>
+                            <input type="text" ng-model="details.ship_to_state" class="form-control" placeholder="Shipping State Address" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Zipcode: </label>
+                            <input type="text" ng-model="details.ship_to_zipcode" class="form-control" placeholder="Shipping Zipcode" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Country: </label>
+                            <!-- <input type="text" ng-model="details.ship_to_country" class="form-control" placeholder="Shipping Country" required/> -->
+                            <select class="form-control" ng-model="details.ship_to_country" ng-options="item.name as item.name for item in countries">
+                                <option disabled value="">- Select Country -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="form-group col-md-12">
+                        <label>Tags <i class="fa fa-tags"></i></label>
+                        <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteQuoteTag($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                            <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                            <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

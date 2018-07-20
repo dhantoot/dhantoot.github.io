@@ -1,0 +1,82 @@
+<div class="row" ng-controller="productCategoryCtrl">
+    <form role="form" ng-submit="addProduct()">
+        <div class="col-md-12">
+            <div class=" box-warning m-0">
+                <div class="s">
+                    <h4 class="box-title">Categories</h4>
+                </div>
+                <div class="box-header" style="padding: 10px 20px;">
+                    <div class="">
+                        <div class="form-inline w100p disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <button ng-click="saveCategory()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Save</button>
+                                <button type="button" ng-click="getAllCategory()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-flat btn-default  dropdown-toggle ng-binding" data-toggle="dropdown" angular-ripple>
+                                            <span ng-if="applicationStatus == ''">All</span><span ng-if="applicationStatus != ''">{{applicationStatus}}</span>
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="top: 30px;margin-left: 0;">
+                                            <li><a ng-click="updateStatus( '') ">All</a></li>
+                                            <li><a ng-click="updateStatus( 'Product\'s Category ')">Product's Category</a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right searchposition b">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="pt-5">
+                                            <div class="input-group imput">
+                                                <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchCategory($event):0" ng-keypress="($event.which === 13)?searchCategory($event):0" angular-ripple style="margin-top: 0px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body p-0">
+                    <table class="table " data-page-size="10" id="tblCategory">
+                        <thead>
+                            <tr>
+                                <th data-sort-ignore="true">
+                                    <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+                                </th>
+                                <th class="">Name</th>
+                                <th class="">Label</th>
+                                <th class="">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in itemArray" repeat-end="paginate()">
+                                <td>
+                                    <input type="checkbox" class="checkbox" ng-model="var.selected" ng-change="checkStoresChanges(var)">
+                                </td>
+                                <td>
+                                    {{var.name}}
+                                </td>
+                                <td>
+                                    {{var.label}}
+                                </td>
+                                <td>
+                                    {{var.description}}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

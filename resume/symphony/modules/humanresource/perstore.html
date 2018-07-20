@@ -1,0 +1,67 @@
+<div class="row" ng-controller="perStotreController">
+    <form role="form">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <div class="box-header">
+                    <div class="form-inline disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="saveStore()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple="">Save</button>
+                            <button ng-click="getAllStore()" class="btnflat  waves-effect fl mr-10 " angular-ripple="">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="pull-right box-tools">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group imput">
+                                        <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchStatus():0">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchStore()" ng-keypress="($event.which === 13)?searchStore():0" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body p-0">
+                    <table class="table table-striped footable" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th data-sort-ignore="true">
+                                    <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+                                </th>
+                                <th class="">Name</th>
+                                <th class="">Address</th>
+                                <th class="">Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in itemArray" repeat-end="paginate()">
+                                <td angular-ripple>
+                                    <input type="checkbox" class="checkbox" ng-model="var.selected" ng-change="checkStoresChanges(var)">
+                                </td>
+                                <td>
+                                    {{var.name}}
+                                </td>
+                                <td>
+                                    {{var.address}}
+                                </td>
+                                <td>
+                                    {{var.owner_name}}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

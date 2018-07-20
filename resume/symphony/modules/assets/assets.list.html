@@ -1,0 +1,137 @@
+<section class="list content" ng-click="clearSelection()" style="padding: 0;">
+    <table class="table assets-folders" contextmenu-container="meta.contextmenu">
+        <div class="sm p-10">Folders</div>
+        <thead>
+            <tr>
+                <th width="5%"></th>
+                <th width="5%"></th>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>File size</th>
+                <th>Date Created</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr contextmenu-item="file" ng-repeat="file in assets.folders" ng-click="activeSelected(file,$event)" ng-dblclick="openFolder(file)" ng-class="{'active':file.isActive}" ng-if="assets.folders.length > 0">
+                <td class="mailbox-star folder">
+                </td>
+                <td class="mailbox-star awp">
+                    <!-- STARRED -->
+                    <div style="display: inline-flex;letter-spacing: 2px;">
+                        <i class="zmdi zmdi-accounts-alt" ng-if="file.isPublic == 1"></i>
+                        <i class="zmdi zmdi-lock" ng-if="file.isPublic == 0"></i>
+                        <i class="zmdi zmdi-star text-yellow" ng-if="file.isStarred"></i>
+                        <i class="zmdi zmdi-star-outline" ng-if="!file.isStarred"></i>
+                    </div>
+                </td>
+                <td class="mailbox-subject">{{file.folder_name}}
+                    <br>
+                    <span class="sm">
+                    <div  style="display: inline-flex;letter-spacing: 2px;">
+                        <i class="zmdi zmdi-accounts-alt" ng-if="file.isPublic == 1"></i>
+                        <i class="zmdi zmdi-lock" ng-if="file.isPublic == 0"></i>
+                        <i class="zmdi zmdi-star text-yellow" ng-if="file.isStarred"></i>
+                        <i class="zmdi zmdi-star-outline" ng-if="!file.isStarred"></i>
+                    </div>
+                    <small am-time-ago="file.date_created"></small>
+                    </span>
+                </td>
+                <td class="mailbox-name awp">{{file.created_by.displayName}}</td>
+                <!-- <td class="mailbox-attachment">{{ file.folder_filesize/1024/1024|number:2 }} MB</td> -->
+                <td class="mailbox-attachment awp">{{ file.folder_filesize }} </td>
+                <td class="mailbox-date awp" am-time-ago="file.date_created"></td>
+                <td class="mailbox-name awp"></td>
+                <td ng-click="actionsheet = true;"> <span class="sm tablefloater">
+                     <div> <img src="./images/icon/ic_more_vert_black_24px.svg "></div>
+                    </span>
+                </td>
+            </tr>
+            <tr contextmenu-item="files" ng-repeat="files in assets.assets" ng-click="activeSelected(files,$event)" ng-dblclick="openFile(files)" ng-class="{'active':files.isActive}" ng-if="assets.assets.length > 0">
+                <td class="mailbox-star">
+                    <!-- PDF -->
+                    <i class="fa fa-file-pdf-o fa-2x text-red" ng-if="files.asset_mimetype == 'application/pdf' && !files.thumbnail.thumbnail"></i>
+                    <img ng-src="{{files.thumbnail.thumbnail}}" alt="" style="width: 100%;height: 24px;margin-top: -3px;" ng-if="files.asset_mimetype == 'application/pdf' && files.thumbnail.thumbnail" />
+                    <!-- DOCS -->
+                    <i class="fa fa-file-word-o fa-2x text-blue" ng-if="files.asset_mimetype == 'application/msword' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'"></i>
+                    <!-- AUDIO -->
+                    <i class="fa fa-file-audio-o fa-2x" ng-if="files.asset_mimetype == 'audio/mp3' || files.asset_mimetype == 'audio/mp4'"></i>
+                    <!-- VIDEO -->
+                    <i class="fa fa-file-video-o fa-2x" ng-if="files.asset_mimetype == 'video/mp4' || files.asset_mimetype == 'video/x-flv' || files.asset_mimetype == 'video/x-msvideo' || files.asset_mimetype == 'video/x-ms-wmv' || files.asset_mimetype == 'video/quicktime' || files.asset_mimetype=='video/3gpp'"></i>
+                    <!-- TEXT -->
+                    <i class="fa fa-file-text-o fa-2x text-blue" ng-if="files.asset_mimetype == 'text/plain'"></i>
+                    <!-- EXCEL -->
+                    <i class="fa fa-file-excel-o fa-2x text-green" ng-if="files.asset_mimetype == 'text/csv' || files.asset_mimetype == 'application/vnd.ms-excel' || files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"></i>
+                    <!-- POWERPOINT -->
+                    <i class="fa fa-file-powerpoint-o fa-2x text-orange" ng-if="files.asset_mimetype == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || files.asset_mimetype == 'application/vnd.ms-powerpoint'"></i>
+                    <!-- ZIP -->
+                    <i class="fa fa-file-zip-o fa-2x text-purple" ng-if="files.asset_mimetype == 'application/zip'"></i>
+                    <!-- FILES -->
+                    <i class="fa fa-file-o fa-2x text-purple" ng-if="files.asset_mimetype == 'application/octet-stream'"></i>
+                    <!-- IMAGE -->
+                    <img src="{{files.asset_url}}" alt="Attachment" style="width: 100%;height: 24px;margin-top: -3px;" ng-if="files.asset_mimetype == 'image/jpeg' || files.asset_mimetype == 'image/jpg' || files.asset_mimetype == 'image/gif' || files.asset_mimetype == 'image/x-ms-bmp' || files.asset_mimetype == 'image/png'" />
+                </td>
+                <td class="mailbox-star awp">
+                    <!-- STARRED -->
+                    <div style="display: inline-flex;letter-spacing: 2px;">
+                        <i class="zmdi zmdi-accounts-alt" ng-if="files.isPublic == 1"></i>
+                        <i class="zmdi zmdi-lock" ng-if="files.isPublic == 0"></i>
+                        <i class="zmdi zmdi-star text-yellow" ng-if="files.isStarred"></i>
+                        <i class="zmdi zmdi-star-outline" ng-if="!files.isStarred"></i>
+                    </div>
+                </td>
+                <td class="mailbox-subject">{{files.asset_name | ellipsis:true:30:'...'}}
+                    <br>
+                    <span class="sm">
+                    <div style="display: inline-flex;letter-spacing: 2px;">
+                        <i class="zmdi zmdi-accounts-alt" ng-if="files.isPublic == 1"></i>
+                        <i class="zmdi zmdi-lock" ng-if="files.isPublic == 0"></i>
+                        <i class="zmdi zmdi-star text-yellow" ng-if="files.isStarred"></i>
+                        <i class="zmdi zmdi-star-outline" ng-if="!files.isStarred"></i>
+                    </div>
+                    <small am-time-ago="files.date_created"></small>
+                    </span></td>
+                <td class="mailbox-name awp">{{files.created_by.displayName}}</td>
+                <!-- <td class="mailbox-attachment">{{ files.asset_filesize/1024/1024|number:2 }} MB</td> -->
+                <td class="mailbox-attachment awp">{{ files.asset_filesize }}</td>
+                <td class="mailbox-date awp" am-time-ago="files.date_created"></td>
+                <td class="mailbox-name awp">
+                    <span ng-if="files.isPublished == 0" class="label label-warning">draft</span>
+                    <span ng-if="files.isPublished == 1" class="label label-success">published</span>
+                </td>
+                <td ng-click="actionsheet = true;"> <span class="sm tablefloater">
+                     <div> <img src="./images/icon/ic_more_vert_black_24px.svg "></div>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="action-sheet-backdrop active" buttons="buttons" ng-show="showDrop">
+        <div class="action-sheet-wrapper action-sheet-up">
+            <div class="action-sheet action-sheet-has-icons" style="">
+                <div class="action-sheet-group action-sheet-options">
+                    <div class="action-sheet-title ng-binding">New</div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="holder" ng-click="createNewFolder(); actionsheet = false;">
+                                    <img src="./images/icon/ic_folder_black_24px.svg">
+                                    <br>Folder
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="holder" ng-click="newUploader(); actionsheet = false;">
+                                    <img src="./images/icon/ic_file_upload_black_24px.svg">
+                                    <br>Upload
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-sheet-group action-sheet-cancel">
+                    <button class="button" ng-click="actionsheet = false;" angualr-ripple>Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

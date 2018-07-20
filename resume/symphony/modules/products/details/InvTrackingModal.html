@@ -1,0 +1,87 @@
+<div class="modal-fade" id="dhan">
+    <div class="modal-header" style="border-bottom-color: #f4f4f4 !important;">
+        <h3 class="modal-title">Store and Inventory : Inventory Tracking</h3>
+        <div class="pull-right">
+            <button type="button" class="close" style="font-size: 30px;margin-top: -30px;" ng-click="closeThisModal();">&times;</button>
+        </div>
+    </div>
+    <div class="modal-body attrib">
+        <div class="box-body p-0">
+            <div class="col-md-12" style="margin-top: 20px;">
+                <!-- <div>
+                    <label for="isTrack" class="pull-left" style="margin-right: 10px;">
+                        Track To Inventory
+                    </label>
+                <input id="isTrack" type="checkbox" ng-model="invtracking.isTrack" style="width: 20px;height: 20px;">
+                </div> -->
+                <table class="table  footable" data-page-size="10" id="tblAttributes">
+                    <thead>
+                        <tr>
+                            <td width="20%">Store</td>
+                            <td>SKU</td>
+                            <td>Current Inventory</td>
+                            <td>unit</td>
+                            <td>Reorder Level</td>
+                            <td>Track</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="alias in invtracking.details track by $index">
+                            <td class="customCounter">
+                                {{alias.name}}
+                            </td>
+                            <td class="">
+                                <input ng-init="changeInvdetails($index,alias.fk_store_id)" class="form-control" style="width: 140px;" type="text" ng-model="invtracking.details[$index].sku" ng-keyup="changeInvdetails($index,alias.fk_store_id)">
+                            </td>
+                            <td style="display: flex;">
+                                <input valid-wholenumber ng-init="changeInvdetails($index,alias.fk_store_id)" type="text" min="0.000" step="any" class="form-control" ng-model="invtracking.details[$index].stockonhand" ng-keyup="changeInvdetails($index,alias.fk_store_id)">
+                                <div ng-if="$index == 0" class="btn-group pull-right dropdown" uib-dropdown="" style="">
+                                    <button class="pinakabitBtn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu="">
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="applyCIToAllStore(invtracking.details[$index].stockonhand)">Apply to all stores</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <ui-select ng-init="changeInvdetails($index,alias.fk_store_id)" ng-model="invtracking.details[$index].units.selected" style="margin-top: 5px;" on-select="changeInvdetails($index,alias.fk_store_id)">
+                                    <ui-select-match placeholder="Pick one...">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="u in units | filter: $select.search track by $index">
+                                        <div ng-bind-html="u.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </td>
+                            <td style="display: flex;">
+                                <input valid-wholenumber ng-init="changeInvdetails($index,alias.fk_store_id)" type="text" min="0.000" step="any" class="form-control" ng-model="invtracking.details[$index].reorderlevel" ng-keyup="changeInvdetails($index,alias.fk_store_id)">
+                                <div ng-if="$index == 0" class="btn-group pull-right dropdown" uib-dropdown="" style="">
+                                    <button class="pinakabitBtn dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu="">
+                                        <li>
+                                            <a href="javascript:void(0)" ng-click="applyRLToAllStore(invtracking.details[$index].reorderlevel)">Apply to all stores</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <label>
+                                    <input for="check" type="checkbox" class="checkbox" ng-model="invtracking.details[$index].stockTrack" ng-true-value="1" ng-false-value="0" style="float: left;">
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-flat btn-primary" ng-click="saveToInventory()" style="margin-bottom: 0;">Save</button>
+    </div>
+</div>

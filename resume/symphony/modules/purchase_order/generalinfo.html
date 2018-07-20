@@ -1,0 +1,60 @@
+<div class="row">
+    <form role="form" name="pricebookForm">
+        <div class="col-md-12 mt-20">
+            <div class=" box-warning">
+                <div class="box-body">
+                    <div class="form-group col-md-6">
+                        <label>Purchase Name:</label>
+                        <input type="text" ng-model="details.po_name" class="form-control" placeholder="PO Name" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Purchase Number:</label>
+                        <input type="text" ng-model="details.po_number" class="form-control" placeholder="PO Number" numbers-only required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Supplier</label>
+                        <select class="form-control" ng-model="details.supplier_id" ng-options="option.s_id as option.name for option in suppliers" required /></select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Store</label>
+                        <select ng-disabled="details.po_id" class="form-control" ng-change="setSelectedStore(details.store_id)" ng-model="details.store_id" ng-options="option.store_id as option.name for option in stores" required /></select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Delivery Date: </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="details.delivery_date" data-date-format="MM-dd-yyyy" bs-datepicker/>
+                            <div class="input-group-addon">
+                                <img src="./images/icon/calendar-today.svg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Deliver To:</label>
+                        <select class="form-control" ng-model="details.deliver_to" ng-options="option.name as option.name for option in stores" required /></select>
+                    </div>
+                </div>
+                
+                <div class="box-body">
+                    <div class="form-group p-15">
+                        <label>Terms:</label>
+                        <text-angular ng-model="details.shipping_terms" required /></text-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+.btn-toolbar {
+    border: 1px solid #d2d6de;
+    margin-bottom: -1px;
+    margin-left: 0px;
+}
+body {
+    margin: 0px !important;
+}
+
+.sidebar {
+    background: #333333 !important;
+}
+</style>

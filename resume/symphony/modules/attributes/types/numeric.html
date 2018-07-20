@@ -1,0 +1,13 @@
+<div class="margin-bottom15">
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_name" placeholder="Name">
+    <input type="number" class="form-control margin-bottom10" ng-model="attrib_type.attrib_value" placeholder="Value" valid-number>
+    <textarea class="form-control  margin-bottom10" ng-model="attrib_type.attrib_description" placeholder="Description"></textarea>
+    <input type="text" ng-model="attrib_type.contenttype" class="form-control margin-bottom10" placeholder="Content Type" />
+    <input type="text" ng-model="attrib_type.sku" class="form-control margin-bottom10" placeholder="SKU" />
+</div>
+<div class="row margin-bottom15">
+    <div class="col-md-12">
+        <a class="btn btn-info btn-flat margin-bottom10" ng-click="addtoList()"><i class="glyphicon glyphicon-plus"></i> Add</a>
+        <a class="btn btn-danger btn-flat margin-bottom10" ng-click="clearInput()"><i class="glyphicon glyphicon-times"></i> Clear</a>
+    </div>
+</div>

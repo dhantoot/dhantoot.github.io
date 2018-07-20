@@ -1,0 +1,122 @@
+<form class="form-horizontal" ng-submit="saveAttributes()">
+    <div class="modal-header">
+        <h3 class="modal-title">Manage Attributes Value</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Attribute Values</label>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Textbox'">
+                <input type="text" class="form-control" ng-model="attrib.value">
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Numeric Textbox'">
+                <input type="number" class="form-control" ng-model="attrib.value">
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Textarea' || attrib.attrib_type.name == 'Rich Textbox'">
+                <textarea class="form-control" ng-model="attrib.value"></textarea>
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Dropdownlist'">
+                <div style="margin-bottom:15px;">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.name" placeholder="Name">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.value" placeholder="Value">
+                    <button class="btn btn-info btn-flat" style="margin-bottom:10px;" ng-click="addtoList()"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+                <select class="form-control">
+                    <option ng-repeat="val in attrib.attribute_list_value" value="{{val.value}}">{{val.name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Multiselect'">
+                <div style="margin-bottom:15px;">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.name" placeholder="Name">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.value" placeholder="Value">
+                    <button class="btn btn-info btn-flat" style="margin-bottom:10px;" ng-click="addtoList()"><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+                <select multiple class="form-control">
+                    <option ng-repeat="val in attrib.attribute_list_value2" value="{{val.value}}">{{val.name}}</option>
+                </select>
+            </div>
+            <!-- Checkbox -->
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Checkbox'">
+                <div style="margin-bottom:15px;">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.name" placeholder="Name">
+                    <input type="text" class="form-control" style="margin-bottom:10px;" ng-model="attrib.value" placeholder="Value">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="attrib.value" /> {{attrib.name}}
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Image'">
+                <img ngf-src="attrib.value_image || 'http://placehold.it/250x250'" err-src="http://placehold.it/150x150" class="thumbnail" width="150" height="150">
+                <div class="input-group image-preview">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="attrib.value_image">
+                            <span class="glyphicon glyphicon-remove">Clear</span>
+                        </button>
+                        <div class="btn btn-primary image-preview-input"> <span class="fa fa-file-image-o"></span> Browse<span class="image-preview-input-title"></span>
+                            <input type="file" accept="image/*" name="input-file-preview" ng-model="attrib.value_image" ngf-max-size="8MB" ngf-select />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'QRCode Textbox'">
+                <input type="text" class="form-control" ng-model="attrib.value" style="margin-bottom:15px;">
+                <qr type-number="6" correction-level="'M'" size="200" input-mode="''" text="attrib.value || 'sample'" image="true" class="padding-top"></qr>
+            </div>
+            <div class="col-sm-9" ng-if="attrib.attrib_type.name == 'Attachment'" nv-file-drop="" uploader="uploader">
+                <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
+                    Drop images here
+                </div>
+                <div class="input-group image-preview">
+                    <div class="input-group-btn">
+                        <div class="btn btn-primary image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title"></span>
+                            <input type="file" accept="image/png, image/jpeg, image/gif" nv-file-select="" uploader="uploader" multiple />
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-flat btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        <span class="glyphicon glyphicon-upload"></span>
+                    </button>
+                    <button type="button" class="btn btn-flat btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                        <span class="glyphicon glyphicon-ban-circle"></span>
+                    </button>
+                    <button type="button" class="btn btn-flat btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th ng-show="uploader.isHTML5">Size</th>
+                            <th ng-show="uploader.isHTML5">Progress</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in uploader.queue">
+                            <td>
+                                <strong>{{ item.file.name }}</strong>
+                                <div ng-model="$scope.item" ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                            </td>
+                            <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                            <td ng-show="uploader.isHTML5">
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-flat btn-primary" type="submit">Save</button>
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Cancel</a>
+    </div>
+</form>

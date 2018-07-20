@@ -1,0 +1,69 @@
+<div class="">
+    <div class="box-header">
+        <div class="pull-right disp-inline-flex ">
+            <button ng-click="search=true " class="btnflat btnflatzz waves-effect fl " uib-tooltip="Search "><i class="zmdi zmdi-search"></i></button>
+            <button class="btnflat btnflatzz waves-effect fl " uib-tooltip="Print "><i class="zmdi zmdi-print"></i></button>
+            <button class="btnflat btnflatzz waves-effect fl "><i class="zmdi zmdi-refresh"></i> Refresh</button>
+        </div>
+    </div>
+    <div ng-show="search " class="disp-inline-flex w100p searchnew ">
+        <input type="text " class="asset-search ng-pristine ng-valid ng-empty ng-touched " placeholder="Search for Item Code " ng-model="txtSearch " ng-change="(txtSearch.length < 1)?searchData():0 " style="margin-top: 0px; ">
+        <button class="btnflat waves-effect " uib-tooltip="Close "><img ng-click="search=false " src="./images/icon/ic_close_white_24px.svg "></button>
+    </div>
+    <div class="divider ">Monday, 30 Jan 2017</div>
+    <div class="box-body table-responsive padding p-0 ">
+        <table class="table table-hover ">
+            <thead>
+                <th ng-click="nameSort=! nameSort " style="text-align: left !important; ">Item Name
+                    <!-- <img ng-show="!nameSort " src="./images/icon/sort-descending.svg ">
+                    <img ng-show="nameSort " src="./images/icon/sort-ascending.svg "> -->
+                    <i ng-show="!nameSort " class="zmdi zmdi-sort-amount-desc"></i>
+                    <i ng-show="nameSort " class="zmdi zmdi-sort-amount-asc"></i>
+                </th>
+                <th ng-click="codeSort=! codeSort ">Item Code
+                    <!-- <img ng-show="!codeSort " src="./images/icon/sort-descending.svg ">
+                    <img ng-show="codeSort " src="./images/icon/sort-ascending.svg "> -->
+                    <i ng-show="!codeSort " class="zmdi zmdi-sort-amount-desc"></i>
+                    <i ng-show="codeSort " class="zmdi zmdi-sort-amount-asc"></i>
+                </th>
+                <th ng-click="itemQtySort=! itemQtySort ">Item QTY
+                    <!-- <img ng-show="!itemQtySort " src="./images/icon/sort-descending.svg ">
+                    <img ng-show="itemQtySort " src="./images/icon/sort-ascending.svg "> -->
+                    <i ng-show="!itemQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                    <i ng-show="itemQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                </th>
+                </th>
+                <th ng-click="codeQtySort=! codeQtySort ">Code QTY
+                   <!--  <img ng-show="!codeQtySort " src="./images/icon/sort-descending.svg ">
+                    <img ng-show="codeQtySort " src="./images/icon/sort-ascending.svg "> -->
+                    <i ng-show="!codeQtySort " class="zmdi zmdi-sort-amount-desc"></i>
+                    <i ng-show="codeQtySort " class="zmdi zmdi-sort-amount-asc"></i>
+                </th>
+                <th ng-click="diffSort=! diffSort ">Difference
+                    <!-- <img ng-show="!diffSort " src="./images/icon/sort-descending.svg ">
+                    <img ng-show="diffSort " src="./images/icon/sort-ascending.svg "> -->
+                    <i ng-show="!diffSort " class="zmdi zmdi-sort-amount-desc"></i>
+                    <i ng-show="diffSort " class="zmdi zmdi-sort-amount-asc"></i>
+                </th>
+            </thead>
+            <tr ng-repeat="code in codeinventory | filter:txtSearch">
+                <td class="text-center " style="text-align: left !important; ">
+                    {{code.pname}}
+                </td>
+                <td class="text-right ">
+                    {{code.cname}}
+                </td>
+                <td class="text-right ">
+                    {{code.itemqty}}
+                </td>
+                <td class="text-right ">
+                    {{code.codeqty}}
+                </td>
+                <td class="text-right ">
+                    {{code.diff}}
+                </td>
+            </tr>
+            </tr>
+        </table>
+    </div>
+</div>

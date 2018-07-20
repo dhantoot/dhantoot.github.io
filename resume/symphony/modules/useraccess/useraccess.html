@@ -1,0 +1,218 @@
+<section class="content-header">
+    <h1>User Accounts and Privileges</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">User Accounts and Privileges</li>
+    </ol>
+</section>
+<section class="content accprev">
+    <div class="row">
+        <script type="text/ng-template" id="checkboxheader.html">
+            <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+        </script>
+        <div class="col-xs-12">
+            <!-- <div class="nav-tabs-custom" bs-tabs>
+                <div data-title="User Accounts" bs-pane>
+                    <ng-include src="'./modules/useraccess/user.accounts.html'" scope="" onload=""></ng-include>
+                </div>
+                <div data-title="User Group" bs-pane>
+                    <ng-include src="'./modules/useraccess/group.accounts.html'" scope="" onload=""></ng-include>
+                </div>
+            </div> -->
+            <div class="tab-wrap">
+                <input type="radio" name="tabs" id="tab1" checked>
+                <div class="tab-label-content" id="tab1-content">
+                    <label class="tab-label-header" for="tab1" angular-ripple>User Accounts</label>
+                    <div class="tab-content">
+                        <!-- <ng-include src="'./modules/useraccess/user.accounts.html'"></ng-include> -->
+                        <div class="">
+                            <div class="box-header">
+                                <form class="form-inline p-5 pl-10 ng-pristine ng-valid">
+                                    <button class="btn btn-primary actbutton btn-xs btn-flat mr-10" ng-click="newUserAccount()" uib-tooltip="Add New" angular-ripple>
+                                        <i class="zmdi zmdi-plus"></i>
+                                    </button>
+                                    <button ng-click="refreshUser()" class="btn btn-default actbutton btn-xs btn-flat mr-10" uib-tooltip="Refresh" angular-ripple>
+                                        <i class="zmdi zmdi-refresh"></i>
+                                    </button>
+                                </form>
+                                <div class="pull-right box-tools">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="input-group pull-right imput" style="width: 250px;">
+                                                    <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtSearch2" disable-valid-styling="true" disable-validation-message="" ng-change="(txtSearch2.length < 1)?searchData2():0" ng-click="searchData2()" ng-keypress="($event.which === 13)?searchData2():0" style="margin-top: 0px;">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData2()" ng-keypress="($event.which === 13)?searchData2():0" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box-body table-responsive padding p-0">
+                                <table class="table table-hover" ng-table="usersTable">
+                                    <tr ng-repeat="row in $data  track by $index">
+                                        <td data-header="'checkboxheader.html'" class="text-center center-td-table">
+                                            <input type="checkbox" class="checkbox" ng-model="row.selected" ng-change="checkDataChanges(row)">
+                                        </td>
+                                        <td class="text-center" data-title="'Name'">
+                                            {{row.EmpName}}
+                                        </td>
+                                        <td class="text-center" data-title="'Username'">
+                                            {{row.username}}
+                                        </td>
+                                        <td class="text-center" data-title="'User Roles'">
+                                            <span ng-if="row.isOwner == 1" class="role-tag label label-warning">OWNER</span>
+                                            <span ng-if="row.userRoles.length > 0" class="role-tag label label-primary" ng-repeat="tag in row.userRoles">{{tag.name}}</span>
+                                        </td>
+                                        <td class="text-center" data-title="'Account Validity'">
+                                            {{row.valid_until | amDateFormat:'MM/DD/YYYY'}}
+                                        </td>
+                                        <td class="text-right" data-title="'Action'">
+                                            <div class="disp-inline-flex">
+                                                <!-- <a class="btn ml-10 bgscreen btn-info actbutton btn-xs btn-flat"><img src="./images/icon/ic_tablet_mac_black_24px.svg" angular-ripple></a> -->
+                                                <a ng-click="setUsersSubscription(row.uc_id)" ng-show="profile.isOwner == 1 && profile.uc_id !== row.uc_id" class="btn ml-10 bgscreen btn-info actbutton btn-xs btn-flat" uib-tooltip="Subscription" angular-ripple><i class="zmdi zmdi-format-list-bulleted"></i></a>
+                                                <a ng-click="mapUserToStore(row.uc_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Assign Store"><i class="zmdi zmdi-store"></i></a>
+                                                <a ng-click="newUserAccount(row.uc_id,row.profile.person_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit" angular-ripple><i class="zmdi zmdi-edit"></i></a>
+                                                <a ng-click="toggleModal(row.uc_id,$index,'users')" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete" angular-ripple><i class="zmdi zmdi-delete"></i></a>
+                                            </div>
+                                           <!--  <a ng-click="setUsersSubscription(row.uc_id)" class="smscreen r200">
+                                                <button class="btn btn-info  actbutton btn-xs btn-flat"><img src="./images/icon/ic_list_black_24px (1).svg"></button> Subscription</a>
+                                            <a ng-click="mapUserToStore(row.uc_id)" class="smscreen r120">
+                                                <button class="btn btn-info actbutton btn-xs btn-flat"><img src="./images/icon/ic_account_balance_black_24px.svg"></button> Assign Store</a>
+                                            <a ng-click="newUserAccount(row.uc_id,row.profile.person_id)" class="smscreen r120">
+                                                <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Edit"><img src="./images/icon/ic_mode_edit_white_18px.svg"></button> Edit</a>
+                                            <a ng-click="toggleModal(row.uc_id,$index,'users')" class="smscreen">
+                                                <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></button> Delete</a> -->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="radio" name="tabs" id="tab2">
+                <div class="tab-label-content" id="tab2-content">
+                    <label class="tab-label-header" for="tab2" angular-ripple>User Group</label>
+                    <div class="tab-content">
+                        <ng-include src="'./modules/useraccess/group.accounts.html'"></ng-include>
+                    </div>
+                </div>
+                <div class="slide"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<style type="text/css">
+.tab-wrap {
+    /* width: 50%;*/
+    /* margin-left: 20%; */
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 0px;
+    box-shadow: inset 0 -2px 0 0 #e2e2e2;
+}
+
+input[type="radio"][name="tabs"] {
+    position: absolute;
+    z-index: -1;
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content label {
+    color: rgb(72, 72, 72);
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content .tab-content {
+    display: block;
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(1):checked ~ .slide {
+    left: calc((100% / 2) * 0);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(2):checked ~ .slide {
+    left: calc((100% / 2) * 1);
+}
+
+
+/*input[type="radio"][name="tabs"]:nth-of-type(3):checked ~ .slide {
+    left: calc((100% / 4) * 2);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(4):checked ~ .slide {
+    left: calc((100% / 4) * 3);
+}*/
+
+input[type="radio"][name="tabs"]:first-of-type:checked ~ .slide {
+    left: 0;
+}
+
+.tab-label-header {
+    cursor: pointer;
+    color: #777777;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.slide {
+    background: #247571;
+    width: calc(100% / 2);
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: calc(100% - 6px);
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+}
+
+.tab-label-content {
+    width: 100%;
+}
+
+.tab-label-content .tab-content {
+    position: absolute;
+    top: 62px;
+    left: 16px;
+    line-height: 130%;
+    display: none;
+    margin-left: -16px;
+    background: #fff;
+    padding: 0px;
+    width: 100%;
+    /*height: 475px;*/
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        padding: 40px 0 90px 10%;
+    }
+    .tab-wrap {
+        width: 100%;
+    }
+}
+</style>

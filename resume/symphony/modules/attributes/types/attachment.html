@@ -1,0 +1,82 @@
+<div class="margin-bottom15">
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_name" placeholder="Name">
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.attrib_value" placeholder="Value">
+    <textarea class="form-control margin-bottom10" ng-model="attrib_type.attrib_description" placeholder="Description"></textarea>
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.contenttype" placeholder="Content Type" />
+    <input type="text" class="form-control margin-bottom10" ng-model="attrib_type.sku" placeholder="SKU" />
+    <div class="input-group image-preview">
+        <input type="text" class="form-control image-preview-filename" disabled="disabled" ng-model="attrib_type.value_image.name">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="attrib_type.value_image">
+                <span class="glyphicon glyphicon-remove"></span> Clear
+            </button>
+            <div class="btn btn-default image-preview-input">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                <span class="image-preview-input-title">Browse</span>
+                <input type="file" accept="image/png, image/jpeg, image/gif, image/jpeg, image/x-ms-bmp, audio/mp3, audio/mp4, video/mp4, video/x-flv, video/3gpp, video/x-msvideo, video/x-ms-wmv, video/quicktime, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation,application/zip" name="input-file-preview" ng-model="attrib_type.value_image" ngf-max-size="8MB" ngf-select />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row margin-bottom15">
+    <div class="col-md-12">
+        <a class="btn btn-info btn-flat margin-bottom10" ng-click="addtoList1()"><i class="glyphicon glyphicon-plus"></i> Add</a>
+        <a class="btn btn-danger btn-flat margin-bottom10" ng-click="clearInput()"><i class="glyphicon glyphicon-times"></i> Clear</a>
+    </div>
+</div>
+<div class="row">
+    <form role="form">
+        <div class="col-md-12">
+            <div class="box box-warning">
+                <div class="box-body">
+                    <div class="form-group">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                    <th>Description</th>
+                                    <th>Content Type</th>
+                                    <th>SKU</th>
+                                    <th>File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in attrib_type.attribute_list_value">
+                                    <td>
+                                        <strong>{{ item.name }}</strong>
+                                    </td>
+                                    <td>
+                                        {{ item.value }}
+                                    </td>
+                                    <td>
+                                        {{ item.description }}
+                                    </td>
+                                    <td>
+                                        {{item.contenttype}}
+                                    </td>
+                                    <td>
+                                        {{item.sku}}
+                                    </td>
+                                    <td>
+                                        <img ngf-src="item.value_image" err-src="http://placehold.it/150x150" class="img-rounded" width="42" height="42">
+                                        {{item.sku}}
+                                    </td>
+                                    <td nowrap>
+                                        <button type="button" class="btn btn-xs btn-flat btn-info" ng-click="viewFromList(item)">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-flat btn-xs" ng-click="deleteSelected(item)">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

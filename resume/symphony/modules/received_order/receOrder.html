@@ -1,0 +1,158 @@
+<div class="row">
+    <form role="form">
+        <div ng:controller="cartForm">
+            <div class="col-md-9">
+                <div class="box box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">Enter Product Info</h3>
+                    </div>
+                    <div class="box-body col-md-12">
+                        <div class="form-group col-md-4 pull-left">
+                                <label>Supplier</label>
+                                <select class="form-control select2 sm" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+
+                        <div class="form-group col-md-4 pull-right" style="padding-top:25px;">
+                            <form action="#" method="get">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                                </button>
+                                </span>
+                                    <input type="text" name="q" class="form-control" placeholder="Search product..." />
+                                    <span class="input-group-btn">
+                                <a ui-sref="main.rec_list" type='submit' name='seach' id='search-btn' class="btn btn-flat btn-primary">
+                                <span class="fa fa-list-ol"> List</span>
+                                    </a>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <div class="">
+                        <div class="flexsearch">
+                            <div class="flexsearch--wrapper">
+                                <form class="flexsearch--form" action="#" method="post">
+                                    <div class="flexsearch--input-wrapper">
+                                        <input class="flexsearch--input" type="search" placeholder="search">
+                                    </div>
+                                    <input class="flexsearch--submit" type="submit" value="&#10140;" />
+                                </form>
+                            </div>
+                        </div>
+                        </div> -->
+                        <table class="table">
+                            <tr>
+                                <!-- <div class=" col-md-3 pull-right">
+                                    
+                                    <button class="btn btn-flat btn-sm"><span class="fa fa-search"></span></button><input type="text" class="input-form mytext" name="">
+                                </div> -->
+                                <th style="width:40%;">Product</th>
+                                <th>Qty</th>
+                                <th>Cost</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr ng:repeat="item in invoice.items">
+                                <td>
+                                    <input type="text" ng-model="item.name" class="input-form col-md-10 mytext" placeholder="Enter item name">
+                                    <div class="input-group-btn">
+                                        <!-- <div class="search">
+                                            <input class="search_box" type="checkbox" id="search_box">
+                                            <label class="icon-search" for="search_box"></label>
+                                            <div class="search_form">
+                                                <form action="#">
+                                                    <input type="text">
+                                                    <input type="submit" value="search">
+                                                </form>
+                                            </div>
+                                        </div> -->
+                                        <!-- <button ui-sref="main.list" class="btn btn-flat btn-sm btn-default" height="">
+                                        <i class="fa fa-search"></i>
+                                        </button> -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" ng-model="item.qty" ng:required class="input-form mytext">
+                                </td>
+                                <td>
+                                    <input type="number" ng-model="item.cost" ng:required class="input-form mytext">
+                                </td>
+                                <td>{{item.qty * item.cost}}</td>
+                                <td>
+                                    [<a href ng:click="removeItem($index)"><i class="fa fa-remove"></i></a>]
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href ng:click="addItem()" class="btn btn-small"><i class="fa fa-plus"> Add item</i></a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box box-warning">
+                    <div class="form-group">
+                        <div class="box-header">
+                                                </div>
+                        <div class="box-body">
+                            <div class="box box-solid box-primary">
+                                <div class="box-body">
+                                    <label ng:model="item.tot">Subtotal :</label>
+                                    <label class="pull-right">{{subtotal()}}</label>
+                                </div>
+                                <div class="box-body">
+                                    Tax ({{item.tax}}%)<a href="" ng-click="isCollapsed = !isCollapsed"> Edit</i></a>
+                                    <div uib-collapse="isCollapsed">
+                                        <input type="text" class="form-control" ng:model="item.tax" ng:required id="" placeholder="Enter value">
+                                    </div>
+                                </div>
+                                <div id="demo" class="collapse">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="box-header btn-black">
+                                    <h3 class="box-title">Total : </h3>
+                                    <label class="pull-right"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Payment Method</label>
+                                <select class="form-control">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                    <option>American Express</option>
+                                    <option>Paypal</option>
+                                </select>
+                                <img src="../../images/credit/visa.png" alt="Visa" />
+                                <img src="../../images/credit/mastercard.png" alt="Mastercard" />
+                                <img src="../../images/credit/american-express.png" alt="American Express" />
+                                <img src="../../images/credit/paypal2.png" alt="Paypal" />
+                            </div>
+                            <div class="form-group">
+                                <label>Notes/Memo</label>
+                                <textarea rows="2" type="text" class="form-control" id="" placeholder=""></textarea>
+                            </div>
+                        </div><div class="box-body">
+                        <button type="submit" class="btn btn-primary btn-flat btn-block">Complete</button>
+                        <a class="btn btn-default btn-flat btn-block">Cancel</a>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

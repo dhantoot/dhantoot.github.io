@@ -1,0 +1,30 @@
+<form class="form-horizontal" ng-submit="saveEntry()">
+    <div class="modal-header">
+        <h3 class="modal-title">Manage Related Product</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Products</label>
+            <div class="col-sm-9">
+                <ui-select ng-model="relation.product">
+                    <ui-select-match placeholder="Select Product...">
+                        {{$select.selected.item_name}}
+                    </ui-select-match>
+                    <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (relatedProducts | filter: $select.search | limitTo:infiniteScrollContacts.currentItems) track by emp.p_id">
+                        <b>{{emp.item_name}}</b> <small>({{emp.brand}})</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Relation Type</label>
+            <div class="col-sm-9">
+                <select class="form-control" ng-model="relation.rel_type_id" ng-options="option.rel_type_id as option.name for option in relationtypes" required /></select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-flat btn-primary" type="submit">Save</button>
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Cancel</a>
+    </div>
+</form>

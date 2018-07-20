@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class=" box-warning m-0">
+            <div class="s">
+                <h4 class="box-title">Media / File</h4>
+            </div>
+            <div class="box-header">
+                <div class="pull-left disp-inline-flex">
+                    <button ng-click="openUploader()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple>Upload Image</button>
+                    <button ng-click="deleteAllMedia()" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple>Delete All</button>
+                </div>
+            </div>
+            <div class="box-body justcont">
+                <div ng-repeat="files in product_image track by $index" class="thumbnailBox col-md-3 col-sm-6 col-xs-12 p-0">
+                    <div id="triangle-topleft" ng-if="files.pi_id == isLatest">
+                        <i ng-class="files.pi_id == isLatest ? isLatestUploadedmedia : 'zmdi zmdi-image-o'"></i>
+                    </div>
+                    <img ngf-src="files.image_path" err-src="http://placehold.it/750x450" width="150px" height="150px" style=" width: 100% !important;">
+                    <div class="thumfooter ">
+                        <div class="btn-group pull-right" uib-dropdown>
+                            <button class=" actbuttonassets btn-box-tool dropdown-toggle" uib-dropdown-toggle uib-tooltip="More action"><img src="./images/icon/ic_more_vert_black_24px.svg " style="margin: 0;"></button>
+                            <ul class="dropdown-menu" uib-dropdown-menu>
+                                <li>
+                                    <a ng-href="{{files.image_path}}" target="_self" download="{{files.image_path}}">
+                                        <img src="./images/icon/ic_file_download_black_24px.svg"> Download
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="openLightboxModal(files)">
+                                        <img src="./images/icon/ic_visibility_black_24px.svg "> View
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="setAsThumbNail(files)">
+                                    <i class="zmdi zmdi-image" style="font-size: x-large;margin-right: 14%;"></i>Set as Thumbnail</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="" ng-click="copyURLLink(files)"><img src="./images/icon/ic_link_black_24px.svg"> Copy URL
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="pull-right actbuttonassets btn-box-tool" ng-click="deleteSelected(files)" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg "></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class=" box-warning m-0">
+            <div class="s">
+                <h4 class="box-title">Media / File</h4>
+            </div>
+            <div class="box-header">
+                <div class="pull-left disp-inline-flex">
+                    <button ng-click="openAssetUploader()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple>Upload Asset</button>
+                    <button ng-click="deleteAllAssets()" class="btnflat danger-color waves-effect ml-10 fr" angular-ripple>Delete All</button>
+                </div>
+            </div>
+            <div class="box-body justcont">
+                <!-- <div ng-repeat="files in product_assets track by $index" class="thumbnailBox col-md-3 col-sm-6 col-xs-12 p-0">
+                    <div id="triangle-topleft" ng-if="files.pi_id == isLatest">
+                        <i ng-class="files.pi_id == isLatest ? isLatestUploadedmedia : 'zmdi zmdi-image-o'"></i>
+                    </div>
+                    <img ngf-src="files.image_path" err-src="http://placehold.it/750x450" width="150px" height="150px" style=" width: 100% !important;">
+                    <div class="thumfooter ">
+                        <div class="btn-group pull-right" uib-dropdown>
+                            <button class=" actbuttonassets btn-box-tool dropdown-toggle" uib-dropdown-toggle uib-tooltip="More action"><img src="./images/icon/ic_more_vert_black_24px.svg " style="margin: 0;"></button>
+                            <ul class="dropdown-menu" uib-dropdown-menu>
+                                <li>
+                                    <a ng-href="{{files.image_path}}" target="_self" download="{{files.image_path}}">
+                                        <img src="./images/icon/ic_file_download_black_24px.svg"> Download
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="openLightboxModal(files)">
+                                        <img src="./images/icon/ic_visibility_black_24px.svg "> View
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click="setAsThumbNail(files)">
+                                    <i class="zmdi zmdi-image" style="font-size: x-large;margin-right: 14%;"></i>Set as Thumbnail</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="" ng-click="copyURLLink(files)"><img src="./images/icon/ic_link_black_24px.svg"> Copy URL
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="pull-right actbuttonassets btn-box-tool" ng-click="deleteSelected(files)" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg "></button>
+                    </div>
+                </div> -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th>Size</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in prodAssets track by $index">
+                            <td>
+                                <strong>{{ item.product_assets.asset_name }}</strong>
+                            </td>
+                            <td>{{ item.product_assets.asset_filesize/1024/1024|number:2 }} MB</td>
+                            <td>
+                                <button class="btn" ng-click="deleteSelectedAsset(item)"><i class="zmdi zmdi-delete"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+#triangle-topleft {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 50px solid #00a65a;
+    border-right: 50px solid transparent;
+}
+
+.dhan {
+    position: absolute;
+    top: -47px;
+    left: 6px;
+    color: white;
+    font-size: x-large;
+}
+</style>

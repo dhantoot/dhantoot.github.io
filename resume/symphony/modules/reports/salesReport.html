@@ -1,0 +1,169 @@
+<section class="content-header" style="    background: #ffffff;
+    padding-bottom: 80px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .3);">
+    <h1>
+            Sales Report
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Sales Dashboard</li>
+    </ol>
+</section>
+<section class="reportdashboard">
+    <div class="col-md-12">
+        <div class="row" style="position: absolute;margin-top: -85px;">
+            <div class="form-group col-md-3" style="margin-top: 5px;">
+                <form class="datepickar ng-pristine ng-valid" ng-init="updateSalesSummary('user')">
+                    <div class="form-group">
+                        <div class="input-group ">
+                            <label>Sales Summary :</label>
+                            <button class="dropdown-toggle ng-binding" data-toggle="dropdown" angular-ripple="" aria-expanded="true"><span class=" angular-ripple animate" style="width: 220px; height: 220px; left: -42px; top: -108px;"></span> {{selectedParam1}}
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <span class="barzz"></span>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a ng-click="updateSalesSummary('user')">User</a>
+                                </li>
+                                <li><a ng-click="updateSalesSummary('product')">Product</a>
+                                </li>
+                                <li><a ng-click="updateSalesSummary('customer')">Customer</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="form-group col-md-3">
+                <label>Store Name :</label>
+                <div ng-dropdown-multiselect="" extra-settings="settings1" options="arrOfStores" selected-model="selectedArrOfStores" events="eventlistener1"></div>
+            </div>
+            
+            <!-- <div class="form-group col-md-3" style="margin-top: 5px;">
+                <form class="datepickar ng-pristine ng-valid">
+                    <div class="form-group">
+                        <div class="input-group ">
+                            <label>Measures :</label>
+                            <button class="dropdown-toggle ng-binding" data-toggle="dropdown" angular-ripple="" aria-expanded="true"><span class=" angular-ripple animate" style="width: 220px; height: 220px; left: -42px; top: -108px;"></span> {{selectedParam2}}
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <span class="barzz"></span>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a ng-click="updateSalesMeasures('revenue')">Revenue</a>
+                                </li>
+                                <li><a ng-click="updateSalesMeasures('others')">Others</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div> -->
+            <div class="form-group col-md-6">
+                <div class="form-group col-md-6">
+                    <label>Date From: </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="rs_dateFrom" data-date-format="yyyy-MM-dd" bs-datepicker ng-change='updateSalesSummary(selectedParam1)' />
+                        <div class="input-group-addon">
+                            <img src="./images/icon/calendar-today.svg">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Date To: </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="rs_dateTo" data-date-format="yyyy-MM-dd" bs-datepicker ng-change='updateSalesSummary(selectedParam1)' />
+                        <div class="input-group-addon">
+                            <img src="./images/icon/calendar-today.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <br></br>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="min-height: 700px;">
+                <div class="box" style="min-height: 99%;">
+                    <div class="box-body table-responsive padding p-0">
+                        <table class="table table-hover" ng-table="quoteTable">
+                            <tr>
+                                <th ng-repeat="alias in cformat" class="" style="width:auto">
+                                    {{alias}}
+                                </th>
+                            </tr>
+                            <tr ng-if="selectedParam1 == 'User'" ng-repeat="alias in formattedSalesReport">
+                                <td class="">
+                                    {{alias.sales_person}}
+                                </td>
+                                <td class="">
+                                    {{alias.store_name}}
+                                </td>
+                                <td class="">
+                                    {{alias.discount}}
+                                </td>
+                                <td class="">
+                                    {{alias.total_items | number : 1}}
+                                </td>
+                                
+                                <td class="">
+                                    {{alias.total_sales | number : 2}}
+                                </td>
+                                <td class="">
+                                    {{alias.revenue | number : 2}}
+                                </td>
+                                <td class="">
+                                    {{alias.gross | number : 2}}
+                                </td>
+                            </tr>
+                            <tr ng-if="selectedParam1 == 'Product'" ng-repeat="alias in formattedSalesReport">
+                                <td class="">
+                                    {{alias.product_name}}
+                                </td>
+                                <td class="">
+                                    {{alias.product_type}}
+                                </td>
+                                <td class="">
+                                    {{alias.store_name}}
+                                </td>
+                                <td class="">
+                                    {{alias.quantity | number : 1}}
+                                </td>
+                                <td class="">
+                                    {{alias.revenue | number : 2}}
+                                </td>
+                                <td class="">
+                                    {{alias.costofgoods | number : 2}}
+                                </td>
+                                <td class="">
+                                    {{alias.gross | number : 2}}
+                                </td>
+                            </tr>
+                            <tr ng-if="selectedParam1 == 'Customer'" ng-repeat="alias in formattedSalesReport">
+                                <td class="">
+                                    {{alias.customer}}
+                                </td>
+                                <td class="">
+                                    {{alias.store_name}}
+                                </td>
+                                <td class="">
+                                    {{alias.discount}}
+                                </td>
+                                <td class="">
+                                    {{alias.total_items | number : 1}}
+                                </td>
+                                <td class="">
+                                    {{alias.revenue | number : 2}}
+                                </td>
+                                <td class="">
+                                    {{alias.gross | number : 2}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

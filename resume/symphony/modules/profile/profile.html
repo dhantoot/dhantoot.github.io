@@ -1,0 +1,877 @@
+<section class="content-header">
+    <h1>
+        User Profile
+      </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">User profile</li>
+    </ol>
+</section>
+<section class="content forprof" ng-init="basicInfo = true;">
+    <div class="col-sm-12 p-0">
+        <div class="">
+            <div class="col-sm-3 p-0">
+                <div class="box">
+                    <div class="panel-body autoscroll profholder">
+                        <div>
+                            <form role="form" ng-submit="savePersonDetail()">
+                                <img class="profilepic" ngf-src="details.image || 'http://placehold.it/250x250'" err-src="http://placehold.it/250x250" alt="User profile picture">
+                                <div class="image-preview" style="width: 100%;height: 0;">
+                                    <div class="uploadbuttonHolder">
+                                        <button type="button" class="uploadbutton image-preview-clear" ng-click="removethumb()" ng-show="showUpload" uib-tooltip="Remove" tooltip-placement="bottom"><img src="./images/icon/ic_close_white_24px.svg">
+                                        </button>
+                                        <div class="uploadbutton image-preview-input" ng-show="!showUpload">
+                                            <img class="img" src="./images/icon/ic_camera_alt_black_24px.svg">
+                                            <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" ng-model="details.image" ngf-max-size="8MB" ngf-select="upload($files)" />
+                                        </div>
+                                        <button class="uploadbutton image-preview-input" type="submit" ng-show="showUpload" uib-tooltip="Upload" tooltip-placement="bottom">
+                                            <img src="./images/icon/upload copy.svg">
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="profpic">
+                                    {{profile.EmpName}}
+                                    <br>
+                                    <small>{{activeSub}}</small>
+                                    <br>
+                                    <!--   <a ui-sref="main.settings-profile-details" class="btn btn-primary btn-block" href="#/main/settings/profile/details/" angular-ripple><b>Update Profile</b></a> -->
+                                </div>
+                            </form>
+                        </div>
+                        <br>
+                        <div>
+                            <h4>Social Accounts</h4>
+                            <br>
+                            <div class="flexx">
+                                <div>
+                                    <img src="./images/icon/email.svg" style="margin-right: 10px;">
+                                    <div data-ng-bind="profile.profile.email"></div>
+                                </div>
+                                <br>
+                                <div>
+                                    <img src="./images/icon/facebook-box.svg" style="margin-right: 10px;">
+                                    <div data-ng-bind="profile.EmpName"></div>
+                                </div>
+                                <br>
+                                <div>
+                                    <img src="./images/icon/twitter2.svg" style="margin-right: 10px;">
+                                    <div>@twitter.com</div>
+                                </div>
+                                <br>
+                                <div>
+                                    <img src="./images/icon/map-marker.svg" style="margin-right: 10px;">
+                                    <div data-ng-bind="profile.profile.address"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 p-0" style="padding-left: 0px;">
+                <div class="box" style="margin-bottom: 0px;">
+                    <div class="panel-body" style="padding: 0;">
+                        <div class="tab-wrap">
+                            <input type="radio" name="tabs" id="tab1" checked>
+                            <div class="tab-label-content" id="tab1-content">
+                                <label class="tab-label-header" for="tab1" angular-ripple>General Information</label>
+                                <div class="tab-content">
+                                    <span class="btn-group" style="float: right;top: 10px;">
+                                    <span data-toggle="dropdown" style="color: #555;cursor: pointer;" uib-tooltip="More Action" tooltip-placement="left">
+                                    <img src="./images/icon/ic_more_vert_black_24px.svg" style="width: 21px;"> 
+                                    </span>
+                                    <ul class="dropdown-menu" role="menu" style="margin-left: -140px;">
+                                        <li><a ng-click="showbutton = true; button=false;">Edit</a>
+                                        </li>
+                                    </ul>
+                                    </span>
+                                    <span style="display: inline-flex;"><img src="./images/icon/ic_person_black_24px.svg" style="margin-right: 10px;"><h4>General Information</h4></span>
+                                    <form role="form" ng-submit="savePersonDetail()">
+                                        <div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">First Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-model="details.firstname" ng-disabled="button" ng-init="button=true">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Last Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-model="details.lastname" ng-disabled="button">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Display Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-model="details.displayName" ng-disabled="button">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Email Address</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" ng-model="details.email" ng-disabled="button">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Address</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-model="details.address" ng-disabled="button">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Mobile Number</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-model="details.mobile" ng-disabled="button">
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 modlabel">Time Zone</label>
+                                                <div class="col-sm-9">
+                                                    <select ng-model="details.timeZone" ng-options="item.text as item.text for item in timezone" ng-disabled="button">
+                                                        <option disabled value="">Choose Time Zone</option>
+                                                    </select>
+                                                    <span class="barzz"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="">
+                                            <button ng-show="showbutton" type="submit" class="btn btn-primary" style="margin-left: 4%;" angular-ripple>Save</button>
+                                            <button ng-show="showbutton" ng-click="refresh(); showbutton = false; button=true;" class="btn btn-default" type="button" angular-ripple>Cancel</button>
+                                        </div>
+                                    </form>
+                                    <!-- <ng-include src="'./modules/profile/basicinfoedit.html'" ng-show="basicinfoEdit"></ng-include> -->
+                                </div>
+                            </div>
+                            <input type="radio" name="tabs" id="tab2">
+                            <div class="tab-label-content" id="tab2-content">
+                                <label class="tab-label-header" for="tab2" angular-ripple>User Accounts</label>
+                                <div class="tab-content">
+                                    <span style="display: inline-flex;"><img src="./images/icon/account-key.svg" style="margin-right: 10px;"><h4>User Accounts</h4></span>
+                                    <ng-include src="'./modules/profile/contactinfo.html'"></ng-include>
+                                    <!-- <ng-include src="'./modules/profile/contactinfoEdit.html'" ng-show="basicinfoEdit"></ng-include> -->
+                                </div>
+                            </div>
+                            <input type="radio" name="tabs" id="tab4">
+                            <div class="tab-label-content" id="tab4-content">
+                                <label class="tab-label-header" for="tab4" angular-ripple>Profile Settings</label>
+                                <div class="tab-content">
+                                    <span style="display: inline-flex;"><img src="./images/icon/account-settings-variant.svg" style="margin-right: 10px;"><h4>Profile Settings</h4></span>
+                                    <ng-include src="'./modules/profile/settings.html'"></ng-include>
+                                </div>
+                            </div>
+                            <div class="slide"></div>
+                        </div>
+                        <a class="follow"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="usernameEmail" ng-include="'./templates/username.html'" scope="" onload="" style="display:none;"></div>
+<div id="passwordEmail" ng-include="'./templates/password.html'" scope="" onload="" style="display:none;"></div>
+<div id="recoveryEmail" ng-include="'./templates/emailrecovery.html'" scope="" onload="" style="display:none;"></div>
+
+<!-- targeted style -->
+<!-- targeted style -->
+<!-- targeted style -->
+<!-- targeted style -->
+<!-- targeted style -->
+<style type="text/css">
+.tab-wrap {
+    /* width: 50%;*/
+    /* margin-left: 20%; */
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 0px;
+    box-shadow: inset 0 -2px 0 0 #e2e2e2;
+}
+
+input[type="radio"][name="tabs"] {
+    position: absolute;
+    z-index: -1;
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content label {
+    color: rgb(72, 72, 72);
+}
+
+input[type="radio"][name="tabs"]:checked + .tab-label-content .tab-content {
+    display: block;
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(1):checked ~ .slide {
+    left: calc((100% / 3) * 0);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(2):checked ~ .slide {
+    left: calc((100% / 3) * 1);
+}
+
+input[type="radio"][name="tabs"]:nth-of-type(3):checked ~ .slide {
+    left: calc((100% / 3) * 2);
+}
+
+
+/*input[type="radio"][name="tabs"]:nth-of-type(4):checked ~ .slide {
+    left: calc((100% / 4) * 3);
+}*/
+
+input[type="radio"][name="tabs"]:first-of-type:checked ~ .slide {
+    left: 0;
+}
+
+.tab-label-header {
+    cursor: pointer;
+    color: #777777;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.slide {
+    background: #247571;
+    width: calc(100% / 3);
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: calc(100% - 6px);
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+}
+
+.tab-label-content {
+    width: 100%;
+}
+
+.tab-label-content .tab-content {
+    position: absolute;
+    /* top: 100px; */
+    left: 16px;
+    line-height: 130%;
+    display: none;
+    margin-left: -16px;
+    background: #fff;
+    padding: 30px;
+    width: 100%;
+    height: 586px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        padding: 40px 0 90px 10%;
+    }
+    .tab-wrap {
+        width: 100%;
+    }
+}
+
+.modlabel {
+    height: 0;
+    text-align: left !important;
+    padding: 0;
+    /*padding-top: 7px;*/
+    margin-bottom: 0;
+    text-transform: none;
+    justify-content: flex-start !important;
+    padding-left: 35px;
+    /*font-size: 14px;*/
+    /* font-family: roboto; */
+    font-size: 13px;
+    font-weight: 700;
+    color: #5E5E5E !important;
+}
+
+select,
+input {
+    font-size: 14px;
+    display: block;
+    width: 400px;
+    border: none;
+    margin-top: -1px;
+    border-bottom: 1px solid #ababab;
+}
+
+select:focus,
+input:focus {
+    outline: none;
+}
+
+select {
+    border-radius: 0;
+    -webkit-appearance: none;
+    background-color: #fff;
+}
+
+.uploadbutton img {
+    width: 100%;
+    margin: auto;
+    padding: 6px;
+}
+
+
+/* LABEL ======================================= */
+
+
+/*label                {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}*/
+
+
+/* active state */
+
+select:focus ~ label,
+select:valid ~ label,
+input:focus ~ label,
+input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #262b33;
+}
+
+button[disabled],
+html select[disabled],
+html input[disabled] {
+    cursor: default;
+    border-bottom: transparent;
+    background: transparent !important;
+}
+
+
+/* BOTTOM BARS ================================= */
+
+.flexx div {
+    display: flex;
+    font-size: 13px;
+    padding-top: 3px;
+}
+
+.settingzz img {
+    width: 18px;
+    margin-right: 15px;
+    margin-top: -4px;
+}
+
+.useraccountbox {
+    padding: 15px 35px 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    position: relative;
+    min-height: 150px;
+    margin-top: 35px;
+}
+
+.useraccountbox label {
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.useraccountbox .fa {
+    float: right;
+}
+
+.useraccountbox .form-group {
+    margin-bottom: 20px;
+}
+
+.useraccountbox select,
+.useraccountbox input {
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    border: none;
+    margin-top: -1px;
+    border-bottom: 1px solid #ababab;
+}
+
+.useraccountbox .barzz {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.useraccountbox button[disabled] {
+    cursor: default;
+    border-bottom: transparent;
+    background: #2196f3 !important;
+}
+
+.errors {
+    font-size: small;
+    color: #dd4b39;
+}
+
+.success {
+    font-size: small;
+    color: #00a65a;
+}
+
+.fa-check:before {
+    content: "\f00c";
+    color: #00a65a;
+}
+
+.barzz {
+    position: relative;
+    display: block;
+    width: 400px;
+}
+
+.profholder {
+    height: 647px;
+}
+
+.barzz:before,
+.barzz:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: #257773;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.barzz:before {
+    left: 50%;
+}
+
+.barzz:after {
+    right: 50%;
+}
+
+.fa-remove:before,
+.fa-close:before,
+.fa-times:before {
+    content: "\f00d";
+    color: #de5140;
+}
+
+.uploadbuttonHolder {
+    width: 70%;
+    position: relative;
+    display: flex;
+    margin: auto;
+}
+
+textarea:focus ~ label,
+textarea:valid ~ label {
+    font-size: 0.75em;
+    color: #8e44ad;
+    top: -2.25rem;
+    -webkit-transition: all 0.125s ease;
+    transition: all 0.125s ease;
+}
+
+.settingzz .active,
+.settingzz .inactive {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.settingzz .active,
+.settingzz .inactive {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.settingzz i.active {
+    color: #1fb1aa;
+}
+
+.settingzz i.inactive {
+    color: #c2c2c2;
+}
+
+.settingzz i {
+    margin-top: -10px;
+}
+
+.fb-bar {
+    color: #3b5998 !important;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.google-bar {
+    color: #dd4b39;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.twitter-bar {
+    color: #55acee;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.linkedin-bar {
+    color: #007bb6;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.styled-input {
+    float: left;
+    width: 33.3333%;
+    /* margin: 2rem 0 1rem;*/
+    position: relative;
+}
+
+.styled-input label {
+    color: #999;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    pointer-events: none;
+}
+
+.styled-input.wide {
+    width: 100%;
+    border-bottom: thin solid #ababab;
+}
+
+textarea {
+    padding: 1rem 1rem;
+    border: 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+textarea ~ span {
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #218ac6;
+    position: absolute;
+    margin-bottom: -3px;
+    left: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.9s ease all;
+}
+
+textarea:focus {
+    outline: 0;
+}
+
+textarea:focus ~ span {
+    width: 100%;
+    -webkit-transition: all 0.075s ease;
+    transition: all 0.075s ease;
+}
+
+textarea {
+    width: 100%;
+    min-height: 10em;
+    line-height: 1.8;
+}
+
+
+/* active state */
+
+select:focus ~ .barzz:before,
+select:focus ~ .barzz:after,
+input:focus ~ .barzz:before,
+input:focus ~ .barzz:after {
+    width: 50%;
+}
+
+
+/* HIGHLIGHTER ================================== */
+
+.highlighten {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+/* active state */
+
+select:focus ~ .highlighten,
+input:focus ~ .highlighten {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+.btn.btn-primary {
+    background-color: #2196F3;
+    border-color: #2196F3;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .16), 0 2px 10px rgba(0, 0, 0, .12);
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:active,
+.btn.btn-primary.hover {
+    background-color: #2196F3;
+}
+
+.btn.btn-default:hover,
+.btn.btn-default:active,
+.btn.btn-default.hover {
+    background-color: #ffffff!important;
+    color: #000;
+}
+
+.btnholder {
+    width: 100%;
+    bottom: 150px;
+    position: absolute;
+}
+
+.social div {
+    float: right;
+    margin-top: -6px;
+}
+
+.settingzz a {
+    margin-right: 35px !important;
+    float: right;
+    font-size: 12px;
+    font-weight: 400;
+    color: #868686 !important;
+}
+
+.settingzz a:hover {
+    float: right;
+    font-size: 12px;
+    font-weight: 400;
+    color: #7645ce !important;
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 5px 15px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+.btn.btn-default {
+    background-color: #ffffff !important;
+    color: #666;
+    border-color: #fff;
+    border-bottom-color: #ffffff;
+    box-shadow: none;
+}
+
+.lbl {
+    position: relative;
+    display: block;
+    height: 20px;
+    width: 44px;
+    background: #898989;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lbl:after {
+    position: absolute;
+    left: -2px;
+    top: -3px;
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 100px;
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+    content: '';
+    transition: all 0.3s ease;
+}
+
+.lbl:active:after {
+    transform: scale(1.15, 0.85);
+}
+
+.cbx:checked ~ label {
+    background: rgba(23, 139, 181, 0.42);
+}
+
+.cbx:checked ~ label:after {
+    left: 20px;
+    background: #1d8ec1;
+}
+
+.cbx:disabled ~ label {
+    background: #d5d5d5;
+    pointer-events: none;
+}
+
+.cbx:disabled ~ label:after {
+    background: #bcbdbc;
+}
+
+
+/*.cntr {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}*/
+
+.press {
+    margin-bottom: 40px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+button {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    /* -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;*/
+    /* border-radius: 2px;*/
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    pointer-events: none;
+}
+
+.ripple.show {
+    -webkit-animation: ripple .5s ease-out;
+    animation: ripple .5s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    to {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    to {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+</style>

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h3 class="modal-title">Article Update History</h3>
+</div>
+<div class="modal-body p-0">
+    <div class="box box-warning">
+        <div class="box-body table-responsive padding p-0">
+            <table class="table table-hover" ng-table="articleTable">
+                <tr ng-repeat="article in auditlogs | orderBy: 'log_date':true track by $index">
+                    <td class="text-left" data-title="'Log Date'">
+                        <!-- {{article.log_date}} -->
+                        <span am-time-ago="article.log_date"></span>
+                    </td>
+                    <td class="text-center" data-title="'Updated By'">
+                        {{article.user_profile.displayName}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-footer">
+            <div class="padding" ng-if="pagination.totalPages > 0">
+                <ul uib-pagination total-items="pagination.totalPages" ng-model="pagination.currentPage" num-pages="pagination.sumOfPages" ng-change="addMoreItems()" boundary-links="true" class="pagination-md" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+            </div>
+        </div>
+        <div class="overlay" ng-show="articleisLoading">
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button ng-click="cancel()" class="btnflat waves-effect ml-10 fr" angular-ripple="">Close</button>
+</div>

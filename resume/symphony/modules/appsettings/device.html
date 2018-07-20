@@ -1,0 +1,93 @@
+<div class="brColor br-left box-warning" ng-controller="appSettingsDeviceController" ng-init="init()">
+    <div class="prod box-header" style="padding: 15px 20px 10px;">
+        <h3 class="box-title">Device Management</h3>
+        <button class="actbuttonassets fr" uib-tooltip="Refresh" ng-click="refresh()"><i class="zmdi zmdi-refresh-alt"></i></button>
+        <div class="">
+            <div class="form-inline w100p disp-inline-flex ">
+                <div class=" btn-group mailbox-controls  ">
+                    <!-- <button ng-click="refresh()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button> -->
+                    <form class="form-inline datepickar">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <label>Filter by Status:</label>
+                                <button class="dropdown-toggle ng-binding" data-toggle="dropdown">
+                                    <span ng-if="applicationStatus == ''">All</span><span ng-if="applicationStatus != ''">
+                                {{applicationStatus}}
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <span class="barzz"></span>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a ng-click="updateStatus('All')">All</a>
+                                    </li>
+                                    <li><a ng-click="updateStatus('Online')">Online</a>
+                                    </li>
+                                    <li><a ng-click="updateStatus('Offline')">Offline</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="pull-right searchposition b">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <div style="padding-top: 6px;">
+                                <div class="input-group imput">
+                                    <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchData():0" ng-keypress="($event.which === 13)?searchData():0" angular-ripple>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box-body padding">
+        <div class="row">
+            <div class="col-md-6" ng-repeat="device in devices">
+                <div class="box box-info" style="height: 152px;">
+                    <div class="box-header p-10 with-border">
+                        <h4 class="box-title">{{device.deviceName}}</h4>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group" uib-dropdown>
+                                <button class="btn btn-box-tool dropdown-toggle p-0" uib-dropdown-toggle><i class="zmdi zmdi-more-vert" style="font-size: 17px;"></i></button>
+                                <ul class="dropdown-menu" uib-dropdown-menu>
+                                    <li><a href="" ng-click="syncData()">Sync Data</a></li>
+                                    <li><a href="" ng-click="backupData()">Backup</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="" ng-click="openDeviceNotification()">Notify</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="" ng-click="deleteDevice()">Delete Device</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <span class="info-box-icon bg-aqua" ng-if="device.isOnline"><i class="zmdi zmdi-devices"></i></span>
+                        <span class="info-box-icon bg-gray" ng-if="!device.isOnline"><i class="zmdi zmdi-devices"></i></span>
+                        <div class="info-box-content">
+                            <div style="padding-left: 90px;">
+                                <span class="" style="font-weight: 500">UUID:</span>
+                                <small class="" style="text-overflow: inherit;">{{device.deviceUUID}}</small>
+                                <br>
+                                <span class="" style="font-weight: 500">Brand:</span>
+                                <small class="" style="text-overflow: inherit;">{{device.deviceBrand}}</small>
+                                <br>
+                                <span class="" style="font-weight: 500">Model:</span>
+                                <small class="" style="text-overflow: inherit;">{{device.deviceModel}}</small>
+                            </div>
+                        </div>
+                        <a href="" class="small-box-footer fr pr-10">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                    <div class="overlay" ng-show="device.isSyncing">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <div class="overlay" ng-show="device.isBackup">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

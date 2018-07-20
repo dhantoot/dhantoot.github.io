@@ -1,0 +1,98 @@
+<section class="content-header">
+    <h1> User Logs</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.settings-app"><i class="fa fa-settings"></i> Application Settings</a></li>
+        <li class="active">User Logs</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content" ng-controller="appSettingsUserLogController">
+    <div class="row" role="search-row">
+        <div class="col-md-12 col-xs-12">
+            <div class="box box-warning">
+                <div class="box-header">
+                    <button class="actbuttonassets" ui-sref="main.settings-app" angular-ripple><img src="../images/icon/ic_arrow_back_black_24px.svg"> Back</button>
+                    <div class="fr">
+                        <button class="actbuttonassets" uib-tooltip="Refresh" ng-click="searchData()" angular-ripple><img src="./images/icon/refresh.svg"></button>
+                        <button class="actbuttonassets" uib-tooltip="Print" ng-click="searchData()" angular-ripple><img src="../images/icon/ic_print_black_24px.svg"></button>
+                    </div>
+                </div>
+                <div class="box-header">
+                    <div class="pull-left">
+                        <form class="form-inline datepicka">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>From</label>
+                                    <input type="text" ng-model="details.dateFrom" data-date-format="MMMM dd, yyyy" useNative="true" autoclose="true" bs-datepicker />
+                                    <span class="barzz"></span>
+                                </div>
+                                <div class="input-group">
+                                    <label>To</label>
+                                    <input type="text" ng-model="details.dateEnd" data-date-format="MMMM-dd, yyyy" useNative="true" autoclose="true" bs-datepicker/>
+                                    <span class="barzz"></span>
+                                </div>
+                            </div>
+                            <div class="form-group pt-20">
+                                <button class="actbuttonassets" uib-tooltip="Filter Logs" ng-click="searchData()"><img src="./images/icon/filter-variant.svg"></button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--  <div class="pull-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="q" class="form-control input-sm" placeholder="Search for..." ng-model="txtSearchUser" ng-change="(txtSearchUser.length < 1)?searchData():0">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-flat btn-sm btn-default" ng-click="searchData()" ng-keypress="($event.which === 13)?searchData():0">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> -->
+                    <div class="pull-right searchposition b">
+                        <form class="form-inline ng-pristine ng-valid">
+                            <div class="form-group">
+                                <div style="padding-top: 10px !important;">
+                                    <div class="input-group imput">
+                                        <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtSearchUser.text" angular-ripple></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="p-0 box-body table-responsive ">
+                    <table class="table table-hover" ng-table="usersTable">
+                        <tr ng-repeat="row in $data  track by $index">
+                            <td class="text-center" data-title="'Log Date'">
+                                {{row.created_at}}
+                            </td>
+                            <td class="text-center" data-title="'Username'">
+                                {{row.userprofile.username}}
+                            </td>
+                            <td class="text-center" data-title="'Module'">
+                                {{row.module}}
+                            </td>
+                            <td class="text-center" data-title="'IP Address'">
+                                {{row.ip_address}}
+                            </td>
+                            <td class="text-center" data-title="'Action'">
+                                {{row.action}}
+                            </td>
+                            <td class="text-center" data-title="'Parameters'">
+                                {{row.parameters}}
+                            </td>
+                            <td class="text-center" data-title="'Details'">
+                                {{row.action_details}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

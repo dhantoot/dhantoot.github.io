@@ -1,0 +1,83 @@
+<section class="content-header">
+    <h1>
+            Product Type
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.settings-producttype">Product Types</a></li>
+        <li class="active">Product Types New Entry</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <form role="form" name="ptypeForm" ng-submit="saveProductType()">
+                    <div class="col-md-8">
+                        <div class="box box-warning">
+                            <div class="box-header">
+                                <h3 class="box-title">General Info</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <div class="box-body">
+                                <div class="form-group" ng-class="{true: 'has-error'}[submitted && ptypeForm.name.$error.required]">
+                                    <label>Name</label>
+                                    <input type="text" ng-model="details.name" name="name" class="form-control" placeholder="Name" required ng-blur="_checkProductTypeIfExist()" />
+                                    <p ng-show="ptypeForm.name.$invalid" class="help-block">*Required</p>
+                                    <p ng-show="_productTypeExist" class="help-block">*Name Exist</p>
+                                </div>
+                                <div class="form-group" ng-class="{true: 'has-error'}[submitted && ptypeForm.label.$error.required]">
+                                    <label>Label</label>
+                                    <input type="text" ng-model="details.label" class="form-control" name="label" placeholder="Label" required />
+                                    <p ng-show="ptypeForm.label.$invalid" class="help-block">*Required</p>
+                                </div>
+                                <div class="form-group" ng-class="{true: 'has-error'}[submitted && ptypeForm.description.$error.required]">
+                                    <label>Description</label>
+                                    <textarea class="form-control" ng-model="details.description" rows="3" name="description" placeholder="Description" required /></textarea>
+                                    <p ng-show="ptypeForm.description.$invalid" class="help-block">*Required</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tags <i class="fa fa-tags"></i></label>
+                                    <ui-select class="form-control" reset-search-input="true" on-select="clearInput($select)" on-remove="deleteProductTags($item)" multiple tagging="tagTransform" tagging-label="Enter Tag" ng-model="details.tags" theme="bootstrap" close-on-select="false">
+                                        <ui-select-match placeholder="Enter Tags...">{{$item.tags}}</ui-select-match>
+                                        <ui-select-choices repeat="tag in tagsArr | propsFilter: {tags: $select.search}">
+                                            <div ng-bind-html="tag.tags | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="">
+                            <div class="box-body">
+                                <button type="submit" ng-disabled="ptypeForm.$invalid || _productTypeExist" class=" btn btn-primary btn-block" ng-click="submitted = true">Save Entry</button>
+                                <button class="btn btn-default btn-block" ng-click="$state.reload()">Cancel</button>
+                            </div>
+                            <div class="form-group">
+                                <img ngf-src="details.ptype_image || 'http://placehold.it/250x250'" err-src="http://placehold.it/250x250" class="thumbnail" width="250" height="250">
+                                <div class="input-group image-preview">
+                                    <span class="input-group-btn">
+                                        <button ng-if="isimage" type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="details.ptype_image"> <span class="glyphicon glyphicon-remove"></span> Clear
+                                    </button>
+                                    <div class="btn btn-primary image-preview-input"> <span class="glyphicon glyphicon-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+                                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview" ng-model="details.ptype_image" ngf-max-size="8MB" ngf-select="upload($files)" />
+                                    </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<style type="text/css">
+.help-block {
+    color: #e84545 !important;
+}
+</style>

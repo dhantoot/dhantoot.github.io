@@ -1,0 +1,22 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Return Order</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.return_order">Return Order List</a></li>
+        <li><a ui-sref="main.ret_order">Return Order</a></li>
+        <li class="active">Return Order</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="<i class='fa fa-info'></i> General Info" bs-pane>
+            <div ng-include="'modules/re_order/returnList.html'"></div>
+        </div>
+        <div data-title="<i class='fa fa-info'></i> General Info" bs-pane>
+            <div ng-include="'modules/re_order/returnBundle.html'"></div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

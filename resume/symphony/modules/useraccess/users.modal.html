@@ -1,0 +1,305 @@
+<div class="modal-header">
+    <h3 class="modal-title">Manage User</h3>
+</div>
+<div class="modal-body p-0">
+    <div class="tab-wrap">
+        <input type="radio" name="tabzzz" id="tab1" checked>
+        <div class="tab-label-contentzzz" id="tab1-contentzzz">
+            <label class="tab-label-headerzzz" for="tab1">User Account Information</label>
+            <div class="tab-contentzzz">
+                <div class=" box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">User Account Information</h3>
+                    </div>
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Employee</label>
+                                <div class="col-sm-9">
+                                    <ui-select ng-model="users.employee" ng-change="setDefaultUName(users.employee)">
+                                        <ui-select-match>
+                                            {{$select.selected.lastname + ', ' + $select.selected.firstname}}
+                                        </ui-select-match>
+                                        <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (employees | filter: $select.search) track by emp.person_id">
+                                            {{emp.lastname + ', ' + emp.firstname}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">User Roles</label>
+                                <div class="col-sm-9">
+                                    <ui-select multiple ng-model="users.role">
+                                        <ui-select-match placeholder="Select User Role...">{{$item.name}}</ui-select-match>
+                                        <ui-select-choices repeat="{role_id: row.role_id} as row in usergroups | propsFilter:{name:$select.search,description:'$select.search'}" infinite-scroll="addMoreItems()" infinite-scroll-distance="2">
+                                            <div ng-bind-html="row.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button class="btnflat warning-color waves-effect  fl" angular-ripple="">Reset User Group</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Valid Until?</label>
+                                <div class="col-sm-9">
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="users.valid_until" is-open="popup1.opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                        <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open1()"><img src="./images/icon/calendar-today.svg" style="width: 20px;"></button>
+                                    </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="saveUser()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Save</button>
+                        <button type="button" ng-click="cancelUser(); refreshUserGroup();" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabzzz" id="tab2" ng-if="showUsername">
+        <div class="tab-label-contentzzz" id="tab2-contentzzz" ng-if="showUsername">
+            <label class="tab-label-headerzzz" for="tab2">Username</label>
+            <div class="tab-contentzzz">
+                <div class=" box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">Username</h3>
+                    </div>
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Username</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputEmail3" placeholder="Username" ng-model="users.username">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="saveUserName()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Save</button>
+                        <button type="button" ng-click="cancelUser()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabzzz" id="tab3" ng-if="showPassword">
+        <div class="tab-label-contentzzz" id="tab3-contentzzz" ng-if="showPassword">
+            <label class="tab-label-headerzzz" for="tab3">User Password</label>
+            <div class="tab-contentzzz">
+                <div class=" box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">User Password</h3>
+                    </div>
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="{{inputType}}" class="form-control" id="inputPassword3" placeholder="Password" ng-model="users.password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Confirm Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" ng-model="users.confirm_password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <div class="checkbox">
+                                        <label class="modzz mapp">
+                                            <input for="check" type="checkbox" class="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()">
+                                            <div id="check" class="lab" ng-if="passwordCheckbox"> Hide password</div>
+                                            <div id="check" class="lab" ng-if="!passwordCheckbox"> Show password</div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="button" ng-click="generatePassword()" class="btnflat success-color waves-effect  fl" angular-ripple="">Generate Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="saveUserPassword()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Save</button>
+                        <button type="button" ng-click="cancelUser()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabzzz" id="tab4" ng-if="showRecovery">
+        <div class="tab-label-contentzzz" id="tab4-contentzzz" ng-if="showRecovery">
+            <label class="tab-label-headerzzz" for="tab4">Recovery Email</label>
+            <div class="tab-contentzzz">
+                <div class=" box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">Recovery Email</h3>
+                    </div>
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Recovery Email</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputEmailRecovery" placeholder="Recovery Email" ng-model="users.recovery_email">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="saveUserEmailRecovery()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Save</button>
+                        <button type="button" ng-click="cancelUser()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="radio" name="tabzzz" id="tab5" ng-if="showPIN">
+        <div class="tab-label-contentzzz" id="tab5-contentzzz" ng-if="showPIN">
+            <label class="tab-label-headerzzz" for="tab5">Personal Identification Number</label>
+            <div class="tab-contentzzz">
+                <div class=" box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">Personal Identification Number</h3>
+                    </div>
+                    <div class="box-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">PIN</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <input type="{{inputType2}}" numbers-only ng-model="users.pos_pin " class="form-control " placeholder="PIN Number" validator="required ">
+                                        <span class="input-group-btn">
+                                        <a class="btn btn-default btn-flat" ng-click="hideShowPassword2()">
+                                            <i class="fa fa-eye" ng-if="inputType2=='password'"></i>
+                                            <i class="fa fa-eye-slash" ng-if="inputType2=='text'"></i>
+                                        </a>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="saveUserPIN()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Save</button>
+                        <button type="button" ng-click="cancelUser()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slidezzz"></div>
+    </div>
+</div>
+<div id="passwordEmail" ng-include="'./templates/password.html'" scope="" onload="" style="display:none;"></div>
+<div id="usernameEmail" ng-include="'./templates/username.html'" scope="" onload="" style="display:none;"></div>
+<div id="recoveryEmail" ng-include="'./templates/emailrecovery.html'" scope="" onload="" style="display:none;"></div>
+<div id="subscriptionEmail" ng-include="'./templates/newuser.html'" scope="" onload="" style="display:none;"></div>
+
+<style type="text/css">
+.modal-body input[type="radio"][name="tabzzz"] {
+    position: absolute;
+    z-index: -1;
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:checked + .tab-label-contentzzz .tab-label-headerzzz {
+    color: #009a93 !important;
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:checked + .tab-label-contentzzz .tab-contentzzz {
+    display: block;
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:nth-of-type(1):checked ~ .slidezzz {
+    left: calc((100% / 5) * 0);
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:nth-of-type(2):checked ~ .slidezzz {
+    left: calc((100% / 5) * 1);
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:nth-of-type(3):checked ~ .slidezzz {
+    left: calc((100% / 5) * 2);
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:nth-of-type(4):checked ~ .slidezzz {
+    left: calc((100% / 5) * 3);
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:nth-of-type(5):checked ~ .slidezzz {
+    left: calc((100% / 5) * 4);
+}
+
+.modal-body input[type="radio"][name="tabzzz"]:first-of-type:checked ~ .slidezzz {
+    left: 0;
+}
+
+.slidezzz {
+    background: #009a93;
+    width: calc(100% / 5) !important;
+    height: 4px;
+    position: absolute;
+    left: 0;
+    top: calc(100% - 6px);
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+}
+
+.tab-label-contentzzz {
+    width: 100%;
+}
+
+.tab-label-contentzzz .tab-contentzzz {
+    position: absolute;
+    top: 58px;
+    left: 16px;
+    line-height: 130%;
+    display: none;
+    margin-left: -16px;
+    background: #fff;
+    padding: 0px;
+    width: 100%;
+    /*height: 475px;*/
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12)
+}
+
+.tab-label-headerzzz {
+    cursor: pointer;
+    color: #777777;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        padding: 40px 0 90px 10%;
+    }
+    .tab-wrap {
+        width: 100%;
+    }
+}
+</style>

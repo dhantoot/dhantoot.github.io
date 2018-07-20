@@ -1,0 +1,23 @@
+<section class="content-header">
+    <h1>
+            Customer Group Details
+          </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.settings-customergroup">Customer Group</a></li>
+        <li class="active">Customer Group Entry</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- /.row -->
+    <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="<i class='fa fa-info'></i> General Entry" bs-pane>
+            <div ng-include="'modules/humanresource/customer.groups.entry.html'"></div>
+        </div>
+        <div data-title="<i class='fa fa-info'></i> Mapping" bs-pane>
+            <div ng-include="'modules/humanresource/customer.groups.mapping.html'"></div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

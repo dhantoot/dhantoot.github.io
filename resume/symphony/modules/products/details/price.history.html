@@ -1,0 +1,58 @@
+<div class="row">
+    <form role="form" ng-submit="addProduct()">
+        <div class="col-md-12"> 
+            <div class=" box-warning m-0">
+                <div class="s">
+                    <h4 class="box-title">Price</h4>
+                </div>
+                <div class="box-header" style="padding: 10px 20px;">
+                    <div class="">
+                        <div class="form-inline w100p disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <button ng-click="openAttributeModal()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Add Price</button>
+                                <button ng-click="saveCategory()" class="btnflat danger-color waves-effect fl mr-10 " angular-ripple>Delete</button>
+                                <button ng-click="getAllCategory()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body p-0">
+                    <table class="table table-striped footable" data-page-size="10" id="tblAttributes">
+                        <thead>
+                            <tr>
+                                <th class="" data-sort-ignore="true">Name</th>
+                                <th class="" data-sort-ignore="true">Label</th>
+                                <th class="" data-sort-ignore="true">Description</th>
+                                <th data-sort-ignore="true"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in itemArray" repeat-end="paginate()">
+                                <td>
+                                    {{var.name}}
+                                </td>
+                                <td>
+                                    {{var.label}}
+                                </td>
+                                <td>
+                                    <p data-ng-bind-html="var.description | limitTo: 90" data-ellipsis></p>
+                                </td>
+                                <td>
+                                    <button ng-click="edit(product.p_id)" class="btn btn-info btn-xs btn-flat"><i class="glyphicon glyphicon-edit"></i></button>
+                                    <button ng-click="edit(product.p_id)" class="btn btn-danger btn-xs btn-flat"><i class="glyphicon glyphicon-remove"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

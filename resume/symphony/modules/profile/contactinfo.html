@@ -1,0 +1,63 @@
+<div class="forprof">
+    <div class=" col-md-6">
+        <form role="form" name="usernameForm" ng-submit="saveUsername()" novalidate="novalidate">
+            <div class="box-body useraccountbox">
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input type="text" ng-model="profile.username" placeholder="User Name" required />
+                    <span class="barzz"></span>
+                </div>
+                <button type="submit" ng-disabled="usernameForm.$invalid" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+        <form role="form" name="userpasswordForm" ng-submit="savePassword()" novalidate="novalidate">
+            <div class="box-body useraccountbox">
+                <div class="form-group" ng-class="{'has-success': userpasswordForm.$valid, 'has-error': !userpasswordForm.newpassword.$error.required && (userpasswordForm.newpassword.$error.minlength || userpasswordForm.newpassword.$error.maxlength) && userpasswordForm.newpassword.$dirty}">
+                    <label>New Password <i ng-class="{'fa fa-times':!userpasswordForm.newpassword.$error.required && (userpasswordForm.newpassword.$error.minlength || userpasswordForm.newpassword.$error.maxlength) && userpasswordForm.newpassword.$dirty, 'fa fa-check':userpasswordForm.$valid}"></i></label>
+                    <input type="password" name="newpassword" ng-model="details.password" placeholder="Password" ng-minlength="6" ng-maxlength="20" required />
+                    <span class="barzz"></span>
+                    <span class="errors" ng-show="!userpasswordForm.newpassword.$error.required && (userpasswordForm.newpassword.$error.minlength || userpasswordForm.newpassword.$error.maxlength) && userpasswordForm.newpassword.$dirty">Passwords must be between 6 and 20 characters.</span>
+                </div>
+                <div class="form-group" ng-class="{ 'has-success': userpasswordForm.$valid,'has-error':userpasswordForm.password_c.$error.required && userpasswordForm.password_c.$dirty,} ">
+                    <label>Confirm Password <i ng-class="{ 'fa fa-times':userpasswordForm.password_c.$error.required && userpasswordForm.password_c.$dirty && userpasswordForm.password_c.$error.noMatch,'fa fa-check':userpasswordForm.$valid} "></i></label>
+                    <input type="password" id="password_c " name="password_c " ng-model="details.confirm_password " placeholder="Confirm Password " valid-password-c="{{details.password===details.confirm_password}}" required />
+                    <span class="barzz"></span>
+                    <span class="errors" ng-show="userpasswordForm.password_c.$error.required && userpasswordForm.password_c.$dirty ">Please confirm your password</span>
+                    <span class="errors" ng-show="!userpasswordForm.password_c.$error.required && userpasswordForm.password_c.$error.noMatch && userpasswordForm.newpassword.$dirty ">Password do not match.</span>
+                    <span class="success" ng-show="userpasswordForm.$valid">Password Match</span>
+                </div>
+                <button type="submit " ng-disabled="userpasswordForm.$invalid" class="btn btn-primary ">Update</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form role="form " name="recoveryForm " ng-submit="addRecoveryEmail() " novalidate="novalidate ">
+            <div class="box-body useraccountbox">
+                <div class="form-group ">
+                    <label>Recovery Email Address</label>
+                    <input type="email " ng-model="details.recovery_email " placeholder="Recovery Email " validator="required ">
+                    <span class="barzz"></span>
+                </div>
+                <button type="submit " ng-disabled="recoveryForm.$invalid " class="btn btn-primary ">Update</button>
+            </div>
+        </form>
+        <form role="form " name="userPOSPin" ng-submit="addPOSPIN() " novalidate="novalidate ">
+            <div class="box-body useraccountbox">
+                <div class="form-group ">
+                    <label>Personal Identification Number</label>
+                    <div class="input-group">
+                        <input type="{{inputType}}" numbers-only ng-model="details.pos_pin " placeholder="PIN Number" validator="required ">
+                        <span class="barzz"></span>
+                        <span class="input-group-btn">
+                                    <a class="btn btn-default btn-flat" ng-click="hideShowPassword()" style="margin-top: -15px;">
+                                        <i class="fa fa-eye" ng-if="inputType=='password'"></i>
+                                        <i class="fa fa-eye-slash" ng-if="inputType=='text'"></i>
+                                    </a>
+                                </span>
+                    </div>
+                </div>
+                <button type="submit" ng-disabled="userPOSPin.$invalid " class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>

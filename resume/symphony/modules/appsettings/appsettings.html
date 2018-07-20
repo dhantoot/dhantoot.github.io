@@ -1,0 +1,43 @@
+<section class="content-header">
+    <h1> Application Settings</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Application Settings</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="assets appsett content">
+    <div class="col-md-12 box p-0" role="search-row">
+        <div class="col-md-2  p-0">
+            <div class="appsett box-solid">
+                <div class="appsetting minisidebarbg"> Settings</div>
+                <div class="box-body no-padding">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li ng-class="{'active':app.device}"><a href="" ng-click="showTab('device')" angular-ripple style="padding-left: 40px;"><i class="iconSizer zmdi zmdi-devices"></i> Devices</a></li>
+                        <li ng-class="{'active':app.apps}"><a href="" ng-click="showTab('apps')" angular-ripple style="padding-left: 40px;"><i class="iconSizer zmdi zmdi-apps"></i> All Apps</a></li>
+                        <li ng-class="{'active':app.apikeys}"><a href="" ng-click="showTab('apikeys')" angular-ripple style="padding-left: 40px;"><i class="iconSizer zmdi zmdi-key"></i> Account & API Keys</a></li>
+                        <li ng-class="{'active':app.user}"><a href="" ng-click="showTab('user')" angular-ripple style="padding-left: 40px;"><i class="iconSizer zmdi zmdi-accounts"></i> User Auth</a></li>
+                        <!-- <li ng-class="{'active':app.payment}"><a href="" ng-click="showTab('payment')" style="padding: 7px 15px 7px 50px;" angular-ripple><img src="./images/icon/ic_credit_card_black_24px.svg" style="    margin-left: -35px;"> Payment Gateways</a></li> -->
+                        <li ng-class="{'active':app.logs}"><a href="" ng-click="showTab('logs')" angular-ripple style="padding-left: 40px;"><i class="iconSizer zmdi zmdi-file-text"></i> Logs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 p-0">
+            <div ng-include="'./modules/appsettings/device.html'" ng-if="app.device"></div>
+            <div ng-include="'./modules/appsettings/apikeys.html'" ng-if="app.apikeys"></div>
+            <div ng-include="'./modules/appsettings/allapps.html'" ng-if="app.apps"></div>
+            <div ng-include="'./modules/appsettings/userauth.html'" ng-if="app.user"></div>
+            <div ng-include="'./modules/appsettings/userlogs.html'" ng-if="app.logs"></div>
+            <div ng-include="'./modules/appsettings/payments.html'" ng-if="app.payment"></div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<style type="text/css">
+.iconSizer {
+    position: absolute;
+    font-size: 21px;
+    left: 10px;
+}
+</style>

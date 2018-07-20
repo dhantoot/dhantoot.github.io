@@ -1,0 +1,73 @@
+<section class="content" ng-controller="deviceController">
+    <!-- /.row -->
+    <div class="row">
+        <script type="text/ng-template" id="checkboxheader.html">
+            <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+        </script>
+        <div class="">
+            <div class="">
+                <div class="box-header" style=" padding: 8px 11px !important;">
+                    <div class="form-inline disp-inline-flex" ng-hide="list.listName === 'Products'">
+                        <div class=" btn-group mailbox-controls  ">
+                            <button ng-click="addNewEntry()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple="">Add Device</button>
+                            <button ng-click="deleteSelected()" ng-disabled="!deleteSomeData" class="btnflat danger-color waves-effect fl mr-10 " angular-ripple="">Delete</button>
+                            <button ng-click="refresh()" class="btnflat  waves-effect fl mr-10 " angular-ripple="">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group imput">
+                                        <input type="text" name="q" class="form-control  input-sm ng-pristine ng-untouched ng-valid ng-empty" placeholder="Search" ng-model="txtSearch" disable-valid-styling="true" disable-validation-message="" ng-change="(txtSearch.length < 1)?searchData():0">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData()" ng-keypress="($event.which === 13)?searchData():0" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body table-responsive padding p-0">
+                    <table class="table table-hover" ng-table="deviceTable">
+                        <tr ng-repeat="device in $data">
+                            <td data-header="'checkboxheader.html'" class="text-center center-td-table" angular-ripple>
+                                <input type="checkbox" class="checkbox" ng-model="device.selected" ng-change="checkDataChanges(device)">
+                            </td>
+                            <td class="text-center" data-title="'UUID'">
+                                {{device.deviceUUID}}
+                            </td>
+                            <td class="text-center" data-title="'Name'">
+                                {{device.deviceName}}
+                            </td>
+                            <td class="text-center" data-title="'Brand'">
+                                {{device.deviceBrand}}
+                            </td>
+                            <td class="text-center" data-title="'Model'">
+                                {{device.deviceModel}}
+                            </td>
+                            <td class="text-center" data-title="'Serial Number'">
+                                {{device.deviceSerialNum}}
+                            </td>
+                            <td class="text-center" data-title="'OS'">
+                                {{device.osName}}
+                            </td>
+                            <td class="text-center" data-title="'OS Version'">
+                                {{device.osVersion}}
+                            </td>
+                            <td class="text-center" data-title="'Screen Resolution'">
+                                {{device.screenResolution}}
+                            </td>
+                            <td class="text-right">
+                                <button ng-click="toggleModal(device,$index);" class="btn actbutton btn-flat btn-xs btn-info"><img src="./images/icon/ic_delete_black_24px.svg"></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="overlay" ng-show="deviceisLoading">
+                     <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>

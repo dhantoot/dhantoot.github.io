@@ -1,0 +1,8 @@
+<div class="ngdialog-message">
+    <h3><i ng-if="listOfvariants.length == 1 && flagFromVariants == true" style="font-size: 25px; color:#d43c3c" class="zmdi zmdi-alert-triangle"></i>  Delete Record ?</h3>
+    <p>{{_message}}</p>
+</div>
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="confirm(1)">Confirm</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">Cancel</button>
+</div>

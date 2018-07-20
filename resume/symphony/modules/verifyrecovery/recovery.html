@@ -1,0 +1,25 @@
+<div class="login-box" ng-init="isVerified()">
+    <div class="login-box-body">
+        <form ng-submit="forgotpass()">
+            <div class="text-center">
+                <div ng-if="verifying">
+                    <h1><i class="fa fa-info-circle fa-3x text-info"></i></h1>
+                    <p>
+                        <h3> Verifying Email Recovery.</h3>
+                        <br>
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw text-blue"></i>
+                    </p>
+                </div>
+                <div ng-if="hasError">
+                    <h1><i class="fa fa-warning fa-3x text-yellow"></i></h1>
+                    <p>
+                        <h3>{{response.msg}}</h3>
+                        <br>
+                        <p>You may now <a ui-sref="login">Login</a> with your account</p>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="recoveryEmail" ng-include="'./templates/emailrecovery_verification.html'" scope="" onload="" style="display:none;"></div>

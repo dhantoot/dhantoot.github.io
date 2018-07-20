@@ -1,0 +1,75 @@
+<div class="row" ng-controller="productRelatedCtrl">
+    <div class="col-md-12">
+        <div class=" box-warning m-0">
+            <div class="s">
+                <h4 class="box-title">Related Products</h4>
+            </div>
+            <div class="box-header" style="padding: 10px 20px;">
+                <div class="">
+                    <div class="form-inline w100p disp-inline-flex ">
+                        <div class=" btn-group mailbox-controls  w100p">
+                            <button ng-click="addNewEntry()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Add Products</button>
+                            <button ng-click="deleteSelectedRelated()" class="btnflat danger-color waves-effect fl mr-10 " angular-ripple>Delete</button>
+                            <button ng-click="getAllRelatedProducts()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                            <button ng-click="openRelationType()" class="btnflat fr waves-effect  " angular-ripple>Relation Type</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body p-0">
+            <table class="table table-striped footable" data-page-size="10" id="tblAttributes">
+                <thead>
+                    <tr>
+                        <th class="" data-sort-ignore="true">
+                            <input type="checkbox" class="checkbox" ng-model="selectDeselectAllRelation" ng-change="changeSelectDeselectAllRelated()">
+                        </th>
+                        <th class="" data-sort-ignore="true">Product</th>
+                        <th class="" data-sort-ignore="true">Relation Type</th>
+                        <th data-sort-ignore="true"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="var in relatedProducts" repeat-end="paginate()">
+                        <td angular-ripple>
+                            <input type="checkbox" class="checkbox" ng-model="var.selected" ng-change="checkRelationChanges(var)">
+                        </td>
+                        <td>
+                            {{var.ref_product.item_name}}
+                        </td>
+                        <td>
+                            {{var.relation_type.name}}
+                        </td>
+                        <td>
+                            <button ng-click="deleteSelected(var.rel_id)" class="btn actbutton btn-flat btn-xs btn-info" uib-tooltip="Delete">
+                                <img src="./images/icon/ic_delete_black_24px.svg">
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="6" align="center">
+                            <ul class="pagination"></ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<style type="text/css">
+@media only screen and (max-width: 736px),
+(min-device-width: 200px) and (max-device-width: 736px) {
+    td:nth-of-type(1):before {
+        content: " ";
+    }
+    td:nth-of-type(2):before {
+        content: "Product";
+    }
+    td:nth-of-type(3):before {
+        content: "Relation Type";
+    }
+}
+</style>

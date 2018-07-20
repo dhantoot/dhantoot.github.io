@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class=" box-warning">
+            <div class="box-header">
+                <div class="pull-left">
+                    <form class="form-inline">
+                        <button ng-click="saveMapping()" class="btnflat primary-color waves-effect mr-10 fl" angular-ripple>Save Mapping</button>
+                        <button ng-click="getAllAttributeMapValues()" class="btnflat  waves-effect fl" angular-ripple>Refresh</button>
+                    </form>
+                </div>
+            </div>
+            <div class="box-body mapp p-0">
+                <div class="col-xs-6 form-group pt-10 bordcol">
+                    <label>Product Type</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <input type="checkbox" class="checkbox" ng-model="enableProductType" ng-click="enableProductTypeEvent(enableProductType)">
+                        </div>
+                        <ui-select ng-model="map.fk_ptype_id" ng-disabled="!enableProductType" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="var in (productType | filter: $select.search) track by var.ptype_id">
+                                <div ng-bind-html="var.name | highlight: $select.search"></div>
+                                <small>
+                                    <span ng-bind-html="var.label | highlight: $select.search"></span>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group pt-10 bordcol">
+                    <label>Attribute Groups</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <input type="checkbox" class="checkbox" ng-model="enableGroup" ng-click="enableGroupEvent(enableGroup)">
+                        </div>
+                        <ui-select ng-model="map.fk_attgrp_id" ng-disabled="!enableGroup" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="category in (attribute_group | filter: $select.search) track by category.attgrp_id">
+                                {{category.name}}
+                                <small>{{category.label}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group bordcol">
+                    <label>Categories</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <input type="checkbox" class="checkbox" ng-model="enableCategories" ng-click="enableCategoriesEvent(enableCategories)">
+                        </div>
+                        <ui-select ng-model="map.fk_c_id" ng-disabled="!enableCategories" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="category in (categories | filter: $select.search) track by category.c_id">
+                                {{category.name}}
+                                <small>{{category.label}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group bordcol">
+                    <label>Articles</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <input type="checkbox" class="checkbox" ng-model="enableArticles" ng-click="enableArticlesEvent(enableArticles)">
+                        </div>
+                        <ui-select ng-model="map.fk_article_id" ng-disabled="!enableArticles" allow-clear>
+                            <ui-select-match>
+                                {{$select.selected.title}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="article in (articles | filter: $select.search) track by article.article_id">
+                                {{article.title}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="box-header" style="background: transparent;">
+                    <div class="fr">
+                        <button ng-click="addtoMapping(map)" class="btnflat primary-color waves-effect mr-10 fl" angular-ripple>Add</button>
+                        <button ng-click="clearMapping()" class="btnflat danger-color waves-effect fl" angular-ripple>Clear</button>
+                    </div>
+                </div>
+                <table class="table table-striped footable" data-page-size="10" id="tblStore">
+                    <thead>
+                        <tr>
+                            <th class="" data-sort-ignore="true">Product Type</th>
+                            <th class="" data-sort-ignore="true">Group</th>
+                            <th class="" data-sort-ignore="true">Category</th>
+                            <th class="" data-sort-ignore="true">Article</th>
+                            <th class="" data-sort-ignore="true"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="var in attributeMapValues">
+                            <td>
+                                {{var.fk_ptype}}
+                            </td>
+                            <td>
+                                {{var.fk_attgrp}}
+                            </td>
+                            <td>
+                                {{var.fk_category}}
+                            </td>
+                            <td>
+                                {{var.fk_article}}
+                            </td>
+                            <td class="text-right">
+                                <div class="disp-inline-flex">
+                                    <a ng-click="removeFromMapping($index)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="6" align="center">
+                                <ul class="pagination"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

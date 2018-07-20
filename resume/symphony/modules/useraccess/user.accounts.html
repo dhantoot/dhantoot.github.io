@@ -1,0 +1,79 @@
+<div class="">
+    <div class="box-header">
+        <!-- <div class="pull-left disp-inline-flex">
+            <div class="w140">
+                <a class="mr-10 label-circle-button ml-5" ng-click="newUserAccount()">
+                    <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                        <img src="./images/icon/ic_black_white_24px.svg">
+                    </button>Add New
+                </a>
+            </div>
+            <div class="w140">
+                <a class="mr-10 label-circle-button ml-5" ng-click="refreshUser()">
+                    <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                        <img src="./images/icon/refresh.svg">
+                    </button>Refresh
+                </a>
+            </div>
+        </div> -->
+        <div class="pull-left disp-inline-flex">
+            <button ng-click="newUserAccount()" class="btnflat primary-color waves-effect ml-10 fr" angular-ripple="">Add New</button>
+            <button ng-click="refreshUser()" class="btnflat  waves-effect ml-10 fr" angular-ripple="">Refresh</button>
+        </div>
+        <div class="pull-right box-tools">
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group pull-right imput" style="width: 250px;">
+                            <input type="text" name="q" class="form-control  input-sm " placeholder="Search" ng-model="txtSearch2" disable-valid-styling="true" disable-validation-message="" ng-change="(txtSearch2.length < 1)?searchData2():0">
+                            <div class="input-group-btn">
+                                <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchData2()" ng-keypress="($event.which === 13)?searchData2():0" uib-tooltip="Search" angular-ripple="" style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="box-body table-responsive padding p-0">
+        <table class="table table-hover" ng-table="usersTable">
+            <tr ng-repeat="row in $data  track by $index">
+                <td data-header="'checkboxheader.html'" class="text-center center-td-table">
+                    <input type="checkbox" class="checkbox" ng-model="row.selected" ng-change="checkDataChanges(row)">
+                </td>
+                <td class="text-center" data-title="'Name'">
+                    {{row.EmpName}}
+                </td>
+                <td class="text-center" data-title="'Username'">
+                    {{row.username}}
+                </td>
+                <td class="text-center" data-title="'User Roles'">
+                    <span ng-if="row.isOwner == 1" class="role-tag label label-warning">OWNER</span>
+                    <span ng-if="row.userRoles.length > 0" class="role-tag label label-primary" ng-repeat="tag in row.userRoles">{{tag.name}}</span>
+                </td>
+                <td class="text-center" data-title="'Account Validity'">
+                    {{row.valid_until | amDateFormat:'MM/DD/YYYY'}}
+                </td>
+                <!--  <td class="text-right" data-title="'Action'">
+                    <a class="btn btn-flat btn-default btn-xs"><span class="fa fa-tablet"></span></a>
+                    <a class="btn btn-flat btn-default btn-xs" ng-click="setUsersSubscription(row.uc_id)" ng-show="profile.isOwner == 1 && profile.uc_id !== row.uc_id"><span class="fa fa-list"></span></a>
+                    <a class="btn ml-5 actbutton btn-info btn-xs btn-flat mr-5" ng-click="newUserAccount(row.uc_id,row.profile.person_id)"><img src="./images/icon/ic_mode_edit_white_18px.svg"></a>
+                    <a class="btn actbutton btn-flat btn-xs btn-info" ng-click="toggleModal(row.uc_id,$index,'users')"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                </td> -->
+                <td class="text-right" data-title="'Action'">
+                    <div class="disp-inline-flex">
+                        <a ng-click="setUsersSubscription(row.uc_id)" ng-show="profile.isOwner == 1 && profile.uc_id !== row.uc_id" class="btn ml-10 bgscreen btn-info actbutton btn-xs btn-flat" uib-tooltip="Subscription"><img src="./images/icon/ic_list_black_24px (1).svg"></a>
+                        <a ng-click="newUserAccount(row.uc_id,row.profile.person_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit"><img src="./images/icon/ic_mode_edit_white_18px.svg"></a>
+                        <a ng-click="toggleModal(row.uc_id,$index,'users')" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></a>
+                    </div>
+                    <a ng-click="setUsersSubscription(row.uc_id)" class="smscreen r200" ng-show="profile.isOwner == 1 && profile.uc_id !== row.uc_id">
+                        <button class="btn btn-info actbutton btn-xs btn-flat"><img src="./images/icon/ic_list_black_24px (1).svg"></button> Subscription</a>
+                    <a ng-click="newUserAccount(row.uc_id,row.profile.person_id)" class="smscreen r120">
+                        <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Edit"><img src="./images/icon/ic_mode_edit_white_18px.svg"></button> Edit</a>
+                    <a ng-click="toggleModal(row.uc_id,$index,'users')" class="smscreen">
+                        <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Delete"><img src="./images/icon/ic_delete_black_24px.svg"></button> Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

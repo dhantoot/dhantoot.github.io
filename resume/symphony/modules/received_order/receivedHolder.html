@@ -1,0 +1,22 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>Received Order</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.received_order">Received Order List</a></li>
+        <li><a ui-sref="main.rec_order">Received Order</a></li>
+        <li class="active">Received Order</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="<i class='fa fa-info'></i> General Info" bs-pane>
+            <div ng-include="'modules/received_order/receivedList.html'"></div>
+        </div>
+        <div data-title="<i class='fa fa-info'></i> General Info" bs-pane>
+            <div ng-include="'modules/received_order/receivedBundle.html'"></div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

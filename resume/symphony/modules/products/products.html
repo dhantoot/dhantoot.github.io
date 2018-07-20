@@ -1,0 +1,259 @@
+<section class="content-header">
+    <h1>Products</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Products</li>
+    </ol>
+</section>
+<section class="content prod">
+    <div class="row" role="search-row">
+        <script type="text/ng-template" id="checkboxheader.html">
+            <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+        </script>
+        <div class="col-md-3 col-xs-3 pr-0">
+            <div ng-show="side" class="box">
+                <div class="custom-panel panel-default">
+                    <div class="panel-heading">
+                        <a href="" ng-click="showAll()">Show All</a>
+                    </div>
+                </div>
+                <div class="custom-panel panel-default" ng-repeat="category in categoryData">
+                    <div class="panel-heading" ng-click="category.isCollapsed = !category.isCollapsed">
+                        <a href="" ng-click="filterByCategory(category)"> {{category.label}}</a>
+                        <i class="pull-right fa" ng-class="{'fa-angle-down': category.isCollapsed, 'fa-angle-right': !category.isCollapsed}"></i>
+                    </div>
+                    <ul class="list-group" uib-collapse="!category.isCollapsed">
+                        <li ng-repeat="item in category.items" class="list-group-item" ng-click="item.isCollapsed = !item.isCollapsed" ng-if="category.items.length == 0">
+                            <!--  <a href="" ng-click="filterByCategory(item)">{{item.label}}</a>
+                            <i class="pull-right fa" ng-class="{'fa-angle-down': item.isCollapsed, 'fa-angle-right': !item.isCollapsed}"></i> -->
+                            <a href="" ng-click="filterByCategory(item)" style="padding-left: 8px"><i class="fa fa-angle-right"></i>{{item.label}}</a>
+                        </li>
+                        <div class="custom-panel panel-default" ng-repeat="item in category.items" ng-if="category.items.length > 0">
+                            <div class="panel-heading" ng-click="item.isCollapsed = !item.isCollapsed">
+                                <a href="" ng-click="filterByCategory(item)" style="padding-left: 8px">{{item.label}}</a>
+                                <i class="pull-right fa" ng-class="{'fa-angle-down': item.isCollapsed, 'fa-angle-right': !item.isCollapsed}"></i>
+                            </div>
+                            <ul class="list-group" uib-collapse="!item.isCollapsed">
+                                <li ng-repeat="cat in item.items" class="list-group-item" ng-click="cat.isCollapsed = !cat.isCollapsed">
+                                    <!-- <a href="" ng-click="filterByCategory(cat)">{{cat.label}}</a> -->
+                                    <!-- <i class="pull-right fa" ng-class="{'fa-angle-down': cat.isCollapsed, 'fa-angle-right': !cat.isCollapsed}"></i> -->
+                                    <a href="" ng-click="filterByCategory(cat)" style="padding-left: 12px"><i class="fa fa-angle-right"></i> {{cat.label}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-class="side ? 'col-md-9 col-xs-9': 'col-md-12 col-xs-12'">
+            <div class="box box-warning">
+                <div class="box-header" style="padding: 8px 0px;">
+                    <div class="pull-left leftstablebutton">
+                        <button class="actbuttonassets" ng-click="side=!side" uib-tooltip="Product Category" tooltip-placement="right" style="margin-right: 10px;cursor:pointer;">
+                            <!--  <img ng-show="!side" src="./images/icon/ic_list_black_24px (1).svg">
+                            <img ng-show="side" src="./images/icon/backburger.svg"> -->
+                            <i class="zmdi zmdi-format-list-bulleted"></i>
+                        </button>
+                    </div>
+                    <div class="pull-left pt-3">
+                        <form class="form-inline p-3 pl-15">
+                            <button class="btn btn-primary actbutton btn-xs btn-flat mr-10" ui-sref="main.products-add" uib-tooltip="Add New" angular-ripple>
+                                <i class="zmdi zmdi-plus"></i>
+                            </button>
+                            <button class="btn btn-success actbutton btn-xs btn-flat mr-10" ng-disabled="selectedArchivedDatas.length < 1 && selectedDraftedDatas.length < 1" ng-click="publishSelected()" uib-tooltip="Publish" angular-ripple>
+                                <i class="zmdi zmdi-present-to-all"></i>
+                            </button>
+                            <button class="btn btn-warning actbutton btn-xs btn-flat mr-10" ng-disabled="selectedArchivedDatas.length < 1 && selectedPublishedDatas.length < 1" ng-click="draftSelected()" uib-tooltip="Draft" angular-ripple>
+                                <i class="zmdi zmdi-edit"></i>
+                            </button>
+                            <button class="btn btn-danger actbutton btn-xs btn-flat mr-10" ng-disabled="selectedPublishedDatas.length < 1 && selectedDraftedDatas.length < 1" ng-click="deleteSelected()" uib-tooltip="Archive" angular-ripple>
+                                <i class="zmdi zmdi-archive"></i>
+                            </button>
+                            <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="refresh()" uib-tooltip="Refresh" angular-ripple>
+                                <i class="zmdi zmdi-refresh"></i>
+                            </button>
+                            <button class="btn btn-default actbutton btn-xs btn-flat mr-10" ng-click="importproduct('csv')" uib-tooltip="Import Products" angular-ripple>
+                                <i class="zmdi zmdi-upload"></i>
+                            </button>
+                            <button ng-json-export-excel data="readyToExport" report-fields="reportFields" filename="'export-excel-products'" separator="," class="btn btn-default actbutton btn-xs btn-flat mr-10" uib-tooltip="Export as CSV" angular-ripple>
+                                <i class="zmdi zmdi-file-text"></i>
+                            </button>
+                            <a ui-sref="main.export-products" class="btn btn-default actbutton btn-xs btn-flat mr-10" uib-tooltip="Download as PDF" angular-ripple>
+                               <i class="zmdi zmdi-collection-pdf"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                <div class="form-inline w100p disp-inline-flex box-header " style="padding: 8px 15px;">
+                    <div class=" btn-group mailbox-controls sdropdisp">
+                        <form class=" datepickar">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Filter by Tags:</label>
+                                    <div style="width: 109% !important;" ng-dropdown-multiselect="" options="tagsArr" selected-model="tagsFilter" class="checkbox xtend" checkboxes="true" extra-settings="example8settings" events="selectEvents"></div><span class="barzz"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Filter by Status:</label>
+                                    <button class="dropdown-toggle ng-binding" data-toggle="dropdown">
+                                        {{filterStatus}}
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <span class="barzz"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a ng-click="updateFilterStatus('Relevance')">Relevance</a>
+                                        </li>
+                                        <li><a ng-click="updateFilterStatus('Most Viewed')">Most Viewed</a>
+                                        </li>
+                                        <li><a ng-click="updateFilterStatus('Price: High to Low')">Price: High to Low</a>
+                                        </li>
+                                        <li><a ng-click="updateFilterStatus('Price: Low to High')">Price: Low to High</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Filter by Application Status:</label>
+                                    <button class="dropdown-toggle ng-binding" data-toggle="dropdown">
+                                        {{applicationStatus}}
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <span class="barzz"></span>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a ng-click="updateStatus('All')">All</a>
+                                        </li>
+                                        <li><a ng-click="updateStatus('Publish')">Published</a>
+                                        </li>
+                                        <li><a ng-click="updateStatus('Archived')">Archived</a>
+                                        </li>
+                                        <li><a ng-click="updateStatus('Draft')">Draft</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="pull-right searchposition">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="pt-5">
+                                    <div class="input-group imput">
+                                        <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch.text" ngular-ripple>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body table-responsive padding p-0" ng-show="!isList">
+                    <table class="table table-striped table-hover" ng-table="productTable">
+                        <tr ng-repeat="product in $data">
+                            <td data-header="'checkboxheader.html'" class="text-center center-td-table" angular-ripple>
+                                <input type="checkbox" class="checkbox" ng-model="product.selected" ng-change="checkDataChanges(product)">
+                            </td>
+                            <td class="text-left" data-title="'Product Name'">
+                                <a ui-sref="main.products-add({ 'p_id': product.p_id })">{{product.item_name}}</a>
+                            </td>
+                            <td class="text-center" data-title="'Product Type'">
+                                {{product.product_type}}
+                            </td>
+                            <td class="text-center" data-title="'Tags'" width="50">
+                                <div ng-if="product.tags.length < 3">
+                                    <span class="label label-default label-tags" ng-repeat="tag in product.tags">{{tag.tags | cut:true:20:'...'}}</span>
+                                </div>
+                                <div ng-if="product.tags.length > 3">
+                                    <span class="label label-default label-tags" ng-repeat="tag in product.tags | limitTo: 2">{{tag.tags}}</span>
+                                    <a class="label label-default label-tags" ui-sref="main.products-add({ 'p_id': product.p_id })">.....</a>
+                                </div>
+                            </td>
+                            <td class="text-center" data-title="'Selling Price'">
+                                {{product.sell_price}}
+                            </td>
+                            <td class="text-center" data-title="'Status'">
+                                <span ng-if="product.is_published == 0 && product.is_archived == 0" class="label label-warning">draft</span>
+                                <span ng-if="product.is_published == 1 && product.is_archived == 0" class="label label-success">published</span>
+                                <span ng-if="product.is_archived == 1 && product.is_published == 0" class="label label-danger">archived</span>
+                            </td>
+                            <td class="text-center" data-title="'Views'">
+                                <span class="badge bg-light-blue">{{product.product_views}}</span>
+                            </td>
+                            <td class="text-center" data-title="'Date Created'">
+                                {{product.date_created | fromNow}}
+                            </td>
+                            <td>
+                                <div class="disp-inline-flex smscreen">
+                                    <a ng-click="updateHistory(product.p_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Update History" angular-ripple><i class="zmdi zmdi-time-restore"></i></a>
+                                    <a ng-click="edit(product.p_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit" angular-ripple><i class="zmdi zmdi-edit"></i></a>
+                                    <a ng-click="toggleModal(product.p_id);" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Delete" angular-ripple><i class="zmdi zmdi-delete"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="box-body" ng-show="isList">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12" ng-repeat="product in products.slice(((currentPage-1)*itemsPerPage),((currentPage)*itemsPerPage))">
+                            <div class="info-box ">
+                                <span ng-click="edit(product.p_id)" class="info-box-icon bg-aqua"><img src="./images/icon/package.svg" style="    margin-top: -5px;width: 80%;"></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">{{product.item_name}}</span>
+                                    <span class="info-box-number">${{product.sell_price}}</span>
+                                    <span ng-if="product.is_published == 0 && product.is_archived == 0" class="label label-warning">draft</span>
+                                    <span ng-if="product.is_published == 1 && product.is_archived == 0" class="label label-success">published</span>
+                                    <span ng-if="product && product.is_archived == 1 && product.is_published == 0" class="label label-danger">archived</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <uib-pagination boundary-links="true" items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </div>
+                <div class="overlay" ng-show="productIsLoading">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<style type="text/css">
+@media only screen and (max-width: 736px),
+(min-device-width: 200px) and (max-device-width: 736px) {
+    td:nth-of-type(2):before {
+        content: "Product Name";
+    }
+    td:nth-of-type(3):before {
+        content: "Product Type";
+    }
+    td:nth-of-type(4):before {
+        content: "Tags";
+    }
+    td:nth-of-type(5):before {
+        content: "Selling Price";
+    }
+    td:nth-of-type(6):before {
+        content: "Status";
+    }
+    td:nth-of-type(7):before {
+        content: "Views";
+    }
+    td:nth-of-type(8):before {
+        content: "Date Created";
+    }
+}
+
+.open>.dropdown-menu {
+    min-width: 100% !important;
+    right: 0px !important;
+}
+
+.multiselect-parent .form-control {
+    width: 90% !important;
+}
+</style>

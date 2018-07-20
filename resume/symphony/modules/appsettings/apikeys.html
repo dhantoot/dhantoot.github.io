@@ -1,0 +1,88 @@
+<div class="brColor br-left box-warning" ng-controller="appSettingsKeysController">
+    <div class="box-header">
+        <h3 class="box-title">
+            API Auth Key <br>
+            <small> API Auth Key allow your application to communicate with the symphony services using your subscription. Use by adding header <b><i>accesskey: ACCESSKEY</i></b> or <b><i>accesscode: ACCESSCODE</i></b> for our REST API</small>
+        </h3>
+        <button class="actbuttonassets fr" uib-tooltip="Refresh" ng-click="refresh()"><i class="zmdi zmdi-refresh-alt"></i></button>
+    </div>
+    <div class="box-body table-responsive padding p-0">
+        <table class="table table-striped footable" id="tblAttributes">
+            <thead>
+                <tr>
+                    <th class="" data-sort-ignore="true">Access Code</th>
+                    <th class="" data-sort-ignore="true">Access Key</th>
+                    <th class="" data-sort-ignore="true">Validatity</th>
+                    <th data-sort-ignore="true"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="var in apikeys">
+                    <td>
+                        {{var.gk_code}}
+                    </td>
+                    <td>
+                        <a href="" ng-click="showKey(var)" ng-if="!var.showKeys">Show Access Key</a>
+                        <span ng-if="var.showKeys">{{var.gk_secretKey}} <a href="" ng-click="showKey(var)" ng-if="var.showKeys"> Hide</a></span>
+                    </td>
+                    <td>
+                        {{var.valid_from | date:'MM/d/yyyy'}} - {{var.valid_to | date:'MM/d/yyyy'}}
+                    </td>
+                    <td>
+                        <button ng-click="newAPIKeys(var.gk_id)" class="btn btn-info btn-xs pull-right btn-flat">RENEW KEY</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="6" align="center">
+                        <ul class="pagination"></ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="box-header">
+        <h3 class="box-title">
+            API Tokens <br>
+            <small>API keys allow your application to communicate with the symphony services. You can create multiple API keys that have different permissions to restrict the actions your apps can perform.</small>
+        </h3>
+        <button class="actbuttonassets fr" uib-tooltip="Refresh" ng-click="refresh()"><img class="rotate" tabindex="1" src="./images/icon/refresh.svg"></button>
+    </div>
+    <div class="box-body table-responsive padding p-0">
+        <table class="table table-striped footable" id="tblAttributes">
+            <thead>
+                <tr>
+                    <th class="" data-sort-ignore="true">Access Code</th>
+                    <th class="" data-sort-ignore="true">Access Key</th>
+                    <th class="" data-sort-ignore="true">Validatity</th>
+                    <th data-sort-ignore="true"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="var in apikeys">
+                    <td>
+                        {{var.gk_code}}
+                    </td>
+                    <td>
+                        <a href="" ng-click="showKey(var)" ng-if="!var.showKeys">Show Access Key</a>
+                        <span ng-if="var.showKeys">{{var.gk_secretKey}} <a href="" ng-click="showKey(var)" ng-if="var.showKeys"> Hide</a></span>
+                    </td>
+                    <td>
+                        {{var.valid_from | date:'MM/d/yyyy'}} - {{var.valid_to | date:'MM/d/yyyy'}}
+                    </td>
+                    <td>
+                        <button ng-click="newAPIKeys(var.gk_id)" class="btn btn-info btn-xs pull-right btn-flat">RENEW KEY</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+                <tr>
+                    <td colspan="6" align="center">
+                        <ul class="pagination"></ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

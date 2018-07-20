@@ -1,0 +1,76 @@
+<div class="diver"></div>
+<section class="content-header">
+    <h1>
+           Reports
+          </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!--  <div class="tab-wrap">
+        <input type="radio" name="tabs" id="tab1" checked>
+        <div class="tab-label-content" id="tab1-content">
+            <label class="tab-label-header" for="tab1" angular-ripple>Dashboard</label>
+            <div class="tab-content">
+                <ng-include src="'./modules/reports/sales/dashboard.html'"></ng-include>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab2">
+        <div class="tab-label-content" id="tab2-content">
+            <label class="tab-label-header" for="tab2" angular-ripple>Sales</label>
+            <div class="tab-content">
+                <ng-include src="'./modules/reports/sales/dashboard.html'"></ng-include>
+            </div>
+        </div>
+        <input type="radio" name="tabs" id="tab3">
+        <div class="tab-label-content" id="tab3-content">
+            <label class="tab-label-header" for="tab3" angular-ripple>Inventory</label>
+            <div class="tab-content">
+                <ng-include src="'./modules/articles/details/media.html'"></ng-include>
+            </div>
+        </div>
+        <div class="slide"></div>
+    </div> -->
+    <div class="nav-tabs-custom" bs-tabs>
+        <div data-title="Dashboard" bs-pane>
+            <ng-include src="'./modules/reports/sales/dashboard.html'"></ng-include>
+        </div>
+        <div data-title="Sales" bs-pane>
+            <ng-include src="'./modules/reports/sales/dashboard.html'"></ng-include>
+        </div>
+        <div data-title="Inventory" bs-pane>
+            <ng-include src="'./modules/reports/sales/dashboard.html'"></ng-include>
+        </div>
+    </div>
+</section>
+<style type="text/css">
+.nav-tabs-custom {
+    box-shadow: none !important;
+}
+
+.nav-tabs-custom>.tab-content {
+    background: #eeeeee;
+    padding: 10px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.diver {
+    height: 110px;
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    /* margin-top: -50px; */
+    z-index: 0;
+}
+
+.nav-tabs {
+    border-bottom: 4px solid #555 !important;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active>a,
+.nav-tabs-custom>.nav-tabs>li.active:hover>a {
+    background-color: #fff;
+    color: #262b33;
+    border-bottom: 3px solid #555;
+}
+</style>

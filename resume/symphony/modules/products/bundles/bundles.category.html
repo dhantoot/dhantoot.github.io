@@ -1,0 +1,141 @@
+<div class="row bundlecategory" ng-controller="productBundleCategoryCtrl">
+    <form role="form">
+        <div class="col-md-12">
+            <div class=" box-warning">
+                <!-- <div class="box-header">
+                    <div class="pull-left disp-inline-flex">
+                        <form class="form-inline ">
+                            <div class="btn-group w140">
+                                <a class="mr-10 label-circle-button dropdown-toggle" data-toggle="dropdown">
+                                    <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                        <img src="./images/icon/information.svg">
+                                    </button>
+                                    Status: <span ng-if="applicationStatus == ''">All</span><span ng-if="applicationStatus != ''">{{applicationStatus}}</span>
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <ul class="dropdown-menu" style="top: 30px;margin-left: 0;">
+                                    <li><a ng-click="updateStatus('')">All</a></li>
+                                    <li><a ng-click="updateStatus('Product\'s Category')">Product's Category</a></li>
+                                </ul>
+                            </div>
+                            <div class="w140">
+                                <a ng-click="saveproductBundleCategory()" class="mr-10 label-circle-button ">
+                                    <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                        <img src="./images/icon/ic_save_black_24px.svg">
+                                    </button>Save
+                                </a>
+                            </div>
+                            <div class="w140">
+                                <a ng-click="getAllCategory()" class="mr-10 label-circle-button">
+                                    <button class="btn btn-default actbutton btn-xs btn-flat mr-5">
+                                        <img src="./images/icon/refresh.svg">
+                                    </button>Refresh
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="pull-right box-tools">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group imput">
+                                        <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchStatus():0">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-flat gobutton btn-sm btn-default" ng-click="searchStore()" ng-keypress="($event.which === 13)?searchStore():0" uib-tooltip="Search" angular-ripple style="padding: 4px 20px !important;margin-right: 10px;border: 1px solid #d2d6de;">GO</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div> -->
+                <div class="box-header" style="padding: 10px 20px;">
+                    <div class="">
+                        <div class="form-inline w100p disp-inline-flex ">
+                            <div class=" btn-group mailbox-controls  ">
+                                <button ng-click="saveproductBundleCategory()" class="btnflat primary-color fl waves-effect mr-10 " angular-ripple>Save</button>
+                                <button ng-click="getAllCategory()" class="btnflat  waves-effect fl mr-10 " angular-ripple>Refresh</button>
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-flat btn-default  dropdown-toggle ng-binding" data-toggle="dropdown" angular-ripple>
+                                            <span ng-if="applicationStatus == ''">All</span><span ng-if="applicationStatus != ''">{{applicationStatus}}</span>
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="top: 30px;margin-left: 0;">
+                                            <li><a ng-click="updateStatus('')">All</a></li>
+                                            <li><a ng-click="updateStatus('Product\'s Category')">Product's Category</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right searchposition b">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="pt-5">
+                                            <div class="input-group imput">
+                                                <input type="text" name="q" class="form-control  input-sm" placeholder="Search" ng-model="txtSearch" ng-change="(txtSearch.length < 1)?searchStatus():0" angular-ripple ng-keypress="($event.which===13)?searchData(txtSearch):0" style="margin-top: 0px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body p-0 cat">
+                    <table class="table " data-page-size="10" id="tblCategory">
+                        <thead>
+                            <tr>
+                                <th width="30" data-sort-ignore="true">
+                                    <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+                                </th>
+                                <th class="">Name</th>
+                                <th class="">Label</th>
+                                <th class="">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="var in itemArray" repeat-end="paginate()">
+                                <td angular-ripple>
+                                    <input type="checkbox" class="checkbox" ng-model="var.selected" ng-change="checkStoresChanges(var)">
+                                </td>
+                                <td>
+                                    {{var.name}}
+                                </td>
+                                <td>
+                                    {{var.label}}
+                                </td>
+                                <td>
+                                    {{var.description}}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="hide-if-no-paging">
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<style type="text/css">
+@media only screen and (max-width: 736px),
+(min-device-width: 200px) and (max-device-width: 736px) {
+    .cat td:nth-of-type(2):before {
+        content: "Name";
+    }
+    .cat td:nth-of-type(3):before {
+        content: "Label";
+    }
+    .cat td:nth-of-type(4):before {
+        content: "Description";
+    }
+}
+</style>

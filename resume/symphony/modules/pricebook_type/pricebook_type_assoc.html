@@ -1,0 +1,68 @@
+<section class="content-header">
+    <h1>Price Book Association Type</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="main.dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="main.pricebooktype">Price Book Type</a></li>
+        <li class="active">Price Book Association Type</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content" ng-init="populateData()">
+    <!-- /.row -->
+    <div class="row">
+        <script type="text/ng-template" id="checkboxheader.html">
+            <input type="checkbox" class="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+        </script>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header" style="padding: 8px 5px;">
+                    <div class="">
+                        <form class="form-inline p-5 pl-10 ng-pristine ng-valid">
+                            <div class="form-group">
+                                <a class="btn btn-primary actbutton btn-xs btn-flat mr-10" ng-click="addNewEntry(null)" uib-tooltip="Add New">
+                                    <i class="zmdi zmdi-plus"></i>
+                                </a>
+                                <a class="btn btn-danger actbutton btn-xs btn-flat mr-10" ng-click="deleteSelected()" ng-disabled="!deleteSomeData" uib-tooltip="Archive" disabled="disabled">
+                                    <i class="zmdi zmdi-present-to-all"></i>
+                                </a>
+                                <button ng-click="refresh()" class="btn btn-default actbutton btn-xs btn-flat mr-10" uib-tooltip="Refresh">
+                                    <i class="zmdi zmdi-refresh"></i>
+                                </button>
+                            </div>
+                            <input type="text" name="q" class="form-control  input-sm pull-right" placeholder="Search" ng-model="txtSearch.text" angular-ripple>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body table-responsive p-0 padding">
+                    <table class="table table-hover" ng-table="priceBookTypeTable">
+                        <tr ng-repeat="type in $data">
+                            <td data-header="'checkboxheader.html'" class="text-center center-td-table">
+                                <input type="checkbox" class="checkbox" ng-model="type.selected" ng-change="checkDataChanges(type)">
+                            </td>
+                            <td class="text-center" data-title="'Name'">
+                                {{type.name}}
+                            </td>
+                            <td class="text-center" data-title="'Associated Table'">
+                                {{type.associated_table}}
+                            </td>
+                            <td class="text-center" data-title="'Date Created'">
+                                {{type.date_created}}
+                            </td>
+                            <td class="text-right">
+                                <div class="disp-inline-flex">
+                                    <a ng-click="addNewEntry(type.pat_id)" class="btn ml-10 bgscreen actbutton btn-info btn-xs btn-flat" uib-tooltip="Edit"><i class="zmdi zmdi-edit"></i></a>
+                                </div>
+                                <a ng-click="addNewEntry(type.pt_id)" class="smscreen">
+                                    <button class="btn btn-info  actbutton btn-xs btn-flat" uib-tooltip="Edit"><i class="zmdi zmdi-edit"></i></button> Edit</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="overlay" ng-show="attribisLoading">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

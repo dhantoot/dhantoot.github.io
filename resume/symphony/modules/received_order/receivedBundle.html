@@ -1,0 +1,89 @@
+<section class="content">
+    <!-- /.row -->
+    <div class="row" role="search-row">
+        <script type="text/ng-template" id="checkboxheader.html">
+            <input type="checkbox" ng-model="selectDeselectAll" ng-change="changeSelectDeselectAll()">
+        </script>
+        <div class="col-xs-12">
+            <div class="box box-warning">
+                <div class="box-header">
+                    <h3 class="box-title">List of Bundle Products</h3>
+                    </div>
+                    <div class="box-header">
+                    <div class="pull-right">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <form action="#" method="get">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat btn-sm">
+                                                <i class="fa fa-search"></i>
+                                                </button>
+                                                </span>
+                                                <input type="text" name="q" class="form-control input-sm" placeholder="Search.." />
+                                                <span class="input-group-btn">
+                                                <button class="btn btn-sm btn-flat btn-warning dropdown-toggle" data-toggle="dropdown">
+                                            {{applicationStatus}}
+                                            <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a ng-click="updateStatus('All')">All</a>
+                                                    </li>
+                                                    <li><a ng-click="">Category</a>
+                                                    </li>
+                                                    <li><a ng-click="">Tags</a>
+                                                    </li>
+                                                </ul>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                
+                <div class="box-body table-responsive padding">
+                    <table class="table table-hover" ng-table="productBundleTable">
+                        <tr ng-repeat="bundle in $data  track by $index">
+                            <td data-header="'checkboxheader.html'" class="text-center center-td-table">
+                                <input type="checkbox" ng-model="bundle.selected">
+                            </td>
+                            <td class="text-center" data-title="'Bundle Name'">
+                                {{bundle.bundle_name}}
+                            </td>
+                            <td class="text-center" data-title="'Bundle Type'">
+                                {{bundle.product_type}}
+                            </td>
+                            <td class="text-center" data-title="'Bundle Price'">
+                                {{bundle.sell_price}}
+                            </td>
+                            <td class="text-center" data-title="'Status'">
+                                <span ng-if="bundle.is_published == '0' " class="label label-warning">draft</span>
+                                <span ng-if="bundle.is_published == '1' " class="label label-success">published</span>
+                                <span ng-if="bundle.is_archived == '1'" class="label label-danger">archived</span>
+                            </td>
+                            <td class="text-center" data-title="'Description'">
+                                {{bundle.date_created}}
+                            </td>
+                            <td class="text-right">
+                                <button ui-sref="main.products-bundle-add({pb_id: bundle.pb_id})" class="btn btn-info btn-xs btn-flat"><i class="glyphicon glyphicon-edit"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="overlay" ng-show="productIsLoading">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+            </div>
+            <div class="box-body pull-right">
+                <button type="submit" class="btn btn-primary btn-flat btn-block">Complete</button>
+                <a ui-sref="main.rec_order" class="btn btn-default btn-flat btn-block">Cancel</a>
+            </div>
+        </div>
+    </div>
+</section>

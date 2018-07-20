@@ -1,0 +1,59 @@
+<form class="form-horizontal" ng-submit="saveAttributes()">
+    <div class="modal-header">
+        <h3 class="modal-title">Manage Product Variant</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Attributes</label>
+            <div class="col-sm-9">
+                <ui-select ng-model="attrib.attribute_id">
+                    <ui-select-match>
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (attributes | filter: $select.search | limitTo:infiniteScrollContacts.currentItems) track by emp.att_id">
+                        <b>{{emp.name}}</b> <small>({{emp.attrib_type_name}})</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Attribute Values</label>
+            <div class="col-sm-9">
+                <ui-select ng-model="attrib.attribute_id">
+                    <ui-select-match>
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices infinite-scroll="addMoreItems()" infinite-scroll-distance="2" repeat="emp in (attributevalues | filter: $select.search | limitTo:infiniteScrollContacts.currentItems) track by emp.prod_att_id">
+                        <b>{{emp.value}}</b> <small>({{emp.value_image}})</small>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label checkbox">SKU</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="SKU" ng-model="attrib.sku">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label checkbox">Image</label>
+            <div class="col-sm-9">
+                <img ngf-src="attrib.value_image || 'http://placehold.it/250x250'" err-src="http://placehold.it/150x150" class="thumbnail" width="150" height="150">
+                <div class="input-group image-preview">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-warning image-preview-clear" ng-click="removethumb()" ng-show="attrib.value_image">
+                            <span class="glyphicon glyphicon-remove">Clear</span>
+                        </button>
+                        <div class="btn btn-primary image-preview-input"> <span class="fa fa-file-image-o"></span> Browse<span class="image-preview-input-title"></span>
+                            <input type="file" accept="image/*" name="input-file-preview" ng-model="attrib.value_image" ngf-max-size="8MB" ngf-select />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-flat btn-primary" type="submit">Save</button>
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Cancel</a>
+    </div>
+</form>

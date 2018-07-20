@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <a ng-click="cancel()" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></a>
+    <h3 class="modal-title">Import Data</h3>
+</div>
+<div class="modal-body">
+    <div class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-header">
+                <div class="pull-left">
+                    <button class="btn btn-flat btn-sm btn-default">
+                        <i class="glyphicon glyphicon-folder-open"></i>&nbsp Browse
+                    </button>
+                </div>
+                <div class="box-body">
+                    <div class="form-group" style="margin-top:35px;">
+                        <h3>Preview Data</h3>
+                        <!-- <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="50%">Name</th>
+                                    <th ng-show="uploader.isHTML5">Size</th>
+                                    <th ng-show="uploader.isHTML5">Progress</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in uploader.queue" ng-hide="item.isValid">
+                                    <td>
+                                        <strong>{{ item.file.name }}</strong>
+                                    </td>
+                                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                    <td ng-show="uploader.isHTML5">
+                                        <div class="progress" style="margin-bottom: 0;">
+                                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                    </td>
+                                    <td nowrap>
+                                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                            <span class="glyphicon glyphicon-upload"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class='form-group'>
+                                <label for='excel_file'>Excel File</label>
+                                <input type="file" name="excel_file" accept=".xlsx" onchange="angular.element(this).scope().fileChanged(this.files);" required="true">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="showPreview" ng-change="showPreviewChanged();">Show preview of excel file
+                                </label>
+                            </div>
+                            <div class='form-group'>
+                                <label for='sheet_name'>Sheet Name</label>
+                                <select id="sheet_name" class="form-control" ng-model="selectedSheetName" required="true" ng-required="true" ng-options="sheetName as sheetName for (sheetName, sheetData) in sheets">
+                                    <option value="">---- Select a sheet ----</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="sheet_name" value="{{ selectedSheetName }}">
+                            <input type="submit" value="Submit">
+                            <div ng-show="showPreview">
+                                <table class="table table-bordered" ng-repeat="(sheetName, sheetData) in sheets" ng-show="sheetName == selectedSheetName">
+                                    <thead>
+                                        <tr>
+                                            <th ng-bind="sheetName"></th>
+                                        </tr>
+                                    </thead>
+                                    <tr ng-repeat="row in sheetData.data">
+                                        <td ng-repeat="col in row" ng-bind="col"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-flat btn-primary" ng-click="import()">Import</a>
+        <a class="btn btn-flat btn-default" ng-click="cancel()">Close</a>
+    </div>
