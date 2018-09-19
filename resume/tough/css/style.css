@@ -9111,12 +9111,21 @@ textarea.form-control {
     stroke-dashoffset: -136px; } }
 
     
-@media only screen and (max-width: 730px) {
+@media only screen and (max-width: 880px) {
       .nav {
           display: none;
       }
-  @media only screen and (min-width: 730px) {
+}
+@media only screen and (min-width: 880px) {
       #burgermenu {
         display: none;
       }
-  }
+}
+
+#logo {
+  height:75px;
+  margin-top: 0px; 
+  float: left; 
+  margin-left: 0px;
+  opacity: 0.9;
+}
