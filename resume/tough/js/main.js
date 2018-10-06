@@ -281,12 +281,12 @@ $(document).ready(function($) {
 
 	let getUl = function(arg){
 		let ul = `
-		 		<li><a href="index.html">Home <span>(12)</span></a></li>
-                <li><a href="about.html">About <span>(22)</span></a></li>
-                <li><a href="services.html">Services <span>(37)</span></a></li>
-                <li><a href="pricing.html">Pricing <span>(42)</span></a></li>
-                <li><a href="blog.html">Blog <span>(14)</span></a></li>
-                <li><a href="contact.html">Contact <span>(14)</span></a></li>
+		 		<li><a href="index.html">Home </a></li>
+                <li><a href="about.html">About </a></li>
+                <li><a href="services.html">Services </a></li>
+                <li><a href="pricing.html">Pricing </a></li>
+                <li><a href="blog.html">Blog </a></li>
+                <li><a href="contact.html">Contact </a></li>
 		`;
 		$("#ul").html(ul)
 
