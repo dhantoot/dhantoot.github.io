@@ -210,5 +210,91 @@ $(document).ready(function($) {
 	});
 	$('#appointment_time').timepicker();
 
+	console.log('hello world')
+
+	let getHeaders = function(item){
+
+		let htmlview = `
+			<img id="logo" src="./images/Logo2T.png" style="height:75px;margin-top: -11px; float: left; margin-left: 0px;opacity:0.9" />
+                <div class="colorlib-navbar-brand" style="margin-top: 12px;">
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pricing.html">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                
+		`;
+		$("#header").html(htmlview);
+	}
+
+	let getNav = function(item) {
+		let htmlview = `
+			<div class="js-fullheight colorlib-table">
+                <div class="img" style="background-image: url(images/bg_2.jpg);"></div>
+                <div class="colorlib-table-cell js-fullheight">
+                    <div class="row no-gutters">
+                        <div class="col-md-12 text-center">
+                            <h1 class="mb-4"><a href="index.html" class="logo">Ira-Air</a></h1>
+                            <ul class="nav justify-content-center">
+		                        <li class="nav-item">
+		                            <a class="nav-link active" href="index.html">Home</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" href="about.html">About</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" href="services.html">Services</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" href="pricing.html">Pricing</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" href="blog.html">Blog</a>
+		                        </li>
+		                        <li class="nav-item">
+		                            <a class="nav-link" href="contact.html">Contact</a>
+		                        </li>
+		                    </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		`;
+		$("#nav").html(htmlview);
+	}
+
+	let getUl = function(arg){
+		let ul = `
+		 		<li><a href="index.html"><span><small>01</small>Home</span></a></li>
+                <li><a href="about.html"><span><small>02</small>About</span></a></li>
+                <li><a href="services.html"><span><small>03</small>Services</span></a></li>
+                <li><a href="pricing.html"><span><small>04</small>Pricing</span></a></li>
+                <li><a href="blog.html"><span><small>06</small>Blog</span></a></li>
+                <li><a href="contact.html"><span><small>07</small>Contact</span></a></li>
+		`;
+		$("#ul").html(ul)
+
+	}
+
+	getHeaders(1);
+	getNav(1);
+	getUl(1);
+
 });
 
