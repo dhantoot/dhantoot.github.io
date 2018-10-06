@@ -9185,3 +9185,19 @@ textarea.form-control {
     overflow-y: scroll;
     left: 10%;
 }
+
+#colorlib-main-nav .colorlib-nav-toggle {
+    position: absolute;
+    top: 0;
+    padding: 20px;
+    height: 44px;
+    width: 44px;
+    line-height: 0;
+    padding: 0 !important;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    right: 5px;
+}

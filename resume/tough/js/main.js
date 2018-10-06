@@ -292,9 +292,56 @@ $(document).ready(function($) {
 
 	}
 
+	let getCarousel = function() {
+		let carousel = `
+			<a href="portfolio.html" class="slider-item" style="background-image: url(images/bg_1.jpg);">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text align-items-end justify-content-center">
+                            <div style="margin-bottom: 200px" class="col-md-12 ftco-animate p-4" data-scrollax=" properties: { translateY: '70%' }">
+                                <h1 class="mb-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">#01 Exterior Building</h1>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="portfolio.html" class="slider-item" style="background-image: url('images/bg_2.jpg');">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text align-items-end justify-content-center">
+                            <div style="margin-bottom: 200px" class="col-md-12 ftco-animate p-4" data-scrollax=" properties: { translateY: '70%' }">
+                                <h1 class="mb-3" data-scrollax="properties: {translateY: '30%', opacity: 1.6}">#02 American Building</h1>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="portfolio.html" class="slider-item" style="background-image: url('images/bg_3.jpg');">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text align-items-end justify-content-center">
+                            <div style="margin-bottom: 200px" class="col-md-12 ftco-animate p-4" data-scrollax=" properties: { translateY: '70%' }">
+                                <h1 class="mb-3" data-scrollax="properties: {translateY: '30%', opacity: 1.6}">#03 Louie's Residences</h1>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="portfolio.html" class="slider-item" style="background-image: url('images/bg_4.jpg');">
+                    <div class="overlay"></div>
+                    <div class="container">
+                        <div class="row slider-text align-items-end justify-content-center">
+                            <div style="margin-bottom: 200px" class="col-md-12 ftco-animate p-4" data-scrollax=" properties: { translateY: '70%' }">
+                                <h1 class="mb-3" data-scrollax="properties: {translateY: '30%', opacity: 1.6}">#04 Business Building</h1>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+		`;
+		$("#_carousel").html(carousel)
+	}
+
 	getHeaders(1);
 	getNav(1);
 	getUl(1);
+	getCarousel();
 
 });
 
