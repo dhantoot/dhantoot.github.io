@@ -7667,7 +7667,7 @@ header {
 .owl-carousel {
   position: relative; }
   .owl-carousel .owl-item {
-    opacity: .3; }
+    opacity: .2; }
     .owl-carousel .owl-item.active {
       opacity: 1; }
   .owl-carousel .owl-nav {
@@ -7740,7 +7740,7 @@ header {
         bottom: 0;
         content: '';
         background: #1b212c;
-        opacity: .3;
+        opacity: .2;
         -webkit-transition: 0.3s;
         -o-transition: 0.3s;
         transition: 0.3s; }
@@ -7750,7 +7750,7 @@ header {
             -o-transition: none;
             transition: none; } }
       .owl-carousel.home-slider .slider-item:hover .overlay {
-        opacity: .5; }
+        opacity: .1; }
       .owl-carousel.home-slider .slider-item .slider-text {
         color: #fff;
         height: 100%;
