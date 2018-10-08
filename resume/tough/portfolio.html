@@ -57,62 +57,62 @@
             <section class="ftco-section bg-light">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                        <div class="col-md-3 text-center sftco-animate">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 1</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 2</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 3</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 4</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 5</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing  con-vs-card withHover">
+                            <div class="portfolio  con-vs-card withHover">
                                 <h5 class="card_header">Product 6</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 7</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                         <div class="col-md-3 text-center ftco-animate">
-                            <div class="pricing con-vs-card withHover">
+                            <div class="portfolio con-vs-card withHover">
                                 <h5 class="card_header">Product 8</h5>
                                 <img src="images/image_2.jpg" class="img-fluid" alt="Colorlib Template">
-                                <p style="font-size: 13px;">Far far away, behind the word mountains, far from the count</p>
+                                <p style="font-size: 13px;position: relative;">Far far away, behind the word mountains, far from the count</p>
                             </div>
                         </div>
                     </div>
@@ -361,5 +361,27 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
 </body>
+<style type="text/css">
+.portfolio::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    background: #fff;
+    opacity: .2;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    z-index: 0;
+}
+.portfolio {
+	background: #fff;
+}
+.portfolio:hover::after {
+    opacity: 0;
+}
+</style>
 
 </html>
