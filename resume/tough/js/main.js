@@ -222,16 +222,10 @@ $(document).ready(function($) {
                             <a class="nav-link active" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" href="shop.html">Shop</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="services.html">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pricing.html">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="blog.html">Blog</a>
+                            <a class="nav-link" href="abouts.html">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>
@@ -256,16 +250,10 @@ $(document).ready(function($) {
 		                            <a class="nav-link active" href="index.html">Home</a>
 		                        </li>
 		                        <li class="nav-item">
-		                            <a class="nav-link" href="about.html">About</a>
+		                            <a class="nav-link" href="shop.html">Shop</a>
 		                        </li>
 		                        <li class="nav-item">
-		                            <a class="nav-link" href="services.html">Services</a>
-		                        </li>
-		                        <li class="nav-item">
-		                            <a class="nav-link" href="pricing.html">Pricing</a>
-		                        </li>
-		                        <li class="nav-item">
-		                            <a class="nav-link" href="blog.html">Blog</a>
+		                            <a class="nav-link" href="abouts.html">About Us</a>
 		                        </li>
 		                        <li class="nav-item">
 		                            <a class="nav-link" href="contact.html">Contact</a>
@@ -282,14 +270,11 @@ $(document).ready(function($) {
 	let getUl = function(arg){
 		let ul = `
 		 		<li><a href="index.html">Home </a></li>
-                <li><a href="about.html">About </a></li>
-                <li><a href="services.html">Services </a></li>
-                <li><a href="pricing.html">Pricing </a></li>
-                <li><a href="blog.html">Blog </a></li>
+                <li><a href="shop.html">Shop </a></li>
+                <li><a href="abouts.html">About Us </a></li>
                 <li><a href="contact.html">Contact </a></li>
 		`;
 		$("#ul").html(ul)
-
 	}
 
 	let getCarousel = function() {
@@ -336,6 +321,10 @@ $(document).ready(function($) {
                 </a>
 		`;
 		$("#_carousel").html(carousel)
+	}
+
+	let getState = function(arg) {
+		console.log(`at ${arg}`)
 	}
 
 	getHeaders(1);
