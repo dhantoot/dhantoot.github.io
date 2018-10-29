@@ -220,9 +220,12 @@ $(document).ready(function($) {
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link active" href="index.html">Home</a>
+						</li>
+						<li class="nav-item">
+                            <a class="nav-link" href="services.html">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Shop</a>
+                            <a class="nav-link" href="products.html">Products</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="abouts.html">About Us</a>
@@ -248,9 +251,12 @@ $(document).ready(function($) {
                             <ul class="nav justify-content-center">
 		                        <li class="nav-item">
 		                            <a class="nav-link active" href="index.html">Home</a>
+								</li>
+								<li class="nav-item">
+		                            <a class="nav-link" href="services.html">Services</a>
 		                        </li>
 		                        <li class="nav-item">
-		                            <a class="nav-link" href="shop.html">Shop</a>
+		                            <a class="nav-link" href="products.html">Products</a>
 		                        </li>
 		                        <li class="nav-item">
 		                            <a class="nav-link" href="abouts.html">About Us</a>
@@ -270,7 +276,8 @@ $(document).ready(function($) {
 	let getUl = function(arg){
 		let ul = `
 		 		<li><a href="index.html">Home </a></li>
-                <li><a href="shop.html">Shop </a></li>
+				<li><a href="products.html">Products </a></li>
+				<li><a href="services.html">Services </a></li>
                 <li><a href="abouts.html">About Us </a></li>
                 <li><a href="contact.html">Contact </a></li>
 		`;
