@@ -9000,8 +9000,10 @@ textarea.form-control {
 
 .categories li, .sidelink li {
   position: relative;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  /* margin-bottom: 10px;
+  padding-bottom: 10px; */
+  margin-bottom: 0px;
+  padding-bottom: 0px;
   border-bottom: 1px dotted #dee2e6;
   list-style: none; }
   .categories li:last-child, .sidelink li:last-child {
