@@ -215,7 +215,7 @@ $(document).ready(function($) {
 	let getHeaders = function(item){
 
 		let htmlview = `
-			<img id="logo" src="./images/Logo2T.png" style="height:75px;margin-top: -11px; float: left; margin-left: 0px;opacity:0.9" />
+			<img id="logo" src="./images/Logo2T.png" style="height:75px;margin-top: -11px; float: left; margin-left: 15px;opacity:0.9" />
                 <div class="colorlib-navbar-brand" style="margin-top: 12px;">
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
