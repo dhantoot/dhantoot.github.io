@@ -222,6 +222,9 @@ $(document).ready(function($) {
                             <a class="nav-link active" href="index.html">Home</a>
 						</li>
 						<li class="nav-item">
+                            <a class="nav-link" href="clients.html">Clients</a>
+                        </li>
+						<li class="nav-item">
                             <a class="nav-link" href="services.html">Services</a>
                         </li>
                         <li class="nav-item">
@@ -253,6 +256,9 @@ $(document).ready(function($) {
 		                            <a class="nav-link active" href="index.html">Home</a>
 								</li>
 								<li class="nav-item">
+		                            <a class="nav-link" href="clients.html">Clients</a>
+								</li>
+								<li class="nav-item">
 		                            <a class="nav-link" href="services.html">Services</a>
 		                        </li>
 		                        <li class="nav-item">
@@ -275,7 +281,8 @@ $(document).ready(function($) {
 
 	let getUl = function(arg){
 		let ul = `
-		 		<li><a href="index.html">Home </a></li>
+				<li><a href="index.html">Home </a></li>
+				<li><a href="clients.html">Clients </a></li>
 				<li><a href="products.html">Products </a></li>
 				<li><a href="services.html">Services </a></li>
                 <li><a href="abouts.html">About Us </a></li>
